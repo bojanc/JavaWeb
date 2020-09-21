@@ -18,14 +18,14 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Future Imperfect</a></h1>
+						<h1><a href="index.html">BLD</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#">Lorem</a></li>
-								<li><a href="#">Ipsum</a></li>
-								<li><a href="#">Feugiat</a></li>
-								<li><a href="#">Tempus</a></li>
-								<li><a href="#">Adipiscing</a></li>
+								<li><a href="#" style="color: #ffffff">Lorem</a></li>
+								<li><a href="#" style="color: #ffffff">Ipsum</a></li>
+								<li><a href="#" style="color: #ffffff">Feugiat</a></li>
+								<li><a href="#" style="color: #ffffff">Tempus</a></li>
+								<li><a href="#" style="color: #ffffff">Adipiscing</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -86,7 +86,10 @@
 						<!-- Actions -->
 							<section>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Log In</a></li>
+									<li><a href="#" class="button large fit">Prijava</a></li>
+								</ul>
+                                                                <ul class="actions stacked">
+									<li><a href="#" class="button large fit">Registracija</a></li>
 								</ul>
 							</section>
 
