@@ -95,27 +95,12 @@
 					</section>
                                 
                                 <script>
-                                    function readURL(input) {
-                                        if (input.files && input.files[0]) {
-                                            var reader = new FileReader();
-
-                                            reader.onload = function (e) {
-                                                $('#pic')
-                                                    .attr('src', e.target.result)
-                                                    .width(250)
-                                                    .height(250);
-                                            };
-
-                                            reader.readAsDataURL(input.files[0]);
-                                        }
-                                    }
-                                </script>
-                                
-                                <script>
                                     setTimeout(function() {
                                     $('#poruka').fadeOut('slow');
                                     }, 2000);
                                 </script> 
+                                
+                                
                                 
                                 <script>
                                         function user()
@@ -154,7 +139,6 @@
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
                                                                 $('#submit').prop('disabled', true);
-                                                                
                                                         }
                                                         else
                                                         {
@@ -165,43 +149,38 @@
                                 </script>
                                 
                                
+                                
+                               
 
 				<!-- Main -->
 					<div id="main">
-                                                <form method="post" action="ServletRegistracija" class="post" style="width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
-                                                    <div style="float:right;">
-                                                        <label style="color:#aab0c1;">Korisnička slika</label>
-                                                        <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="#" alt="" style="border-radius: 50%;"/>
-                                                    </div>
+                                                <form method="post" action="ServletPrijava" class="post" style="width:30%;height: 100%; text-align: center; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);">
+                                                    
                                                     <div>
                                                          <h3 style="color:#f56a6a;" id="poruka">
-                                                            <%
-                                                               String poruka = (String)request.getAttribute("zauzetoIme");
-                                                               if(poruka!=null)
-                                                               {%><%= poruka%><%}
-                                                            %>
                                                             
                                                             <%
-                                                               String poruka1 = (String)request.getAttribute("praznaPolja");
+                                                               String poruka1 = (String)request.getAttribute("nepostoji");
                                                                if(poruka1!=null)
                                                                {%><%= poruka1%><%}
                                                             %>
+                                                            
+                                                            <%
+                                                               String poruka2 = (String)request.getAttribute("polja");
+                                                               if(poruka2!=null)
+                                                               {%><%= poruka2%><%}
+                                                            %>
                                                           </h3>
-                                                        <input type="text" name="ime" placeholder="Ime" style="width: 40%; margin:0 !important;"><br>
                                                         
-                                                        <input type="text" name="prezime" placeholder="Prezime" style="width: 40%;"><br>
-                                                        
-                                                        <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 40%;" onchange="return user()">
+                                                        <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 60%; margin: auto;" onchange="return user()">
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 40%;" onchange="return pass()">
+                                                        <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 60%;margin: auto;" onchange="return pass()">
                                                         <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
                                                         
                                                     </div>
                                                     
-                                                    <input type="submit" id="submit" value="Registruj se">
-                                                    <input type="reset" value="Poništi">
+                                                    <input type="submit" id="submit" value="Prijavi se">
                                                 </form>
 
 					</div>

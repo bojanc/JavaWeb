@@ -84,26 +84,8 @@ public class ServletRegistracija extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
-        String ime;
-        String prezime;
-        String user;
-        String pass;
         
-        ime = request.getParameter("ime");
-        prezime = request.getParameter("prezime");
-        user = request.getParameter("korisnicko");
-        pass = request.getParameter("sifra");
-        
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        s.beginTransaction();
-        
-        Korisnici k = new Korisnici();
-        */
-        
-        
-        
+        HttpSession sesija = request.getSession();
         String filePath = "";
         String nazivF = "";
         ArrayList<String> podaci = new ArrayList<String>();
@@ -175,47 +157,77 @@ public class ServletRegistracija extends HttpServlet {
             imgpa+=nazivF;
         }
         
-        try
+        
+        
+        for(int a = 0;a<podaci.size();a++)
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-            
-            SQLQuery q=s.createSQLQuery("select * from korisnici").addEntity("korisnici",Korisnici.class);
-            
-            List<Korisnici> rows = q.list();
-            for(Korisnici row:rows)
+            if(podaci.get(a)==null || (podaci.get(a).equals("")))
             {
-                if(row.getUsername().equals(podaci.get(2)))
+                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                request.getRequestDispatcher("registracija.jsp").forward(request, response);
+                return;
+            }
+            else
+            {
+                try
                 {
-                    request.setAttribute("zauzetoIme", "Korisničko ime je zauzeto.");
-                    request.getRequestDispatcher("registracija.jsp").forward(request, response);
+                    SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                    Session s = sf.openSession();
+                    Transaction tr = s.beginTransaction();
+
+                    SQLQuery q=s.createSQLQuery("select * from korisnici").addEntity("korisnici",Korisnici.class);
+
+                    List<Korisnici> rows = q.list();
+                    for(Korisnici row:rows)
+                    {
+                        if(row.getUsername().equals(podaci.get(2)))
+                        {
+                            request.setAttribute("zauzetoIme", "Korisničko ime je zauzeto.");
+                            request.getRequestDispatcher("registracija.jsp").forward(request, response);
+                            return;
+                        }
+                    }
+                }
+                catch(HibernateException ex)
+                {
+                    String errormsg = ex.getMessage();
+                    request.setAttribute("errormsg", errormsg);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                
+                
+                try
+                {
+                    SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                    Session s = sf.openSession();
+                    Transaction tr = s.beginTransaction();
+
+                    SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
+                            + "VALUES('"+imgpa+"', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', 'klijent')");
+                    q.executeUpdate();
+                    tr.commit();
+                    s.close();
+                    
+                    Korisnici korisnik = new Korisnici();
+                    korisnik.setIme(podaci.get(0));
+                    korisnik.setPrezime(podaci.get(1));
+                    korisnik.setUsername(podaci.get(2));
+                    korisnik.setPassword(podaci.get(3));
+                    korisnik.setUloga("klijent");
+                    korisnik.setImgPath(imgpa);
+                    
+                    sesija.setAttribute("korisnik", korisnik);
+                    
+                    response.sendRedirect("index.jsp");
+                    return;
+                }
+                catch(HibernateException ex)
+                {
+                    String errormsg = ex.getMessage();
+                    request.setAttribute("errormsg", errormsg);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
             }
-        }
-        catch(HibernateException ex)
-        {
-            
-        }
-        
-        
-        try
-        {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-
-            SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
-                    + "VALUES('"+imgpa+"', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', 'klijent')");
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-        }
-        catch(HibernateException ex)
-        {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
         
     }

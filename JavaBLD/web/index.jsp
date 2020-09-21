@@ -4,6 +4,8 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<%@page import="javax.servlet.http.*" %>
+<%@page import="entity.Korisnici" %>
 <html>
 	<head>
 		<title>Future Imperfect by HTML5 UP</title>
@@ -18,7 +20,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">BLD</a></h1>
+						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
 								<li><a href="#" style="color: #ffffff">Lorem</a></li>
@@ -26,7 +28,21 @@
 								<li><a href="#" style="color: #ffffff">Feugiat</a></li>
 								<li><a href="#" style="color: #ffffff">Tempus</a></li>
 								<li><a href="#" style="color: #ffffff">Adipiscing</a></li>
+                                                                <li style="color: #d4d4d6;">
+                                                                    <%
+                                                                        HttpSession sesija = request.getSession();
+                                                                        Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                        if(korisnik!=null)
+                                                                        {
+                                                                            %> Dobro dosli <%= korisnik.getUsername()%>
+                                                                            <img src="<%= korisnik.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
+
+                                                                    <%}
+
+                                                                    %>
+                                                                </li>
 							</ul>
+                                                    
 						</nav>
 						<nav class="main">
 							<ul>
@@ -85,12 +101,28 @@
 
 						<!-- Actions -->
 							<section>
+                                                            <%
+                                                            if(korisnik==null){
+                                                            %>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit"style="color:#fff;">Prijava</a></li>
+									<li><a href="prijava.jsp" class="button large fit"style="color:#fff;">Prijava</a></li>
 								</ul>
+                                                            
                                                                 <ul class="actions stacked">
 									<li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
 								</ul>
+                                                                <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                if(korisnik!=null){
+                                                                %>
+                                                                <ul class="actions stacked">
+									<li><a href="ServletOdjava" class="button large fit"style="color:#fff;">Odjava</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
 							</section>
 
 					</section>
