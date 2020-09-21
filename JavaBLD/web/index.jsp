@@ -86,10 +86,10 @@
 						<!-- Actions -->
 							<section>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Prijava</a></li>
+									<li><a href="#" class="button large fit"style="color:#fff;">Prijava</a></li>
 								</ul>
                                                                 <ul class="actions stacked">
-									<li><a href="#" class="button large fit">Registracija</a></li>
+									<li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
 								</ul>
 							</section>
 
