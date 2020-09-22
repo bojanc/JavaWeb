@@ -16,6 +16,18 @@
         <servlet-name>ServletAdminPrikazKorisnika</servlet-name>
         <servlet-class>servleti.ServletAdminPrikazKorisnika</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletKorisnikObrisi</servlet-name>
+        <servlet-class>servleti.ServletKorisnikObrisi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminIzmenaKorisnika</servlet-name>
+        <servlet-class>servleti.ServletAdminIzmenaKorisnika</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajKorisnika</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajKorisnika</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>ServletAdminPrikazKorisnika</servlet-name>
         <url-pattern>/ServletAdminPrikazKorisnika</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletKorisnikObrisi</servlet-name>
+        <url-pattern>/ServletKorisnikObrisi</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminIzmenaKorisnika</servlet-name>
+        <url-pattern>/ServletAdminIzmenaKorisnika</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajKorisnika</servlet-name>
+        <url-pattern>/ServletAdminDodajKorisnika</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

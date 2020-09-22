@@ -152,9 +152,10 @@
 							<article class="post">
 								<header style="margin: auto; text-align: center; padding-left: 60px;">
                                                                         <h2>Spisak korisnika</h2>
-                                                                        <a href="korisnikDodaj.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;">DODAJ</a>
+                                                                        <a href="AdminDodajKorisnika.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;">DODAJ</a>
                                                                 </header>
-                                                            
+                                                            <%if((kl.size()>1))
+                                                                        {%>
                                                             <table>
                                                                 <thead>
                                                                     <th>Slika</th>
@@ -166,8 +167,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
-                                                                        if(!(kl.isEmpty()))
-                                                                        {
+                                                                        
                                                                         for(Korisnici pom:kl){
                                                                             if(!(pom.getKorisnikId()==korisnik.getKorisnikId()))
                                                                             {
@@ -180,21 +180,23 @@
                                                                         <td><%= pom.getUsername() %></td>
                                                                         <td><%= pom.getUloga() %></td>
                                                                         <td>
-                                                                            <a href="" class="button">IZMENI</a>
-                                                                            <a href="" class="button">OBRIŠI</a>
+                                                                            <a href="ServletAdminIzmenaKorisnika?id=<%= pom.getKorisnikId() %>" class="button">IZMENI</a>
+                                                                            <a href="ServletKorisnikObrisi?id=<%= pom.getKorisnikId() %>" class="button">OBRIŠI</a>
                                                                         </td>
                                                                     </tr>
                                                                     <%
                                                                         }
                                                                         }
-                                                                        }else{
-                                                                    %>
-                                                                    <h2 style="width:600px !important;">Trenutno nema korisnika.</h2>
-                                                                    <%
-                                                                        }
                                                                     %>
                                                                 </tbody>
                                                             </table>
+                                                                <%
+                                                                    }else{
+                                                                %>
+                                                                <h2 style="width:600px !important;color: red;">Trenutno nema korisnika.</h2>
+                                                                    <%
+                                                                        }
+                                                                    %>
 							</article>
 
 					</div>
