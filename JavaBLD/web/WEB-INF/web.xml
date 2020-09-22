@@ -12,6 +12,10 @@
         <servlet-name>ServletPrijava</servlet-name>
         <servlet-class>servleti.ServletPrijava</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAdminPrikazKorisnika</servlet-name>
+        <servlet-class>servleti.ServletAdminPrikazKorisnika</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ServletPrijava</servlet-name>
         <url-pattern>/ServletPrijava</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminPrikazKorisnika</servlet-name>
+        <url-pattern>/ServletAdminPrikazKorisnika</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

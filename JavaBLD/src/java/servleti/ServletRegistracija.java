@@ -109,26 +109,30 @@ public class ServletRegistracija extends HttpServlet {
                     {
                         String fileName = item.getName();
                         
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-                        LocalDateTime now = LocalDateTime.now();  
-                        String time = now.format(dtf);
-                        String str = time.replace("/", "");
-                        String str0 = str.replace(":", "");
-                        String str1 = str0.replaceAll("\\s+","");
-                        str1+=fileName;
+                        
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+                            LocalDateTime now = LocalDateTime.now();  
+                            String time = now.format(dtf);
+                            String str = time.replace("/", "");
+                            String str0 = str.replace(":", "");
+                            String str1 = str0.replaceAll("\\s+","");
+                            str1+=fileName;
 
-                        String root = getServletContext().getRealPath("/");
-                        File path = new File(root + "/images");
-                        if (!path.exists())
-                        {
-                            boolean status = path.mkdirs();
-                        }
+                            String root = getServletContext().getRealPath("/");
+                            File path = new File(root + "/images");
+                            if (!path.exists())
+                            {
+                                boolean status = path.mkdirs();
+                            }
 
-                        File uploadedFile = new File(path + "/" + str1);
-                        filePath = uploadedFile.getCanonicalPath();
-                        nazivF = uploadedFile.getName();
-
-                        item.write(uploadedFile);
+                            File uploadedFile = new File(path + "/" + str1);
+                            filePath = uploadedFile.getCanonicalPath();
+                            nazivF = uploadedFile.getName();
+                            
+                            if(!item.getName().equals(""))
+                            {
+                                item.write(uploadedFile);
+                            }
                     }
                     else
                     {
@@ -150,6 +154,7 @@ public class ServletRegistracija extends HttpServlet {
         }
         
         String imgpa = "images/";
+        String sha1= "";
         
         if(!(nazivF.equals("images")))
         {
@@ -169,6 +174,18 @@ public class ServletRegistracija extends HttpServlet {
             }
             else
             {
+                try
+                {
+                    MessageDigest digest = MessageDigest.getInstance("SHA-1");
+                    digest.reset();
+                    digest.update(podaci.get(3).getBytes("utf8"));
+                    sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+		}
+                catch(Exception e)
+                {
+			e.printStackTrace();
+		}
+                
                 try
                 {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -201,21 +218,48 @@ public class ServletRegistracija extends HttpServlet {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
                     Session s = sf.openSession();
                     Transaction tr = s.beginTransaction();
+                    
+                    if(imgpa.length()==21)
+                    {
+                        SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
+                            + "VALUES('images/img_avatar.png', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+sha1+"', 'klijent')");
+                        q.executeUpdate();
+                        tr.commit();
+                    }
+                    else
+                    {
+                        SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
+                            + "VALUES('"+imgpa+"', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+sha1+"', 'klijent')");
+                        q.executeUpdate();
+                        tr.commit();
+                    }
+                    
+                    SQLQuery q1=s.createSQLQuery("select * from korisnici where username='"+podaci.get(2)+"' and password='"+sha1+"'").addEntity("korisnici",Korisnici.class);
 
-                    SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
-                            + "VALUES('"+imgpa+"', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', 'klijent')");
-                    q.executeUpdate();
-                    tr.commit();
-                    s.close();
+                    List<Korisnici> rows = q1.list();
+                    int id=0;
+                    String pa="";
+                    
+                    if(rows!=null)
+                    {
+                        for(Korisnici kor:rows)
+                        {
+                            id=kor.getKorisnikId();
+                            pa=kor.getImgPath();
+                        }
+                    }
+                    
                     
                     Korisnici korisnik = new Korisnici();
                     korisnik.setIme(podaci.get(0));
                     korisnik.setPrezime(podaci.get(1));
                     korisnik.setUsername(podaci.get(2));
-                    korisnik.setPassword(podaci.get(3));
+                    korisnik.setPassword(sha1);
                     korisnik.setUloga("klijent");
-                    korisnik.setImgPath(imgpa);
+                    korisnik.setKorisnikId(id);
+                    korisnik.setImgPath(pa);
                     
+                    s.close();
                     sesija.setAttribute("korisnik", korisnik);
                     
                     response.sendRedirect("index.jsp");

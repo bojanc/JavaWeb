@@ -86,48 +86,61 @@ public class ServletPrijava extends HttpServlet {
         
         String user = request.getParameter("korisnicko");
         String pass = request.getParameter("sifra");
+        String sha1="";
         
         if(user!=null && pass!=null)
         {
+            try
+            {
+                MessageDigest digest = MessageDigest.getInstance("SHA-1");
+                digest.reset();
+                digest.update(pass.getBytes("utf8"));
+                sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+            }
+            catch(Exception e)
+            {
+                    e.printStackTrace();
+            }
+            
             try
                 {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
                     Session s = sf.openSession();
                     Transaction tr = s.beginTransaction();
 
-                    SQLQuery q=s.createSQLQuery("select * from korisnici").addEntity("korisnici",Korisnici.class);
+                    SQLQuery q1=s.createSQLQuery("select * from korisnici where username='"+user+"' and password='"+sha1+"'").addEntity("korisnici",Korisnici.class);
 
-                    List<Korisnici> rows = q.list();
-                    for(Korisnici row:rows)
+                    List<Korisnici> rows = q1.list();
+                    
+                    if(rows!=null)
                     {
-                        if(row.getUsername().equals(user) && row.getPassword().equals(pass))
+                        for(Korisnici kor:rows)
                         {
-                            SQLQuery q1=s.createSQLQuery("select * from korisnici where username='"+user+"' and password='"+pass+"'").addEntity("korisnici",Korisnici.class);
-                            List<Korisnici> korisnikLi = q1.list();
+                            korisnik.setKorisnikId(kor.getKorisnikId());
+                            korisnik.setIme(kor.getIme());
+                            korisnik.setPrezime(kor.getPrezime());
+                            korisnik.setPassword(kor.getPassword());
+                            korisnik.setUloga(kor.getUloga());
+                            korisnik.setUsername(kor.getUsername());
+                            korisnik.setImgPath(kor.getImgPath());
+
+                            s.close();
                             
-                            for(Korisnici kor:korisnikLi)
-                            {
-                                korisnik.setKorisnikId(kor.getKorisnikId());
-                                korisnik.setIme(kor.getIme());
-                                korisnik.setPrezime(kor.getPrezime());
-                                korisnik.setPassword(kor.getPassword());
-                                korisnik.setUloga(kor.getUloga());
-                                korisnik.setUsername(kor.getUsername());
-                                korisnik.setImgPath(kor.getImgPath());
-                                
-                                sesija.setAttribute("korisnik", korisnik);
-                                response.sendRedirect("index.jsp");
-                            }
-                            
-                            return;
+                            sesija.setAttribute("korisnik", korisnik);
+                            response.sendRedirect("index.jsp");
                         }
-                        else
-                        {
-                            request.setAttribute("nepostoji", "Nalog sa ovim podacima ne postoji.");
-                            request.getRequestDispatcher("prijava.jsp").forward(request, response);
-                        }
+
+                        return;
+                    }
+                    else
+                    {
+                        s.close();
+                        request.setAttribute("nepostoji", "Nalog sa ovim podacima ne postoji.");
+                        request.getRequestDispatcher("prijava.jsp").forward(request, response);
+                        return;
                     }
                 }
+                
                 catch(HibernateException ex)
                 {
                     String errormsg = ex.getMessage();

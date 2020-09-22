@@ -25,7 +25,8 @@ public class Korisnici  implements java.io.Serializable {
     public Korisnici() {
     }
 
-    public Korisnici(String imgPath, String ime, String prezime, String username, String password, String uloga) {
+    public Korisnici(Integer korisnikId,String imgPath, String ime, String prezime, String username, String password, String uloga) {
+        this.korisnikId = korisnikId;
        this.imgPath = imgPath;
        this.ime = ime;
        this.prezime = prezime;
