@@ -22,7 +22,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">BLD</a></h1>
+						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
                                                             <li><a href="#" style="color: #ffffff">Lorem</a></li>
@@ -169,7 +169,7 @@
                                                                     <%
                                                                         
                                                                         for(Korisnici pom:kl){
-                                                                            if(!(pom.getKorisnikId()==korisnik.getKorisnikId()))
+                                                                            if((pom.getKorisnikId()!=korisnik.getKorisnikId()))
                                                                             {
                                                                     %>
                                                                     <tr style="background-color:transparent;">

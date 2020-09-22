@@ -22,7 +22,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">BLD</a></h1>
+						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
                                                             <li><a href="#" style="color: #ffffff">Lorem</a></li>
@@ -30,6 +30,21 @@
 								<li><a href="#" style="color: #ffffff">Feugiat</a></li>
 								<li><a href="#" style="color: #ffffff">Tempus</a></li>
 								<li><a href="#" style="color: #ffffff">Adipiscing</a></li>
+                                                                <li style="color: #d4d4d6;">
+                                                                    <%
+                                                                        HttpSession sesija = request.getSession();
+                                                                        Korisnici kor = (Korisnici)sesija.getAttribute("korisnik");
+                                                                        if(kor!=null)
+                                                                        {
+                                                                            %> Dobro došli <%= kor.getUsername()%>
+                                                                            
+                                                                            <img src="<%= kor.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
+
+                                                                    <%
+                                                                    }
+
+                                                                    %>
+                                                                </li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -60,30 +75,41 @@
 						<!-- Links -->
 							<section>
 								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
+                                                                    <%
+                                                                        if(kor!=null)
+                                                                        {
+                                                                            if(kor.getUloga().equals("admin"))
+                                                                            {
+                                                                    %>
+									<li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKorisnika">
+                                                                                    <p style="font-size:0.8em;">Korisnici</p>
 										</a>
 									</li>
-									<li>
+                                                                        <li style="color: #d4d4d6;">
 										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
+                                                                                    <p style="font-size:0.8em;">Računarski delovi</p>
 										</a>
 									</li>
-									<li>
+                                                                        <li style="color: #d4d4d6;">
 										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
+                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
 										</a>
 									</li>
-									<li>
+                                                                        <li style="color: #d4d4d6;">
 										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
 										</a>
 									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="#">
+                                                                                    <p style="font-size:0.8em;">Korisničke konfiguracije</p>
+										</a>
+									</li>
+                                                                        <%
+                                                                                }
+                                                                            }
+                                                                        %>
 								</ul>
 							</section>
 

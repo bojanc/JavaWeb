@@ -232,6 +232,7 @@ public class ServletAdminDodajKorisnika extends HttpServlet {
                         tr.commit();
                     }
                     
+                    s.close();
                     response.sendRedirect("ServletAdminPrikazKorisnika");
                     return;
                 }

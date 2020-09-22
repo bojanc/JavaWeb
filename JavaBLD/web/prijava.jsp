@@ -20,7 +20,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">BLD</a></h1>
+						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
                                                             <li><a href="#" style="color: #ffffff">Lorem</a></li>
@@ -56,7 +56,7 @@
 							</section>
 
 						<!-- Links -->
-							<section>
+							<!--<section>
 								<ul class="links">
 									<li>
 										<a href="#">
@@ -82,15 +82,13 @@
 											<p>Porta lectus amet ultricies</p>
 										</a>
 									</li>
-								</ul>
-							</section>
-
+								</ul>-->
+                                                        <section>
+                                                            <ul class="actions stacked">
+                                                                    <li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
+                                                            </ul>
+                                                        </section>
 						<!-- Actions -->
-							<section>
-								<ul class="actions stacked">
-									<li><a href="#" class="button large fit" style="color:#fff;">Prijava</a></li>
-								</ul>
-							</section>
 
 					</section>
                                 
