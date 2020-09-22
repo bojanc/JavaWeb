@@ -230,8 +230,10 @@
                                                         
                                                         <select name="uloga" style="width: 40%;">
                                                             <optgroup>
+                                                                <option value="" disabled selected>Uloga</option>
                                                                 <option value="Admin">Admin</option>
                                                                 <option value="Klijent">Klijent</option>
+                                                                <option value="Urednik">Urednik</option>
                                                             </optgroup>
                                                         </select><br>
                                                         
