@@ -1,10 +1,5 @@
 package entity;
-// Generated Sep 21, 2020 6:33:32 PM by Hibernate Tools 4.3.1
-
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
-import javax.persistence.SqlResultSetMapping;
-
+// Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1
 
 
 
@@ -26,7 +21,7 @@ public class Korisnici  implements java.io.Serializable {
     }
 
     public Korisnici(Integer korisnikId,String imgPath, String ime, String prezime, String username, String password, String uloga) {
-        this.korisnikId = korisnikId;
+       this.korisnikId = korisnikId;
        this.imgPath = imgPath;
        this.ime = ime;
        this.prezime = prezime;

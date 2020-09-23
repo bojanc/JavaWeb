@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Procesori" table="procesori" catalog="bld" optimistic-lock="version">
+        <id name="procesorId" type="java.lang.Integer">
+            <column name="procesorID" />
+            <generator class="identity" />
+        </id>
+        <property name="brojJezgara" type="int">
+            <column name="brojJezgara" not-null="true" />
+        </property>
+        <property name="frekvencija" type="string">
+            <column name="frekvencija" length="50" not-null="true" />
+        </property>
+        <property name="boost" type="string">
+            <column name="boost" length="50" not-null="true" />
+        </property>
+        <property name="tdp" type="string">
+            <column name="tdp" length="50" not-null="true" />
+        </property>
+        <property name="igpu" type="string">
+            <column name="iGPU" length="50" not-null="true" />
+        </property>
+        <property name="naziv" type="string">
+            <column name="naziv" length="50" not-null="true" />
+        </property>
+        <property name="imgPath" type="string">
+            <column name="imgPath" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

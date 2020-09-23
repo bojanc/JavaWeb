@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Memorija" table="memorija" catalog="bld" optimistic-lock="version">
+        <id name="memorijaId" type="java.lang.Integer">
+            <column name="memorijaID" />
+            <generator class="identity" />
+        </id>
+        <property name="naziv" type="string">
+            <column name="naziv" length="50" not-null="true" />
+        </property>
+        <property name="kapacitet" type="string">
+            <column name="kapacitet" length="50" not-null="true" />
+        </property>
+        <property name="tip" type="string">
+            <column name="tip" length="50" not-null="true" />
+        </property>
+        <property name="cache" type="string">
+            <column name="cache" length="50" not-null="true" />
+        </property>
+        <property name="dimenzije" type="string">
+            <column name="dimenzije" length="50" not-null="true" />
+        </property>
+        <property name="interfejs" type="string">
+            <column name="interfejs" length="50" not-null="true" />
+        </property>
+        <property name="imgPath" type="string">
+            <column name="imgPath" length="200" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

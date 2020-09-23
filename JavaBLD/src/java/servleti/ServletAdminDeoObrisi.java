@@ -5,7 +5,15 @@
  */
 package servleti;
 
+import entity.Gpu;
 import entity.Korisnici;
+import entity.Kuciste;
+import entity.Kuleri;
+import entity.Maticna;
+import entity.Memorija;
+import entity.Procesori;
+import entity.Psu;
+import entity.Ram;
 import java.io.File;
 import java.sql.*;
 import javax.servlet.http.*;
@@ -37,7 +45,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletKorisnikObrisi extends HttpServlet {
+public class ServletAdminDeoObrisi extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,30 +73,35 @@ public class ServletKorisnikObrisi extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id=0;
-        id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        String deo = (String)request.getParameter("deo");
+        String naziv = (String)request.getParameter("naziv");
         
-        try
+        if(id!=0 && !(deo.equals("")) && !(naziv.equals("")))
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
 
-            SQLQuery q=s.createSQLQuery("delete from korisnici where korisnikID = '"+id+"'");
+                SQLQuery q=s.createSQLQuery("delete from "+deo+" where "+naziv+" = '"+id+"'");
 
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-
-            response.sendRedirect("ServletAdminPrikazKorisnika");
-            return;
+                q.executeUpdate();
+                tr.commit();
+                s.close();
+                
+                request.getRequestDispatcher("ServletAdminPrikazDelova").forward(request, response);
+                return;
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
-        catch(HibernateException ex)
-        {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+        
         
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Sep 21, 2020 6:33:33 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entity.Korisnici" table="korisnici" catalog="bld" optimistic-lock="version">
+    <class name="entity.Korisnici" table="korisnici" catalog="bld">
         <id name="korisnikId" type="java.lang.Integer">
             <column name="korisnikID" />
-            <generator class="identity" />
+            <generator class="identity"></generator>
         </id>
         <property name="imgPath" type="string">
             <column name="imgPath" length="200" not-null="true" />

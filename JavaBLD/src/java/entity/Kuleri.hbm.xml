@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Kuleri" table="kuleri" catalog="bld" optimistic-lock="version">
+        <id name="kulerId" type="java.lang.Integer">
+            <column name="kulerID" />
+            <generator class="identity" />
+        </id>
+        <property name="naziv" type="string">
+            <column name="naziv" length="50" not-null="true" />
+        </property>
+        <property name="rpm" type="int">
+            <column name="rpm" not-null="true" />
+        </property>
+        <property name="buka" type="string">
+            <column name="buka" length="50" not-null="true" />
+        </property>
+        <property name="radijatorDim" type="string">
+            <column name="radijatorDim" length="50" />
+        </property>
+        <property name="imgPath" type="string">
+            <column name="imgPath" length="200" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

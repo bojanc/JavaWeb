@@ -28,6 +28,50 @@
         <servlet-name>ServletAdminDodajKorisnika</servlet-name>
         <servlet-class>servleti.ServletAdminDodajKorisnika</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAdminPrikazDelova</servlet-name>
+        <servlet-class>servleti.ServletAdminPrikazDelova</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajGpu</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajGpu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajKuciste</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajKuciste</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajKuler</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajKuler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajMaticnu</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajMaticnu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajMemoriju</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajMemoriju</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajProcesor</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajProcesor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajNapajanje</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajNapajanje</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajRAM</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajRAM</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDeoObrisi</servlet-name>
+        <servlet-class>servleti.ServletAdminDeoObrisi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminIzmeniDeo</servlet-name>
+        <servlet-class>servleti.ServletAdminIzmeniDeo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -55,6 +99,50 @@
     <servlet-mapping>
         <servlet-name>ServletAdminDodajKorisnika</servlet-name>
         <url-pattern>/ServletAdminDodajKorisnika</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminPrikazDelova</servlet-name>
+        <url-pattern>/ServletAdminPrikazDelova</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajGpu</servlet-name>
+        <url-pattern>/ServletAdminDodajGpu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajKuciste</servlet-name>
+        <url-pattern>/ServletAdminDodajKuciste</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajKuler</servlet-name>
+        <url-pattern>/ServletAdminDodajKuler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajMaticnu</servlet-name>
+        <url-pattern>/ServletAdminDodajMaticnu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajMemoriju</servlet-name>
+        <url-pattern>/ServletAdminDodajMemoriju</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajProcesor</servlet-name>
+        <url-pattern>/ServletAdminDodajProcesor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajNapajanje</servlet-name>
+        <url-pattern>/ServletAdminDodajNapajanje</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajRAM</servlet-name>
+        <url-pattern>/ServletAdminDodajRAM</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDeoObrisi</servlet-name>
+        <url-pattern>/ServletAdminDeoObrisi</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminIzmeniDeo</servlet-name>
+        <url-pattern>/ServletAdminIzmeniDeo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
