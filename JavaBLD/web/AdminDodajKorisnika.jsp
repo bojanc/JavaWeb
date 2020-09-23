@@ -189,9 +189,9 @@
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
+                                                $('#submit').attr('disabled','disabled');
+                                                
                                 </script>
-                                
-                               
 
 				<!-- Main -->
 					<div id="main">
@@ -225,11 +225,11 @@
                                                         <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 40%;" onchange="return pass()">
                                                         <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <select name="uloga" style="width: 40%;">
+                                                        <select name="uloga" style="width: 40%;" id="sel" onchange="return select()">
                                                             <optgroup>
-                                                                <option value="" disabled selected>Uloga</option>
+                                                                <option value="" disabled >Uloga</option>
                                                                 <option value="Admin">Admin</option>
-                                                                <option value="Klijent">Klijent</option>
+                                                                <option value="Klijent" selected>Klijent</option>
                                                                 <option value="Urednik">Urednik</option>
                                                             </optgroup>
                                                         </select><br>

@@ -167,7 +167,7 @@ public class ServletAdminDodajKorisnika extends HttpServlet {
             if(podaci.get(a)==null || (podaci.get(a).equals("")))
             {
                 request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                request.getRequestDispatcher("registracija.jsp").forward(request, response);
+                request.getRequestDispatcher("AdminDodajKorisnika.jsp").forward(request, response);
                 return;
             }
             else
