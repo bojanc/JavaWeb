@@ -148,45 +148,22 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('ramnaziv').value;
                                                         var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        if(document.getElementById('ramnaziv').value=="")
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('erroruser').innerHTML="Unesite ispravan naziv!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
-                                                                $('#submit').prop('disabled', false);
-                                                        }
-                                                }
-
-                                                function pass()
-                                                {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
-                                                        var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
-                                                        {
-                                                                document.getElementById('errorpass').innerHTML="";
-                                                                $('#submit').prop('disabled', true);
-                                                        }
-                                                        else if(rezultat==null)
-                                                        {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
-                                                                $('#submit').prop('disabled', true);
-                                                                
-                                                        }
-                                                        else
-                                                        {
-                                                                document.getElementById('errorpass').innerHTML="";
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
@@ -199,7 +176,7 @@
                                 %>
 
 				<!-- Main -->
-					<div id="main">
+					<div id="main" style="height:450px;">
                                                 <form method="post" action="ServletAdminIzmeniDeo?id=<%= ram.getRamId()%>&deo=ram&naziv=ramID"  id="memorija" class="post" style="width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Slika RAM-a</label>
@@ -224,8 +201,8 @@
                                                             %>
                                                           </h3>
                                                         
-                                                        <input type="text" name="naziv" placeholder="Naziv" value="<%= ram.getNaziv() %>"style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                        <input type="text" name="naziv" placeholder="Naziv" id="ramnaziv" value="<%= ram.getNaziv() %>"style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         <select name="brzina" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Brzina</option>
@@ -240,8 +217,7 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="caslat" id="kor" placeholder="CAS latency" value="<%= ram.getCasLat() %>" style="width: 40%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="number" name="caslat" placeholder="CAS latency" value="<%= ram.getCasLat() %>" max="24" min="9" step="1" style="width: 40%;"><br><br>
                                                         
                                                     </div>
                                                     

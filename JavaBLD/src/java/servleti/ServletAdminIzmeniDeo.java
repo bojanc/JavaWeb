@@ -102,7 +102,7 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                 
                 if(deo.equals("gpu"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Gpu.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Gpu.class);
                     List<Gpu> rows = q.list();
 
                     for(Gpu row:rows)
@@ -112,12 +112,20 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("gpu", gpu);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
+                    
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniGpu.jsp").forward(request, response);
                 }
                 else if(deo.equals("kuciste"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Kuciste.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Kuciste.class);
                     List<Kuciste> rows = q.list();
 
                     for(Kuciste row:rows)
@@ -127,12 +135,19 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("kuciste", kuciste);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniKuciste.jsp").forward(request, response);
                 }
                 else if(deo.equals("kuleri"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Kuleri.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Kuleri.class);
                     List<Kuleri> rows = q.list();
 
                     for(Kuleri row:rows)
@@ -142,12 +157,19 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("kuler", kuler);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniKuler.jsp").forward(request, response);
                 }
                 else if(deo.equals("maticna"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Maticna.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Maticna.class);
                     List<Maticna> rows = q.list();
 
                     for(Maticna row:rows)
@@ -157,12 +179,19 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("maticna", maticna);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniMaticnu.jsp").forward(request, response);
                 }
                 else if(deo.equals("memorija"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Memorija.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Memorija.class);
                     List<Memorija> rows = q.list();
 
                     for(Memorija row:rows)
@@ -172,12 +201,19 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("memorija", memorija);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniMemoriju.jsp").forward(request, response);
                 }
                 else if(deo.equals("procesori"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Procesori.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Procesori.class);
                     List<Procesori> rows = q.list();
 
                     for(Procesori row:rows)
@@ -187,12 +223,19 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("cpu", cpu);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniCpu.jsp").forward(request, response);
                 }
                 else if(deo.equals("psu"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Psu.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Psu.class);
                     List<Psu> rows = q.list();
 
                     for(Psu row:rows)
@@ -202,12 +245,19 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("psu", psu);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniPsu.jsp").forward(request, response);
                 }
                 else if(deo.equals("ram"))
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+"").addEntity(Ram.class);
+                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Ram.class);
                     List<Ram> rows = q.list();
 
                     for(Ram row:rows)
@@ -217,6 +267,13 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     request.setAttribute("deo", deo);
                     request.setAttribute("ram", ram);
+                    if(request.getParameter("prazna")!=null)
+                    {
+                       if(request.getParameter("prazna").equals("da"))
+                        {
+                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                        } 
+                    }
                     s.close();
                     request.getRequestDispatcher("AdminIzmeniRam.jsp").forward(request, response);
                 }
@@ -333,45 +390,43 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniGpu.jsp").forward(request, response);
+                    //request.getRequestDispatcher("AdminIzmeniGpu.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
+                }
+            }
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                if(imgpa.length()==21)
+                {
+                    SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"', memorija='"+podaci.get(3)+"'"
+                        + "where "+naziv+"='"+id+"'");
+                    q.executeUpdate();
+                    tr.commit();
                 }
                 else
                 {
-                    try
-                    {
-                        SessionFactory sf = new Configuration().configure().buildSessionFactory();
-                        Session s = sf.openSession();
-                        Transaction tr = s.beginTransaction();
-
-                        if(imgpa.length()==21)
-                        {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"', memorija='"+podaci.get(3)+"'"
-                                + "where "+naziv+"='"+id+"'");
-                            q.executeUpdate();
-                            tr.commit();
-                        }
-                        else
-                        {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"', memorija='"+podaci.get(3)+"'"
-                                + "where "+naziv+"='"+id+"'");
-                            q.executeUpdate();
-                            tr.commit();
-                        }
-
-                        s.close();
-                        response.sendRedirect("ServletAdminPrikazDelova?deo="+deo);
-                        return;
-                    }
-                    catch(HibernateException ex)
-                    {
-                        String errormsg = ex.getMessage();
-                        request.setAttribute("errormsg", errormsg);
-                        request.getRequestDispatcher("error.jsp").forward(request, response);
-                    }
+                    SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"', memorija='"+podaci.get(3)+"'"
+                        + "where "+naziv+"='"+id+"'");
+                    q.executeUpdate();
+                    tr.commit();
                 }
+
+                s.close();
+                response.sendRedirect("ServletAdminPrikazDelova?deo="+deo);
+                return;
             }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+            
         }
         else if(deo.equals("kuciste"))
         {
@@ -379,12 +434,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniKuciste.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -416,8 +469,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         }
         else if(deo.equals("kuleri"))
         {
@@ -425,12 +476,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniKuler.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -462,8 +511,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         }
         else if(deo.equals("maticna"))
         {
@@ -471,12 +518,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniMaticnu.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -508,8 +553,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         }
         else if(deo.equals("memorija"))
         {
@@ -517,12 +560,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniMemoriju.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -554,8 +595,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         } 
         else if(deo.equals("procesori"))
         {
@@ -563,12 +602,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniCpu.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -600,8 +637,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         }
         else if(deo.equals("psu"))
         {
@@ -609,12 +644,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniPsu.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -646,8 +679,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         }
         else if(deo.equals("ram"))
         {
@@ -655,12 +686,10 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
             {
                 if(podaci.get(a)==null || (podaci.get(a).equals("")))
                 {
-                    request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                    request.getRequestDispatcher("AdminIzmeniRam.jsp").forward(request, response);
+                    response.sendRedirect("ServletAdminIzmeniDeo?id="+id+"&deo="+deo+"&naziv="+naziv+"&prazna=da");
                     return;
                 }
-                else
-                {
+            }
                     try
                     {
                         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -692,8 +721,6 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         request.setAttribute("errormsg", errormsg);
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }
-            }
         }
         
     }

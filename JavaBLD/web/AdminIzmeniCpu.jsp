@@ -148,45 +148,113 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
-                                                        var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        var naziv = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('cpunaziv').value;
+                                                        var rezultat = tekst.match(naziv);
+                                                        if(document.getElementById('cpunaziv').value=="")
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="";
+                                                                document.getElementById('errorcpunaziv').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('errorcpunaziv').innerHTML="Unesite ispravan naziv!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="";
+                                                                document.getElementById('errorcpunaziv').innerHTML="";
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
 
                                                 function pass()
                                                 {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
+                                                        var pass = /^[\d]\.[\d]{1,2} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('frek').value;
                                                         var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
+                                                        if(document.getElementById('frek').value=="")
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="";
+                                                                document.getElementById('errorfrek').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
+                                                                document.getElementById('errorfrek').innerHTML="Unesite ispravnu frekvenciju!(3.90 Ghz)";
                                                                 $('#submit').prop('disabled', true);
                                                                 
                                                         }
                                                         else
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="";
+                                                                document.getElementById('errorfrek').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function boostcheck()
+                                                {
+                                                        var pass = /^[\d]\.[\d]{1,2} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('bbost').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('bbost').value=="")
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="Unesite ispravnu frekvenciju!(3.90 Ghz)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function tdpcheck()
+                                                {
+                                                        var pass = /^[\d]{1,3} W$/;
+                                                        var tekst = document.getElementById('tdpp').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('tdpp').value=="")
+                                                        {
+                                                                document.getElementById('errortdp').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errortdp').innerHTML="Unesite ispravnu voltažu!(60 W)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errortdp').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function igpucheck()
+                                                {
+                                                        var naziv = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('igp').value;
+                                                        var rezultat = tekst.match(naziv);
+                                                        if(document.getElementById('igp').value=="")
+                                                        {
+                                                                document.getElementById('errorigpu').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorigpu').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorigpu').innerHTML="";
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
@@ -223,8 +291,8 @@
                                                                
                                                             %>
                                                           </h3>
-                                                         <input type="text" name="naziv" placeholder="Naziv" value="<%= cpu.getNaziv() %>" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                            <input type="text" name="naziv" placeholder="Naziv" id="cpunaziv" value="<%= cpu.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                            <span class="help-block" id="errorcpunaziv" style="color:#f56a6a;"></span><br>
                                                          <select name="brojjez" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Broj jezgara</option>
@@ -238,16 +306,17 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="frekv" id="kor" placeholder="Frekvencija" value="<%= cpu.getFrekvencija() %>" style="width: 40%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="frekv" id="frek" placeholder="Frekvencija" value="<%= cpu.getFrekvencija() %>" style="width: 40%;" onchange="return pass()">
+                                                        <span class="help-block" id="errorfrek" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="boost"placeholder="Boost clock" value="<%= cpu.getBoost()%>" style="width: 40%;" onchange="return pass()">
-                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="boost"placeholder="Boost clock" id="bbost" value="<%= cpu.getBoost()%>" style="width: 40%;" onchange="return boostcheck()">
+                                                        <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="tdp" placeholder="TDP" style="width: 40%;" value="<%= cpu.getTdp()%>" onchange="return pass()"><br>
+                                                        <input type="text" name="tdp" placeholder="TDP" id="tdpp" style="width: 40%;" value="<%= cpu.getTdp()%>" onchange="return tdpcheck()">
+                                                        <span class="help-block" id="errortdp" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="igpu" placeholder="iGPU" style="width: 40%;" value="<%= cpu.getIgpu() %>" onchange="return pass()"><br>
-                                                        
+                                                        <input type="text" name="igpu" placeholder="iGPU" id="igp" style="width: 40%;" value="<%= cpu.getIgpu() %>" onchange="return igpucheck()">
+                                                        <span class="help-block" id="errorigpu" style="color:#f56a6a;"></span><br>
                                                     </div>
                                                     
                                                     <input type="submit" id="submit" value="Izmeni">

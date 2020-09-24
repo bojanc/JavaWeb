@@ -258,7 +258,7 @@
                                                                         for(Gpu pom:gpu){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getGpuId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getMemorija()%></td>
@@ -299,7 +299,7 @@
                                                                         for(Kuciste pom:kuciste){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getKucisteId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getDimenzije()%></td>
@@ -342,7 +342,7 @@
                                                                         for(Kuleri pom:kuler){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getKulerId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getRpm()%> rpm</td>
@@ -387,7 +387,7 @@
                                                                         for(Maticna pom:maticna){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getMaticnaId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getSocket()%></td>
@@ -433,7 +433,7 @@
                                                                         for(Memorija pom:memorija){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getMemorijaId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getKapacitet()%></td>
@@ -480,7 +480,7 @@
                                                                         for(Procesori pom:cpu){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getProcesorId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getBrojJezgara()%></td>
@@ -525,7 +525,7 @@
                                                                         for(Psu pom:psu){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getPsuId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getEfikasnost()%></td>
@@ -567,10 +567,10 @@
                                                                         for(Ram pom:ram){
                                                                     %>
                                                                     <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="border-radius: 50%;vertical-align: middle;"</td>
+                                                                        <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getRamId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
-                                                                        <td><%= pom.getBrzina()%></td>
+                                                                        <td><%= pom.getBrzina()%> MHz</td>
                                                                         <td><%= pom.getCasLat()%></td>
                                                                         <td>
                                                                             <a href="ServletAdminIzmeniDeo?id=<%= pom.getRamId()%>&deo=<%= deo %>&naziv=ramID" class="button">IZMENI</a>

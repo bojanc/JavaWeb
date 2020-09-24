@@ -172,8 +172,7 @@ public class ServletAdminDodajRAM extends HttpServlet {
                 request.getRequestDispatcher("AdminDodajDeo.jsp").forward(request, response);
                 return;
             }
-            else
-            {
+        }
                 try
                 {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -205,8 +204,6 @@ public class ServletAdminDodajRAM extends HttpServlet {
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-            }
-        }
         
         
         

@@ -145,6 +145,50 @@
                                 </script> 
                                 
                                 <script>
+                                    
+                                    function imekorcheck()
+                                                {
+                                                        var user = /^[a-zA-Z]*$/;
+                                                        var tekst = document.getElementById('imekor').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('imekor').value=="")
+                                                        {
+                                                                document.getElementById('errorimekor').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorimekor').innerHTML="Unesite ispravno ime!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorimekor').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function prekorcheck()
+                                                {
+                                                        var user = /^[a-zA-Z]*$/;
+                                                        var tekst = document.getElementById('prekor').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('prekor').value=="")
+                                                        {
+                                                                document.getElementById('errorprekor').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorprekor').innerHTML="Unesite ispravno prezime!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorprekor').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
                                         function user()
                                                 {
                                                         var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
@@ -215,9 +259,11 @@
                                                                {%><%= poruka1%><%}
                                                             %>
                                                           </h3>
-                                                        <input type="text" name="ime" placeholder="Ime" style="width: 40%; margin:0 !important;"><br>
+                                                          <input type="text" name="ime" id="imekor" placeholder="Ime" style="width: 40%; margin:0 !important;" onchange="return imekorcheck()">
+                                                        <span class="help-block" id="errorimekor" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="prezime" placeholder="Prezime" style="width: 40%;"><br>
+                                                        <input type="text" name="prezime" id="prekor" placeholder="Prezime" style="width: 40%;" onchange="return prekorcheck()">
+                                                        <span class="help-block" id="errorprekor" style="color:#f56a6a;"></span><br>
                                                         
                                                         <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 40%;" onchange="return user()">
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>

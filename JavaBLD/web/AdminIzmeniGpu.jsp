@@ -148,17 +148,17 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('gpuname').value;
                                                         var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        if(document.getElementById('gpuname').value=="")
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('erroruser').innerHTML="Unesite ispravan naziv!!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
@@ -170,23 +170,46 @@
 
                                                 function pass()
                                                 {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
+                                                        var pass = /^[\d]{3,4} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('corecl').value;
                                                         var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
+                                                        if(document.getElementById('corecl').value=="")
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
+                                                                document.getElementById('errorpass').innerHTML="Unesite ispravnu frekvenciju!(1700 Mhz)";
                                                                 $('#submit').prop('disabled', true);
                                                                 
                                                         }
                                                         else
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function boostcheck()
+                                                {
+                                                        var pass = /^[\d]{3,4} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('boostcl').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('boostcl').value=="")
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="Unesite ispravnu frekvenciju!(1700 Mhz)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="";
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
@@ -222,12 +245,13 @@
                                                                
                                                             %>
                                                           </h3>
-                                                          <input type="text" name="naziv" placeholder="Naziv" value="<%= gpu.getNaziv() %>" style="width: 40%; margin:0 !important;"><br>
+                                                          <input type="text" name="naziv" placeholder="Naziv" id="gpuname" value="<%= gpu.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                          <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="coreclock" id="corecl" value="<%= gpu.getCoreCl() %>" placeholder="Core clock" style="width: 40%;" onchange="return corecl()">
-                                                        <span class="help-block" id="errorcore" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="coreclock" id="corecl" value="<%= gpu.getCoreCl() %>" placeholder="Core clock" style="width: 40%;" onchange="return pass()">
+                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="boostclock" id="boostcl" value="<%= gpu.getBoostCl()%>" placeholder="Boost clock" style="width: 40%;" onchange="return boostcl()">
+                                                        <input type="text" name="boostclock" id="boostcl" value="<%= gpu.getBoostCl()%>" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
                                                         <select name="memorija" style="width: 40%;">

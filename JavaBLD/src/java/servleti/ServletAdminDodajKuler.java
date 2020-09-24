@@ -167,12 +167,11 @@ public class ServletAdminDodajKuler extends HttpServlet {
             if(podaci.get(a)==null || (podaci.get(a).equals("")))
             {
                 request.setAttribute("kulerPokazi", "da");
-                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                request.setAttribute("praznaPoljaKuler", "Morate popuniti sva polja!");
                 request.getRequestDispatcher("AdminDodajDeo.jsp").forward(request, response);
                 return;
             }
-            else
-            {
+        }
                 try
                 {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -182,7 +181,7 @@ public class ServletAdminDodajKuler extends HttpServlet {
                     if(imgpa.length()==21)
                     {
                         request.setAttribute("kulerPokazi", "da");
-                        request.setAttribute("praznaSlika", "Morate izabrati sliku!");
+                        request.setAttribute("praznaSlikaKuler", "Morate izabrati sliku!");
                         request.getRequestDispatcher("AdminDodajDeo.jsp").forward(request, response);
                         return;
                     }
@@ -204,8 +203,6 @@ public class ServletAdminDodajKuler extends HttpServlet {
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-            }
-        }
         
         
     }

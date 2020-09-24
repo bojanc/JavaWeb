@@ -148,17 +148,17 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('colname').value;
                                                         var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        if(document.getElementById('colname').value=="")
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('erroruser').innerHTML="Unesite ispravan naziv!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
@@ -170,23 +170,46 @@
 
                                                 function pass()
                                                 {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
+                                                        var pass = /^[\d]{2,3} dB$/;
+                                                        var tekst = document.getElementById('buk').value;
                                                         var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
+                                                        if(document.getElementById('buk').value=="")
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
+                                                                document.getElementById('errorpass').innerHTML="Unesite ispravan nivo buke!(60 dB)";
                                                                 $('#submit').prop('disabled', true);
                                                                 
                                                         }
                                                         else
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function radimcheck()
+                                                {
+                                                        var pass = /^[\d]{2,3} mm$/;
+                                                        var tekst = document.getElementById('radim').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('radim').value=="")
+                                                        {
+                                                                document.getElementById('errorraddim').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorraddim').innerHTML="Unesite ispravne dimenzije!(250 mm)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorraddim').innerHTML="";
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
@@ -223,15 +246,16 @@
                                                             %>
                                                           </h3>
                                                         
-                                                        <input type="text" name="naziv" placeholder="Naziv" value="<%= kuler.getNaziv() %>" style="width: 40%; margin:0 !important;"><br>
+                                                        <input type="text" name="naziv" placeholder="Naziv" id="colname" value="<%= kuler.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         
                                                         <input type="number" name="rpm" placeholder="RPM" min="500" max="5000" step="100" value="<%= kuler.getRpm() %>" style="width: 40%;"><br><br>
                                                         
-                                                        <input type="text" name="buka" id="kor" placeholder="Nivo buke" style="width: 40%;" value="<%= kuler.getBuka() %>" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
-                                                        
-                                                        <input type="text" name="dimenzije" id="sif" placeholder="Dimenzije" style="width: 40%;" value="<%= kuler.getRadijatorDim() %>" onchange="return pass()">
+                                                        <input type="text" name="buka" id="buk" placeholder="Nivo buke" style="width: 40%;" value="<%= kuler.getBuka() %>" onchange="return pass()">
                                                         <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
+                                                        
+                                                        <input type="text" name="dimenzije" id="radim" placeholder="Dimenzije" style="width: 40%;" value="<%= kuler.getRadijatorDim() %>" onchange="return radimcheck()">
+                                                        <span class="help-block" id="errorraddim" style="color:#f56a6a;"></span><br>
                                                         
                                                     </div>
                                                     

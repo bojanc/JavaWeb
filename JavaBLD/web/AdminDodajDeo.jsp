@@ -250,20 +250,43 @@
                                 </script> 
                                 
                                 <script>
-                                        function corecl()
+                                        function gpucheck()
                                                 {
-                                                        var corecl = /^[0-9]{3,4}mHz$/;
-                                                        var tekst = document.getElementById('corecl').value;
-                                                        var rezultat = tekst.match(corecl);
-                                                        if(document.getElementById('corecl').value=="")
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('gpuname').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('gpuname').value=="")
+                                                        {
+                                                                document.getElementById('errorgpucheck').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorgpucheck').innerHTML="Unesite ispravan naziv!!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorgpucheck').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+
+                                                function corecheck()
+                                                {
+                                                        var pass = /^[\d]{3,4} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('checkcorecl').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('checkcorecl').value=="")
                                                         {
                                                                 document.getElementById('errorcore').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorcore').innerHTML="Unesite ispravnu frekvenciju (1200mHz)!";
+                                                                document.getElementById('errorcore').innerHTML="Unesite ispravnu frekvenciju!(1700 Mhz)";
                                                                 $('#submit').prop('disabled', true);
+                                                                
                                                         }
                                                         else
                                                         {
@@ -271,9 +294,369 @@
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
+                                                
+                                                function boostcheck()
+                                                {
+                                                        var pass = /^[\d]{3,4} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('checkboostcl').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('checkboostcl').value=="")
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="Unesite ispravnu frekvenciju!(1700 Mhz)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorboost').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function kucistecheck()
+                                                {
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('kucistenaziv').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('kucistenaziv').value=="")
+                                                        {
+                                                                document.getElementById('errorcasenaziv').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorcasenaziv').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorcasenaziv').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+
+                                                function kucistedimcheck()
+                                                {
+                                                        var pass = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('kucdim').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('kucdim').value=="")
+                                                        {
+                                                                document.getElementById('errorkucdim').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorkucdim').innerHTML="Unesite ispravne dimenzije!";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorkucdim').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function coolercheck()
+                                                {
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('colname').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('colname').value=="")
+                                                        {
+                                                                document.getElementById('errorcoolername').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorcoolername').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorcoolername').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+
+                                                function bukcheck()
+                                                {
+                                                        var pass = /^[\d]{2,3} dB$/;
+                                                        var tekst = document.getElementById('buk').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('buk').value=="")
+                                                        {
+                                                                document.getElementById('errorbuk').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorbuk').innerHTML="Unesite ispravan nivo buke!(60 dB)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorbuk').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function radimcheck()
+                                                {
+                                                        var pass = /^[\d]{2,3} mm$/;
+                                                        var tekst = document.getElementById('radim').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('radim').value=="")
+                                                        {
+                                                                document.getElementById('errorradim').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorradim').innerHTML="Unesite ispravne dimenzije!(250 mm)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorradim').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function mobocheck()
+                                                {
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('moboname').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('moboname').value=="")
+                                                        {
+                                                                document.getElementById('errormobo').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errormobo').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errormobo').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function memcheck()
+                                                {
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('memnaziv').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('memnaziv').value=="")
+                                                        {
+                                                                document.getElementById('errormem').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errormem').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errormem').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function cpucheck()
+                                                {
+                                                        var naziv = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('cpunaziv').value;
+                                                        var rezultat = tekst.match(naziv);
+                                                        if(document.getElementById('cpunaziv').value=="")
+                                                        {
+                                                                document.getElementById('errorcpunaziv').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorcpunaziv').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorcpunaziv').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+
+                                                function frekcheck()
+                                                {
+                                                        var pass = /^[\d]\.[\d]{1,2} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('frek').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('frek').value=="")
+                                                        {
+                                                                document.getElementById('errorfrek').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorfrek').innerHTML="Unesite ispravnu frekvenciju!(3.90 Ghz)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorfrek').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function boostcheckcpu()
+                                                {
+                                                        var pass = /^[\d]\.[\d]{1,2} [a-zA-Z]{3}$/;
+                                                        var tekst = document.getElementById('bbost').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('bbost').value=="")
+                                                        {
+                                                                document.getElementById('errorboostcpu').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorboostcpu').innerHTML="Unesite ispravnu frekvenciju!(3.90 Ghz)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorboostcpu').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function tdpcheck()
+                                                {
+                                                        var pass = /^[\d]{1,3} W$/;
+                                                        var tekst = document.getElementById('tdpp').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('tdpp').value=="")
+                                                        {
+                                                                document.getElementById('errortdp').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errortdp').innerHTML="Unesite ispravnu voltažu!(60 W)";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errortdp').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function igpucheck()
+                                                {
+                                                        var naziv = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('igp').value;
+                                                        var rezultat = tekst.match(naziv);
+                                                        if(document.getElementById('igp').value=="")
+                                                        {
+                                                                document.getElementById('errorigpu').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorigpu').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorigpu').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function psucheck()
+                                                {
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('psunaziv').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('psunaziv').value=="")
+                                                        {
+                                                                document.getElementById('errorpsu').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorpsu').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorpsu').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+
+                                                function watcheck()
+                                                {
+                                                        var pass = /^[\d]{2,3} W$/;
+                                                        var tekst = document.getElementById('wat').value;
+                                                        var rezultat = tekst.match(pass);
+                                                        if(document.getElementById('wat').value=="")
+                                                        {
+                                                                document.getElementById('errorwat').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorwat').innerHTML="Unesite ispravnu jačinu(750 W)!";
+                                                                $('#submit').prop('disabled', true);
+                                                                
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorwat').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
+                                                
+                                                function ramcheck()
+                                                {
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('ramm').value;
+                                                        var rezultat = tekst.match(user);
+                                                        if(document.getElementById('ramm').value=="")
+                                                        {
+                                                                document.getElementById('errorramm').innerHTML="";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else if(rezultat==null)
+                                                        {
+                                                                document.getElementById('errorramm').innerHTML="Unesite ispravan naziv!";
+                                                                $('#submit').prop('disabled', true);
+                                                        }
+                                                        else
+                                                        {
+                                                                document.getElementById('errorramm').innerHTML="";
+                                                                $('#submit').prop('disabled', false);
+                                                        }
+                                                }
                                                 $('#submit').attr('disabled','disabled');
                                                 
-                                </script> 
+                                </script>
                                 
                                 <script>
                                     function provera(that) {
@@ -392,24 +775,25 @@
                                                          <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
-                                                               String poruka1 = (String)request.getAttribute("praznaPolja");
+                                                               String poruka1 = (String)request.getAttribute("praznaPoljaGpu");
                                                                if(poruka1!=null)
                                                                {%><%= poruka1%><%}
                                                             %>
                                                             
                                                             <%
-                                                               String poruka = (String)request.getAttribute("praznaSlika");
+                                                               String poruka = (String)request.getAttribute("praznaSlikaGpu");
                                                                if(poruka!=null)
                                                                {%><%= poruka%><%}
                                                                
                                                             %>
                                                           </h3>
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
+                                                          <input type="text" name="naziv" id="gpuname" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return gpucheck()">
+                                                        <span class="help-block" id="errorgpucheck" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="coreclock" id="corecl" placeholder="Core clock" style="width: 40%;" onchange="return corecl()">
+                                                        <input type="text" name="coreclock" id="checkcorecl" placeholder="Core clock" style="width: 40%;" onchange="return corecheck()">
                                                         <span class="help-block" id="errorcore" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="boostclock" id="boostcl" placeholder="Boost clock" style="width: 40%;" onchange="return boostcl()">
+                                                        <input type="text" name="boostclock" id="checkboostcl" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
                                                         <select name="memorija" style="width: 40%;">
@@ -437,23 +821,24 @@
                                                         <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
-                                                               String porukakuc = (String)request.getAttribute("praznaPolja");
+                                                               String porukakuc = (String)request.getAttribute("praznaPoljaKuciste");
                                                                if(porukakuc!=null)
                                                                {%><%= porukakuc%><%}
                                                             %>
                                                             
                                                             <%
-                                                               String porukaslik = (String)request.getAttribute("praznaSlika");
+                                                               String porukaslik = (String)request.getAttribute("praznaSlikaKuciste");
                                                                if(porukaslik!=null)
                                                                {%><%= porukaslik%><%}
                                                                
                                                             %>
                                                           </h3>
                                                         
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
+                                                          <input type="text" name="naziv" id="kucistenaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return kucistecheck()">
+                                                        <span class="help-block" id="errorcasenaziv" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="dimenzije" placeholder="Dimenzije" style="width: 40%;"><br>
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="dimenzije" id="kucdim" placeholder="Dimenzije" style="width: 40%;" onchange="return kucistedimcheck()">
+                                                        <span class="help-block" id="errorkucdim" style="color:#f56a6a;"></span><br>
                                                         
                                                     </div>
                                                     
@@ -470,28 +855,28 @@
                                                         <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
-                                                               String porukakul = (String)request.getAttribute("praznaPolja");
+                                                               String porukakul = (String)request.getAttribute("praznaPoljaKuler");
                                                                if(porukakul!=null)
                                                                {%><%= porukakul%><%}
                                                             %>
                                                             
                                                             <%
-                                                               String porukaslikakul = (String)request.getAttribute("praznaSlika");
+                                                               String porukaslikakul = (String)request.getAttribute("praznaSlikaKuler");
                                                                if(porukaslikakul!=null)
                                                                {%><%= porukaslikakul%><%}
                                                                
                                                             %>
                                                           </h3>
                                                         
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                          <input type="text" name="naziv" id="colname" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return coolercheck()">
+                                                        <span class="help-block" id="errorcoolername" style="color:#f56a6a;"></span><br>
                                                         <input type="number" name="rpm" placeholder="RPM" min="500" max="5000" step="100" style="width: 40%;"><br><br>
                                                         
-                                                        <input type="text" name="buka" id="kor" placeholder="Nivo buke" style="width: 40%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="buka" id="buk" placeholder="Nivo buke" style="width: 40%;" onchange="return bukcheck()">
+                                                        <span class="help-block" id="errorbuk" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="dimenzije" id="sif" placeholder="Dimenzije" style="width: 40%;" onchange="return pass()">
-                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="dimenzije" id="radim" placeholder="Dimenzije" style="width: 40%;" onchange="return radimcheck()">
+                                                        <span class="help-block" id="errorradim" style="color:#f56a6a;"></span><br>
                                                         
                                                     </div>
                                                     
@@ -510,21 +895,21 @@
                                                         <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
-                                                               String porukamat = (String)request.getAttribute("praznaPolja");
+                                                               String porukamat = (String)request.getAttribute("praznaPoljaMaticna");
                                                                if(porukamat!=null)
                                                                {%><%= porukamat%><%}
                                                             %>
                                                             
                                                             <%
-                                                               String porukamat1 = (String)request.getAttribute("praznaSlika");
+                                                               String porukamat1 = (String)request.getAttribute("praznaSlikaMaticna");
                                                                if(porukamat1!=null)
                                                                {%><%= porukamat1%><%}
                                                                
                                                             %>
                                                           </h3>
                                                           
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                          <input type="text" name="naziv" id="moboname" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return mobocheck()">
+                                                        <span class="help-block" id="errormobo" style="color:#f56a6a;"></span><br>
                                                         <select name="socket" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Socket</option>
@@ -582,20 +967,20 @@
                                                         <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
-                                                               String porukamem = (String)request.getAttribute("praznaPolja");
+                                                               String porukamem = (String)request.getAttribute("praznaPoljaMemorija");
                                                                if(porukamem!=null)
                                                                {%><%= porukamem%><%}
                                                             %>
                                                             
                                                             <%
-                                                               String porukamem1 = (String)request.getAttribute("praznaSlika");
+                                                               String porukamem1 = (String)request.getAttribute("praznaSlikaMemorija");
                                                                if(porukamem1!=null)
                                                                {%><%= porukamem1%><%}
                                                                
                                                             %>
                                                           </h3>
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                          <input type="text" name="naziv" id="memnaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return memcheck()">
+                                                        <span class="help-block" id="errormem" style="color:#f56a6a;"></span><br>
                                                         <select name="kapacitet" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Kapacitet</option>
@@ -675,8 +1060,8 @@
                                                                
                                                             %>
                                                           </h3>
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                        <input type="text" name="naziv" id="cpunaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return cpucheck()">
+                                                        <span class="help-block" id="errorcpunaziv" style="color:#f56a6a;"></span><br>
                                                          <select name="brojjez" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Broj jezgara</option>
@@ -690,16 +1075,17 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="frekv" id="kor" placeholder="Frekvencija" style="width: 40%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="frekv" id="frek" placeholder="Frekvencija" style="width: 40%;" onchange="return frekcheck()">
+                                                        <span class="help-block" id="errorfrek" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="boost"placeholder="Boost clock" style="width: 40%;" onchange="return pass()">
-                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="boost" id="bbost" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheckcpu()">
+                                                        <span class="help-block" id="errorboostcpu" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="tdp" placeholder="TDP" style="width: 40%;" onchange="return pass()"><br>
+                                                        <input type="text" name="tdp" placeholder="TDP" id="tdpp" style="width: 40%;" onchange="return tdpcheck()">
+                                                        <span class="help-block" id="errortdp" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="igpu" placeholder="iGPU" style="width: 40%;" onchange="return pass()"><br>
-                                                        
+                                                        <input type="text" name="igpu" placeholder="iGPU" id="igp" style="width: 40%;" onchange="return igpucheck()">
+                                                        <span class="help-block" id="errorigpu" style="color:#f56a6a;"></span><br>
                                                     </div>
                                                     
                                                     <input type="submit" id="submit" value="Dodaj">
@@ -731,8 +1117,8 @@
                                                             %>
                                                           </h3>
                                                         
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                          <input type="text" name="naziv" id="psunaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return psucheck()">
+                                                        <span class="help-block" id="errorpsu" style="color:#f56a6a;"></span><br>
                                                         <select name="efikasnost" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Efikasnost</option>
@@ -744,8 +1130,8 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="jacina" id="kor" placeholder="Jačina" style="width: 40%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="jacina" id="wat" placeholder="Jačina" style="width: 40%;" onchange="return watcheck()">
+                                                        <span class="help-block" id="errorwat" style="color:#f56a6a;"></span><br>
                                                         
                                                         <select name="modul" style="width: 40%;">
                                                             <optgroup>
@@ -785,9 +1171,9 @@
                                                                
                                                             %>
                                                           </h3>
-                                                        
-                                                        <input type="text" name="naziv" placeholder="Naziv" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                      
+                                                        <input type="text" name="naziv" id="ramm" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return ramcheck()">
+                                                        <span class="help-block" id="errorramm" style="color:#f56a6a;"></span><br>
                                                         <select name="brzina" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Brzina</option>
@@ -802,8 +1188,8 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="caslat" id="kor" placeholder="CAS latency" style="width: 40%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="number" name="caslat" placeholder="CAS latency" max="24" min="9" step="1" style="width: 40%;"><br><br>
+                                                        
                                                         
                                                     </div>
                                                     

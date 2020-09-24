@@ -169,12 +169,11 @@ public class ServletAdminDodajGpu extends HttpServlet {
             if(podaci.get(a)==null || (podaci.get(a).equals("")))
             {
                 request.setAttribute("gpuPokazi", "da");
-                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                request.setAttribute("praznaPoljaGpu", "Morate popuniti sva polja!");
                 request.getRequestDispatcher("AdminDodajDeo.jsp").forward(request, response);
                 return;
             }
-            else
-            {
+        }
                 try
                 {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -183,7 +182,8 @@ public class ServletAdminDodajGpu extends HttpServlet {
                     
                     if(imgpa.length()==21)
                     {
-                        request.setAttribute("praznaSlika", "Morate izabrati sliku!");
+                        request.setAttribute("gpuPokazi", "da");
+                        request.setAttribute("praznaSlikaGpu", "Morate izabrati sliku!");
                         request.getRequestDispatcher("AdminDodajDeo.jsp").forward(request, response);
                         return;
                     }
@@ -205,8 +205,6 @@ public class ServletAdminDodajGpu extends HttpServlet {
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-            }
-        }
         
         
     }

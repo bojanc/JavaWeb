@@ -170,8 +170,7 @@ public class ServletAdminDodajKorisnika extends HttpServlet {
                 request.getRequestDispatcher("AdminDodajKorisnika.jsp").forward(request, response);
                 return;
             }
-            else
-            {
+        }
                 try
                 {
                     MessageDigest digest = MessageDigest.getInstance("SHA-1");
@@ -242,8 +241,6 @@ public class ServletAdminDodajKorisnika extends HttpServlet {
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-            }
-        }
         
     }
 

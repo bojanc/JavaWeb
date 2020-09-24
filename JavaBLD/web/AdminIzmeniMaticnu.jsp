@@ -148,45 +148,22 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('moboname').value;
                                                         var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        if(document.getElementById('moboname').value=="")
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('erroruser').innerHTML="Unesite ispravan naziv!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
-                                                                $('#submit').prop('disabled', false);
-                                                        }
-                                                }
-
-                                                function pass()
-                                                {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
-                                                        var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
-                                                        {
-                                                                document.getElementById('errorpass').innerHTML="";
-                                                                $('#submit').prop('disabled', true);
-                                                        }
-                                                        else if(rezultat==null)
-                                                        {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
-                                                                $('#submit').prop('disabled', true);
-                                                                
-                                                        }
-                                                        else
-                                                        {
-                                                                document.getElementById('errorpass').innerHTML="";
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
@@ -224,8 +201,8 @@
                                                             %>
                                                           </h3>
                                                           
-                                                        <input type="text" name="naziv" placeholder="Naziv" value="<%= maticna.getNaziv() %>" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                        <input type="text" name="naziv" id="moboname" placeholder="Naziv" value="<%= maticna.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         <select name="socket" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Socket</option>

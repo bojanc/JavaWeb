@@ -148,17 +148,17 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('psunaziv').value;
                                                         var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        if(document.getElementById('psunaziv').value=="")
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('erroruser').innerHTML="Unesite ispravan naziv!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
@@ -170,17 +170,17 @@
 
                                                 function pass()
                                                 {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
+                                                        var pass = /^[\d]{2,3} W$/;
+                                                        var tekst = document.getElementById('wat').value;
                                                         var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
+                                                        if(document.getElementById('wat').value=="")
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
+                                                                document.getElementById('errorpass').innerHTML="Unesite ispravnu jačinu(750 W)!";
                                                                 $('#submit').prop('disabled', true);
                                                                 
                                                         }
@@ -224,8 +224,8 @@
                                                             %>
                                                           </h3>
                                                         
-                                                        <input type="text" name="naziv" placeholder="Naziv" value="<%= psu.getNaziv() %>" style="width: 40%; margin:0 !important;"><br>
-                                                        
+                                                            <input type="text" name="naziv" id="psunaziv" placeholder="Naziv" value="<%= psu.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                            <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         <select name="efikasnost" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Efikasnost</option>
@@ -237,8 +237,8 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="jacina" id="kor" placeholder="Jačina" value="<%= psu.getJacina() %>" style="width: 40%;">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <input type="text" name="jacina" id="wat" placeholder="Jačina" value="<%= psu.getJacina() %>" style="width: 40%;" onchange="return pass()">
+                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
                                                         
                                                         <select name="modul" style="width: 40%;">
                                                             <optgroup>

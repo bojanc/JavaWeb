@@ -148,17 +148,17 @@
                                 <script>
                                         function user()
                                                 {
-                                                        var user = /^[a-z\d]+\.?[a-z\d]+\@[a-z]{2,8}\.[a-z]{2,8}$/;
-                                                        var tekst = document.getElementById('kor').value;
+                                                        var user = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('kucistenaziv').value;
                                                         var rezultat = tekst.match(user);
-                                                        if(document.getElementById('kor').value=="")
+                                                        if(document.getElementById('kucistenaziv').value=="")
                                                         {
                                                                 document.getElementById('erroruser').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('erroruser').innerHTML="Unesite ispravno korisničko ime!";
+                                                                document.getElementById('erroruser').innerHTML="Unesite ispravan naziv!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
@@ -170,17 +170,17 @@
 
                                                 function pass()
                                                 {
-                                                        var pass = /^[a-zA-Z]{6,10}[\d]{3,5}[!@#$%^&*?]{1}$/;
-                                                        var tekst = document.getElementById('sif').value;
+                                                        var pass = /^[a-zA-Z0-9 ]*$/;
+                                                        var tekst = document.getElementById('kucdim').value;
                                                         var rezultat = tekst.match(pass);
-                                                        if(document.getElementById('sif').value=="")
+                                                        if(document.getElementById('kucdim').value=="")
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
+                                                                document.getElementById('errorpass').innerHTML="Unesite ispravne dimenzije!";
                                                                 $('#submit').prop('disabled', true);
                                                                 
                                                         }
@@ -199,12 +199,12 @@
                                 %>
 
 				<!-- Main -->
-					<div id="main">
+					<div id="main" style="height: 400px;">
                                                 <form method="post" action="ServletAdminIzmeniDeo?id=<%= kuciste.getKucisteId()%>&deo=kuciste&naziv=kucisteID" id="kuciste" class="post" style="width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Slika kućišta</label>
                                                         <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="<%= kuciste.getImgPath() %>" alt=""/>
+                                                        <img id="pic" src="<%= kuciste.getImgPath() %>" alt="" height="150" width="150"/>
                                                     </div>
                                                     <div>
                                                         
@@ -224,10 +224,10 @@
                                                             %>
                                                           </h3>
                                                         
-                                                          <input type="text" name="naziv" placeholder="Naziv" value="<%= kuciste.getNaziv() %>" style="width: 40%; margin:0 !important;"><br>
-                                                        
-                                                        <input type="text" name="dimenzije" placeholder="Dimenzije" value="<%= kuciste.getDimenzije()%>" style="width: 40%;"><br>
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                          <input type="text" name="naziv" placeholder="Naziv" id="kucistenaziv" value="<%= kuciste.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
+                                                          <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                          <input type="text" name="dimenzije" placeholder="Dimenzije" id="kucdim" value="<%= kuciste.getDimenzije()%>" style="width: 40%;" onchange="return pass()">
+                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
                                                         
                                                     </div>
                                                     

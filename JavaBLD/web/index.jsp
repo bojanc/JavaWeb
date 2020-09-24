@@ -87,7 +87,7 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
+										<a href="AdminPrikazDelova.jsp">
                                                                                     <p style="font-size:0.8em;">Računarski delovi</p>
 										</a>
 									</li>
