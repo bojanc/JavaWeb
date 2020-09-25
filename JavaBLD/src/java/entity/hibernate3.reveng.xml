@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,24 +39,15 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bld?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <property name="hibernate.show_sql">true</property>
-    <mapping resource="entity/Memorija.hbm.xml"/>
-    <mapping resource="entity/Procesori.hbm.xml"/>
-    <mapping resource="entity/Ram.hbm.xml"/>
-    <mapping resource="entity/Kuciste.hbm.xml"/>
-    <mapping resource="entity/Kuleri.hbm.xml"/>
-    <mapping resource="entity/Psu.hbm.xml"/>
-    <mapping resource="entity/Gpu.hbm.xml"/>
-    <mapping resource="entity/Konfiguracije.hbm.xml"/>
-    <mapping resource="entity/Korisnici.hbm.xml"/>
-    <mapping resource="entity/Maticna.hbm.xml"/>
-  </session-factory>
-</hibernate-configuration>
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="bld"/>
+  <table-filter match-name="kuleri"/>
+  <table-filter match-name="ram"/>
+  <table-filter match-name="konfiguracije"/>
+  <table-filter match-name="psu"/>
+  <table-filter match-name="gpu"/>
+  <table-filter match-name="kuciste"/>
+  <table-filter match-name="procesori"/>
+  <table-filter match-name="maticna"/>
+  <table-filter match-name="memorija"/>
+</hibernate-reverse-engineering>

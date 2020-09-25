@@ -468,6 +468,7 @@
                                                                     <th>Slika</th>
                                                                     <th>Procesor ID</th>
                                                                     <th>Naziv</th>
+                                                                    <th>Socket</th>
                                                                     <th>Broj jezgara</th>
                                                                     <th>Frekvencija</th>
                                                                     <th>Boost</th>
@@ -483,6 +484,7 @@
                                                                         <td><img src="<%= pom.getImgPath() %>"height="90" width="90" style="vertical-align: middle;"</td>
                                                                         <td><%= pom.getProcesorId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
+                                                                        <td><%= pom.getSocket()%></td>
                                                                         <td><%= pom.getBrojJezgara()%></td>
                                                                         <td><%= pom.getFrekvencija()%></td>
                                                                         <td><%= pom.getBoost()%></td>

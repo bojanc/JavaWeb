@@ -24,6 +24,7 @@ import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +134,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 
                 for(Procesori row:rows5)
                 {
-                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getImgPath()));
+                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
                 }
                 
                 SQLQuery q6=s.createSQLQuery("select * from psu").addEntity(Psu.class);
@@ -194,7 +195,38 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
         String[] cpuID = request.getParameterValues("cpuID");
         String[] psuID = request.getParameterValues("psuID");
         String[] ramID = request.getParameterValues("ramID");
-        int i = 0;
+        
+        List<String> gpu = Arrays.asList(gpuID);
+        List<String> cases = Arrays.asList(caseID);
+        List<String> cooler = Arrays.asList(coolerID);
+        List<String> mobo = Arrays.asList(moboID);
+        List<String> mem = Arrays.asList(memID);
+        List<String> cpu = Arrays.asList(cpuID);
+        List<String> psu = Arrays.asList(psuID);
+        List<String> ram = Arrays.asList(ramID);
+        
+         try
+        {
+            SessionFactory sf = new Configuration().configure().buildSessionFactory();
+            Session s = sf.openSession();
+            Transaction tr = s.beginTransaction();
+            
+            
+            SQLQuery q=s.createSQLQuery("insert into konfiguracije (gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID) VALUES("
+            +"'"+ gpu.get(0) +"', '"+ cases.get(0) +"', '"+cooler.get(0)+"', '"+mobo.get(0)+"', '"+mem.get(0)+"', '"+cpu.get(0)+"', '"+psu.get(0)+"', '"+ram.get(0)+"')");
+            q.executeUpdate();
+            tr.commit();
+
+            s.close();
+            response.sendRedirect("ServletAdminPrikazDelovaKonfig");
+            return;
+        }
+        catch(HibernateException ex)
+        {
+            String errormsg = ex.getMessage();
+            request.setAttribute("errormsg", errormsg);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 
     /**

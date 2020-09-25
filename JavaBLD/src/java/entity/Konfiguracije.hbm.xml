@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 25, 2020 8:49:53 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Konfiguracije" table="konfiguracije" catalog="bld" optimistic-lock="version">
+        <id name="konfiguracijaId" type="java.lang.Integer">
+            <column name="konfiguracijaID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="gpu" class="entity.Gpu" fetch="select">
+            <column name="gpuID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="kuciste" class="entity.Kuciste" fetch="select">
+            <column name="kucisteID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="kuleri" class="entity.Kuleri" fetch="select">
+            <column name="kulerID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="maticna" class="entity.Maticna" fetch="select">
+            <column name="maticnaID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="memorija" class="entity.Memorija" fetch="select">
+            <column name="memorijaID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="procesori" class="entity.Procesori" fetch="select">
+            <column name="procesorID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="psu" class="entity.Psu" fetch="select">
+            <column name="psuID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ram" class="entity.Ram" fetch="select">
+            <column name="ramID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

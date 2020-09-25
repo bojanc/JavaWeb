@@ -1075,6 +1075,15 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
+                                                        <select name="socket" style="width: 40%;">
+                                                            <optgroup>
+                                                                <option value="" disabled selected>Socket</option>
+                                                                <option value="AM4">AM4</option>
+                                                                <option value="LGA1151">LGA1151</option>
+                                                                <option value="LGA2011-3">LGA2011-3</option>
+                                                            </optgroup>
+                                                        </select><br>
+                                                        
                                                         <input type="text" name="frekv" id="frek" placeholder="Frekvencija" style="width: 40%;" onchange="return frekcheck()">
                                                         <span class="help-block" id="errorfrek" style="color:#f56a6a;"></span><br>
                                                         

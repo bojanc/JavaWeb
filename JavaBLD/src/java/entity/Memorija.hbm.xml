@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Sep 25, 2020 8:49:53 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Memorija" table="memorija" catalog="bld" optimistic-lock="version">
         <id name="memorijaId" type="java.lang.Integer">
@@ -29,5 +29,11 @@
         <property name="imgPath" type="string">
             <column name="imgPath" length="200" not-null="true" />
         </property>
+        <set name="konfiguracijes" table="konfiguracije" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="memorijaID" not-null="true" />
+            </key>
+            <one-to-many class="entity.Konfiguracije" />
+        </set>
     </class>
 </hibernate-mapping>

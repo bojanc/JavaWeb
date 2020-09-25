@@ -306,6 +306,15 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
+                                                        <select name="socket" style="width: 40%;">
+                                                            <optgroup>
+                                                                <option value="" disabled selected>Socket</option>
+                                                                <option value="AM4" <% if(cpu.getSocket().equals("AM4")){ %> selected <%}%>>AM4</option>
+                                                                <option value="LGA1151" <% if(cpu.getSocket().equals("LGA1151")){ %> selected <%}%>>LGA1151</option>
+                                                                <option value="LGA2011-3" <% if(cpu.getSocket().equals("LGA2011-3")){ %> selected <%}%>>LGA2011-3</option>
+                                                            </optgroup>
+                                                        </select><br>
+                                                        
                                                         <input type="text" name="frekv" id="frek" placeholder="Frekvencija" value="<%= cpu.getFrekvencija() %>" style="width: 40%;" onchange="return pass()">
                                                         <span class="help-block" id="errorfrek" style="color:#f56a6a;"></span><br>
                                                         

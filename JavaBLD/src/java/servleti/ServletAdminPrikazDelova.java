@@ -173,7 +173,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Procesori row:rows)
                 {
-                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getImgPath()));
+                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);
@@ -335,7 +335,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Procesori row:rows)
                 {
-                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getImgPath()));
+                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);

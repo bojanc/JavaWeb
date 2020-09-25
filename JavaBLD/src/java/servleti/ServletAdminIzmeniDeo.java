@@ -218,7 +218,7 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     for(Procesori row:rows)
                     {
-                        cpu = new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getImgPath());
+                        cpu = new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath());
                     }
 
                     request.setAttribute("deo", deo);
@@ -614,14 +614,14 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                         if(imgpa.length()==21)
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', brojJezgara='"+ Integer.parseInt(podaci.get(1))+"', frekvencija='"+podaci.get(2)+"', boost='"+podaci.get(3)+"', tdp='"+podaci.get(4)+"', iGPU='"+podaci.get(5)+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', brojJezgara='"+ Integer.parseInt(podaci.get(1))+"',socket='"+podaci.get(2)+"', frekvencija='"+podaci.get(3)+"', boost='"+podaci.get(4)+"', tdp='"+podaci.get(5)+"', iGPU='"+podaci.get(6)+"'"
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();
                         }
                         else
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', brojJezgara='"+ Integer.parseInt(podaci.get(1))+"', frekvencija='"+podaci.get(2)+"', boost='"+podaci.get(3)+"', tdp='"+podaci.get(4)+"', iGPU='"+podaci.get(5)+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', brojJezgara='"+ Integer.parseInt(podaci.get(1))+"',socket='"+podaci.get(2)+"', frekvencija='"+podaci.get(3)+"', boost='"+podaci.get(4)+"', tdp='"+podaci.get(5)+"', iGPU='"+podaci.get(6)+"'"
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();

@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 23, 2020 12:34:30 PM by Hibernate Tools 4.3.1
+// Generated Sep 25, 2020 8:49:52 PM by Hibernate Tools 4.3.1
 
 
 
@@ -21,13 +21,13 @@ public class Korisnici  implements java.io.Serializable {
     }
 
     public Korisnici(Integer korisnikId,String imgPath, String ime, String prezime, String username, String password, String uloga) {
-       this.korisnikId = korisnikId;
        this.imgPath = imgPath;
        this.ime = ime;
        this.prezime = prezime;
        this.username = username;
        this.password = password;
        this.uloga = uloga;
+       this.korisnikId = korisnikId;
     }
    
     public Integer getKorisnikId() {

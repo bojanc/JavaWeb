@@ -354,7 +354,7 @@
                                                                     obj.checked = true;
                                                                     
                                                                     <%
-                                                                            for(int cb=1;cb<=psu.size();cb++){
+                                                                            for(int cb=1;cb<=cpu.size();cb++){
                                                                         %>
                                                                     if (document.getElementById('cpuID<%= cb %>').checked) {
                                                                         $('#cpuIMG<%= cb %>')

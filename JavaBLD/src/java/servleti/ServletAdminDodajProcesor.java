@@ -189,14 +189,14 @@ public class ServletAdminDodajProcesor extends HttpServlet {
                     }
                     else
                     {
-                        SQLQuery q=s.createSQLQuery("insert into procesori(brojJezgara,frekvencija,boost,tdp,iGPU,naziv,imgPath)"
-                            + "VALUES('"+Integer.parseInt(podaci.get(1))+"', '"+podaci.get(2)+"','"+podaci.get(3)+"','"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(0)+"', '"+imgpa+"')");
+                        SQLQuery q=s.createSQLQuery("insert into procesori(brojJezgara,socket,frekvencija,boost,tdp,iGPU,naziv,imgPath)"
+                            + "VALUES('"+Integer.parseInt(podaci.get(1))+"', '"+podaci.get(2)+"','"+podaci.get(3)+"','"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(0)+"', '"+imgpa+"')");
                         q.executeUpdate();
                         tr.commit();
                     }
                     
                     s.close();
-                    response.sendRedirect("ServletAdminPrikazDelova?deo=cpu");
+                    response.sendRedirect("ServletAdminPrikazDelova?deo=procesori");
                     return;
                 }
                 catch(HibernateException ex)
