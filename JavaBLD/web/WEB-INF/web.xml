@@ -72,6 +72,10 @@
         <servlet-name>ServletAdminIzmeniDeo</servlet-name>
         <servlet-class>servleti.ServletAdminIzmeniDeo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAdminPrikazDelovaKonfig</servlet-name>
+        <servlet-class>servleti.ServletAdminPrikazDelovaKonfig</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>ServletAdminIzmeniDeo</servlet-name>
         <url-pattern>/ServletAdminIzmeniDeo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminPrikazDelovaKonfig</servlet-name>
+        <url-pattern>/ServletAdminPrikazDelovaKonfig</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
