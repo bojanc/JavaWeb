@@ -423,8 +423,142 @@
                                                                     }
                                                                 </script>
 				<!-- Main -->
+                                
+                                <style>
+                                    .modal {
+                                        display: none; 
+                                        position: fixed; 
+                                        z-index: 1; 
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; 
+                                        height: 100%; 
+                                        overflow: auto; 
+                                        background-color: rgb(0,0,0); 
+                                        background-color: rgba(0,0,0,0.4); 
+                                      }
+
+                                      
+                                      .modal-content {
+                                        background-color: #fefefe;
+                                        margin: 15% auto; 
+                                        padding: 30px;
+                                        border: 2px solid #2ebaae;
+                                        width: 17.5%; 
+                                        text-align: center;
+                                      }
+
+                                      
+                                      .close {
+                                        text-align: center;
+                                        color: #aaa;
+                                        font-size: 32px;
+                                        font-weight: bold;
+                                        float:right;
+                                      }
+
+                                      .close:hover,
+                                      .close:focus {
+                                        color: black;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                      }
+                                </style>
+
+                                
+                                <div id="myModalP" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeP">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Morate izabrati sve delove i popuniti opis konfiguracije!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <div id="myModalS" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeS">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Morate izabrati sliku!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <div id="myModalSC" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeSC">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Socketi za procesor i matičnu ploču se ne poklapaju!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <script>
+                                    var modalP = document.getElementById("myModalP");
+                                    var modalS = document.getElementById("myModalS");
+                                    var modalSC = document.getElementById("myModalSC");
+                                var spanS = document.getElementById("closeS");
+                                var spanP = document.getElementById("closeP");
+                                var spanSC = document.getElementById("closeSC");
+                                <%
+                                    if(request.getAttribute("praznaPolja")!=null)
+                                    {
+                                %>
+                                    $(document).ready(function(){
+                                        modalP.style.display = "block";
+                                    })
+                                    <%
+                                    }
+                                    %>
+                                        
+                                        <%
+                                    if(request.getAttribute("praznaSlika")!=null)
+                                    {
+                                %>
+                                    $(document).ready(function(){
+                                        modalS.style.display = "block";
+                                    })
+                                    <%
+                                    }
+                                    %>
+                                        
+                                         <%
+                                    if(request.getAttribute("socket")!=null)
+                                    {
+                                %>
+                                    $(document).ready(function(){
+                                        modalSC.style.display = "block";
+                                    })
+                                    <%
+                                    }
+                                    %>
+
+                                spanS.onclick = function() {
+                                  modalS.style.display = "none";
+                                }
+                                
+                                spanP.onclick = function() {
+                                  modalP.style.display = "none";
+                                }
+                                
+                                spanSC.onclick = function() {
+                                  modalSC.style.display = "none";
+                                }
+
+                                window.onclick = function(event) {
+                                  if (event.target == modalS || event.target == modalP || event.target== modalSC) {
+                                    modalS.style.display = "none";
+                                    modalP.style.display = "none";
+                                    modalSC.style.display = "none";
+                                  }
+                                }
+                                </script>
+                                
 					<div id="main">
-                                            <form method="post" action="ServletAdminPrikazDelovaKonfig">
+                                            <form method="post" action="ServletAdminPrikazDelovaKonfig" enctype="multipart/form-data">
                                               <div class="w3-bar w3-black">
                                                 <button type="button" onclick="otvoriDeo('gpu')">Grafička kartica</button>
                                                 <button type="button" onclick="otvoriDeo('kuciste')">Kućište</button>
@@ -437,12 +571,13 @@
                                                 <input type='submit' value='Dodaj konfiguraciju' style='margin-left:100px;'>
                                               </div>
                                             
+                                                
                                               <div id="gpu" class="deo" style="float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                       ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite grafičku karticu</h2>
+                                                <h2 style="padding-top:20px;">Izaberite grafičku karticu</h2>
                                                 
-                                                <table style='width:40%;'>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(gpu.size()>0)
                                                         {
@@ -451,11 +586,14 @@
                                                         {
                                                             g++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Memorija: <%= pom.getMemorija()%></h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle; white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                     <input type="checkbox" onchange="validateGPU(this)" name="gpuID" id="gpuID<%= g %>" class="gpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getGpuId() %>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -473,9 +611,9 @@
                                               <div id="kuciste" class="deo" style="display: none;float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                 ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite kučište</h2>
+                                                <h2 style="padding-top:20px;">Izaberite kučište</h2>
                                                 
-                                                <table style='width:40%;'>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(kuciste.size()>0)
                                                         {
@@ -484,11 +622,14 @@
                                                         {
                                                             ku++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Dimenzije <%= pom.getDimenzije()%></h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                    <input type="checkbox" name="caseID" id="caseID<%= ku %>" onchange="validateCase(this)" class="casecb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getKucisteId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -505,11 +646,11 @@
                                                 
                                               </div>
                                             
-                                            <div id="kuleri" class="deo" style="display: none;float:left;">
+                                            <div id="kuleri" class="deo" style="display: none;float:left;width:500px;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                 ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite kuler</h2>
-                                                <table style='width:50%;'>
+                                                <h2 style="padding-top:20px;">Izaberite kuler</h2>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(kuler.size()>0)
                                                         {
@@ -518,13 +659,14 @@
                                                         {
                                                             k++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>RPM: <%= pom.getRpm()%> RPM</h3>
-                                                            <h3>Buka: <%= pom.getBuka()%> dB</h3>
-                                                            <h3>Dimenzije: <%= pom.getRadijatorDim()%> RPM</h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img  src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                    <input type="checkbox" name="coolerID" id="coolerID<%= k %>" onchange="validateCooler(this)" class="coolercb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getKulerId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -542,8 +684,8 @@
                                             <div id="maticna" class="deo" style="display: none;float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                 ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite matičnu ploču</h2>
-                                                <table style='width:40%;'>
+                                                <h2 style="padding-top:20px;">Izaberite matičnu ploču</h2>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(maticna.size()>0)
                                                         {
@@ -552,12 +694,14 @@
                                                         {
                                                             mb++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Socket: <%= pom.getSocket()%></h3>
-                                                            <h3>Veličina: <%= pom.getVelicina()%></h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                    <input type="checkbox" name="moboID" id="moboID<%= mb %>" onchange="validateMobo(this)" class="mobocb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMaticnaId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -575,8 +719,8 @@
                                             <div id="memorija" class="deo" style="display: none;float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                 ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite memoriju</h2>
-                                                 <table style='width:40%;'>
+                                                <h2 style="padding-top:20px;">Izaberite memoriju</h2>
+                                                 <table style='width:80%;'>
                                                     <%
                                                         if(memorija.size()>0)
                                                         {
@@ -585,13 +729,14 @@
                                                         {
                                                             m++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Kapacitet: <%= pom.getKapacitet()%></h3>
-                                                            <h3>Tip: <%= pom.getTip()%></h3>
-                                                            <h3>Dimenzije: <%= pom.getDimenzije()%></h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                    <input type="checkbox" name="memID" id="memID<%= m %>" onchange="validateMem(this)" class="memcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMemorijaId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -609,8 +754,8 @@
                                             <div id="procesori" class="deo" style="display: none;float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                 ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite procesor</h2>
-                                                <table style='width:40%;'>
+                                                <h2 style="padding-top:20px;">Izaberite procesor</h2>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(cpu.size()>0)
                                                         {
@@ -619,13 +764,14 @@
                                                         {
                                                             c++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Broj jezgara: <%= pom.getBrojJezgara()%></h3>
-                                                            <h3>Frekvencija: <%= pom.getFrekvencija()%></h3>
-                                                            <h3>TDP: <%= pom.getTdp()%></h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                     <input type="checkbox" name="cpuID" id="cpuID<%= c %>" onchange="validateCPU(this)" class="cpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getProcesorId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -643,8 +789,8 @@
                                             <div id="psu" class="deo" style="display: none;float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                 ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite napajanje</h2>
-                                                <table style='width:40%;'>
+                                                <h2 style="padding-top:20px;">Izaberite napajanje</h2>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(psu.size()>0)
                                                         {
@@ -653,13 +799,14 @@
                                                         {
                                                             p++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Efikasnost: <%= pom.getEfikasnost()%></h3>
-                                                            <h3>Jačina: <%= pom.getJacina()%></h3>
-                                                            <h3>Modularnost: <%= pom.getModularnost()%></h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                     <input type="checkbox" name="psuID" id="psuID<%= p %>" onchange="validatePSU(this)" class="psucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getPsuId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -677,8 +824,8 @@
                                             <div id="ram" class="deo" style="display: none;float:left;">
                                                 <span onclick="this.parentElement.style.display='none'"
                                                       ><button type="button" style="margin-top: 10px;">X</button></span>
-                                                <h2>Izaberite RAM</h2>
-                                                <table style='width:40%;'>
+                                                <h2 style="padding-top:20px;">Izaberite RAM</h2>
+                                                <table style='width:80%;'>
                                                     <%
                                                         if(ram.size()>0)
                                                         {
@@ -686,11 +833,14 @@
                                                         for(Ram pom:ram)
                                                         {r++;
                                                     %>
-                                                    <tr style="background-color:transparent; border: none;">
-                                                        <td>
-                                                            <img style='float:left;margin-right: 20px;' src='<%= pom.getImgPath() %>' height="150" width="150">
-                                                            <h2><%= pom.getNaziv()%></h2>
-                                                            <h3>Brzina: <%= pom.getBrzina()%> mHz</h3>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;"">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;white-space: nowrap;overflow: hidden;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
                                                                     <input type="checkbox" name="ramID" id="ramID<%= r %>" onchange="validateRAM(this)" class="ramcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getRamId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
@@ -704,8 +854,8 @@
                                                     %>
                                                 </table>
                                               </div>
-                                            </form>
-                                                <div style="float:right; width: 800px;">
+                                            <!--</form>-->
+                                                <div style="float:right; width: 800px;padding-bottom: 250px;">
                                                     
                                                     <table>
                                                         <tr style="background-color:transparent;border:none;"> 
@@ -792,10 +942,21 @@
                                                         </tr>
                                                     </table>
                                                 </div>
+                                            <div style='clear: both;display:block;float:left;width:50%;padding-bottom: 50px;'>
+                                                <h2>Opis konfiguracije</h2>
+                                                <textarea name="text" cols="2" rows="5" maxlength="200" style="resize: none;width: 80%;"></textarea>
+                                            </div>
+
+                                            <div style='float:right;width:50%;padding-bottom: 50px;'>
+                                                <h2>Slika konfiguracije</h2>
+                                                <input type="file" name="fajl">
+                                            </div>
+                                                       <input type="hidden" id="korID" name="korID" value="<%= korisnik.getKorisnikId() %>">     
+                                            </form>
+
 					</div>
-
+                          
 			</div>
-
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>

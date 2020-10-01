@@ -39,6 +39,12 @@ import org.hibernate.cfg.Configuration;
 import net.sf.ehcache.hibernate.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.transform.Transformers;
 
@@ -82,6 +88,25 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
         ArrayList<Procesori> cpu = new ArrayList<Procesori>();
         ArrayList<Psu> psu = new ArrayList<Psu>();
         ArrayList<Ram> ram = new ArrayList<Ram>();
+        
+        String polja="";
+        String slika = "";
+        String socket = "";
+        
+        if(request.getParameter("polja")!=null)
+        {
+            polja = request.getParameter("polja");
+        }
+        
+        if(request.getParameter("slika")!=null)
+        {
+            slika = request.getParameter("slika");
+        }
+        
+        if(request.getParameter("socket")!=null)
+        {
+            socket = request.getParameter("socket");
+        }
         
         try
         {
@@ -161,6 +186,20 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 request.setAttribute("cpu", cpu);
                 request.setAttribute("psu", psu);
                 request.setAttribute("ram", ram);
+                if(polja.equals("da"))
+                {
+                    request.setAttribute("praznaPolja", "Morate izabrati sve delove!");
+                }
+                
+                if(slika.equals("da"))
+                {
+                    request.setAttribute("praznaSlika", "Morate izabrati sliku!");
+                }
+                
+                if(socket.equals("da"))
+                {
+                    request.setAttribute("socket", "Socketi za procesor i matičnu ploču se ne poklapaju!");
+                }
                 
                 s.close();
                 request.getRequestDispatcher("AdminPravljeneKonfiguracije.jsp").forward(request, response);
@@ -187,6 +226,165 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String filePath = "";
+        String nazivF = "";
+        ArrayList<String> podaci = new ArrayList<String>();
+        
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+
+        if (isMultipart)
+        {
+            FileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+
+            try
+            {
+                List items = upload.parseRequest(request);
+                Iterator iterator = items.iterator();
+                while (iterator.hasNext())
+                {
+                    FileItem item = (FileItem) iterator.next();
+
+                    if (!item.isFormField())
+                    {
+                        String fileName = item.getName();
+                        
+                        
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+                            LocalDateTime now = LocalDateTime.now();  
+                            String time = now.format(dtf);
+                            String str = time.replace("/", "");
+                            String str0 = str.replace(":", "");
+                            String str1 = str0.replaceAll("\\s+","");
+                            str1+=fileName;
+
+                            String root = getServletContext().getRealPath("/");
+                            File path = new File(root + "/images");
+                            if (!path.exists())
+                            {
+                                boolean status = path.mkdirs();
+                            }
+
+                            File uploadedFile = new File(path + "/" + str1);
+                            filePath = uploadedFile.getCanonicalPath();
+                            nazivF = uploadedFile.getName();
+                            
+                            if(!item.getName().equals(""))
+                            {
+                                item.write(uploadedFile);
+                            }
+                    }
+                    else
+                    {
+                        podaci.add(item.getString());
+                    }
+                }
+            }
+            catch (FileUploadException e)
+            {
+                String errormsg = e.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+            catch (Exception e) {
+                String errormsg = e.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+        
+        String imgpa = "images/";
+        
+        if(!(nazivF.equals("images")))
+        {
+            
+            imgpa+=nazivF;
+        }
+        String socket1="";
+        String socket2="";
+        
+        
+        for(int a = 0;a<podaci.size();a++)
+        {
+            if(podaci.get(a)==null || (podaci.get(a).equals("")))
+            {
+                response.sendRedirect("ServletAdminPrikazDelovaKonfig?polja=da");
+                return;
+            }
+        }
+                try
+                {
+                    SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                    Session s = sf.openSession();
+                    Transaction tr = s.beginTransaction();
+                    
+                    if(imgpa.length()==21)
+                    {
+                        response.sendRedirect("ServletAdminPrikazDelovaKonfig?slika=da");
+                        return;
+                    }
+                    else
+                    {
+                        SQLQuery q=s.createSQLQuery("SELECT m.socket as socketm,p.socket as socketp from maticna m, procesori p where m.maticnaID='"+podaci.get(3)+"' and p.procesorID='"+podaci.get(5)+"'");
+                        List<Object[]> socket = q.list();
+                        for(Object[] o:socket)
+                        {
+                            socket1 = (String)o[0];
+                            socket2 =(String)o[1];
+                        }
+                        tr.commit();
+                    }
+                    
+                    s.close();
+                    if(!socket1.equals(socket2))
+                    {
+                        response.sendRedirect("ServletAdminPrikazDelovaKonfig?socket=da");
+                        return;
+                    }
+                }
+                catch(HibernateException ex)
+                {
+                    String errormsg = ex.getMessage();
+                    request.setAttribute("errormsg", errormsg);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+        
+                try
+                {
+                    SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                    Session s = sf.openSession();
+                    Transaction tr = s.beginTransaction();
+                    
+                    if(imgpa.length()==21)
+                    {
+                        request.setAttribute("praznaSlika", "Morate izabrati sliku!");
+                        response.sendRedirect("ServletAdminPrikazDelovaKonfig?slika=da");
+                        return;
+                    }
+                    else
+                    {
+                        SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,imgPath,korisnikID)"
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(7)+"','"+podaci.get(8)+"','"+imgpa+"','"+podaci.get(9)+"')");
+                        q.executeUpdate();
+                        tr.commit();
+                    }
+                    
+                    s.close();
+                    response.sendRedirect("ServletAdminPrikazDelova?deo=gpu");
+                    return;
+                }
+                catch(HibernateException ex)
+                {
+                    String errormsg = ex.getMessage();
+                    request.setAttribute("errormsg", errormsg);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+        
+        
+        
+        
+        
+        /*
         String[] gpuID = request.getParameterValues("gpuID");
         String[] caseID = request.getParameterValues("caseID");
         String[] coolerID = request.getParameterValues("coolerID");
@@ -227,6 +425,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
             request.setAttribute("errormsg", errormsg);
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
+        */
     }
 
     /**

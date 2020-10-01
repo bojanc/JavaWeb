@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Sep 25, 2020 8:49:53 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Konfiguracije" table="konfiguracije" catalog="bld" optimistic-lock="version">
         <id name="konfiguracijaId" type="java.lang.Integer">
@@ -10,6 +10,9 @@
         </id>
         <many-to-one name="gpu" class="entity.Gpu" fetch="select">
             <column name="gpuID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="korisnici" class="entity.Korisnici" fetch="select">
+            <column name="korisnikID" not-null="true" />
         </many-to-one>
         <many-to-one name="kuciste" class="entity.Kuciste" fetch="select">
             <column name="kucisteID" not-null="true" />
@@ -32,5 +35,11 @@
         <many-to-one name="ram" class="entity.Ram" fetch="select">
             <column name="ramID" not-null="true" />
         </many-to-one>
+        <property name="opis" type="string">
+            <column name="opis" length="65535" not-null="true" />
+        </property>
+        <property name="imgPath" type="string">
+            <column name="imgPath" length="200" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

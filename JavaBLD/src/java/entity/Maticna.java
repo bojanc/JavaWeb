@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 25, 2020 8:49:52 PM by Hibernate Tools 4.3.1
+// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -31,7 +31,7 @@ public class Maticna  implements java.io.Serializable {
         this.maxRam = maxRam;
         this.memSlots = memSlots;
         this.imgPath = imgPath;
-        this.maticnaId= maticnaId;
+        this.maticnaId = maticnaId;
     }
     public Maticna(String naziv, String socket, String velicina, int maxRam, int memSlots, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;

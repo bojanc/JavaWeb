@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 25, 2020 8:49:52 PM by Hibernate Tools 4.3.1
+// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
 
 
 
@@ -11,6 +11,7 @@ public class Konfiguracije  implements java.io.Serializable {
 
      private Integer konfiguracijaId;
      private Gpu gpu;
+     private Korisnici korisnici;
      private Kuciste kuciste;
      private Kuleri kuleri;
      private Maticna maticna;
@@ -18,12 +19,15 @@ public class Konfiguracije  implements java.io.Serializable {
      private Procesori procesori;
      private Psu psu;
      private Ram ram;
+     private String opis;
+     private String imgPath;
 
     public Konfiguracije() {
     }
 
-    public Konfiguracije(Integer konfiguracijaId,Gpu gpu, Kuciste kuciste, Kuleri kuleri, Maticna maticna, Memorija memorija, Procesori procesori, Psu psu, Ram ram) {
+    public Konfiguracije(Integer konfiguracijaId,Gpu gpu, Korisnici korisnici, Kuciste kuciste, Kuleri kuleri, Maticna maticna, Memorija memorija, Procesori procesori, Psu psu, Ram ram, String opis, String imgPath) {
        this.gpu = gpu;
+       this.korisnici = korisnici;
        this.kuciste = kuciste;
        this.kuleri = kuleri;
        this.maticna = maticna;
@@ -31,6 +35,8 @@ public class Konfiguracije  implements java.io.Serializable {
        this.procesori = procesori;
        this.psu = psu;
        this.ram = ram;
+       this.opis = opis;
+       this.imgPath = imgPath;
        this.konfiguracijaId = konfiguracijaId;
     }
    
@@ -47,6 +53,13 @@ public class Konfiguracije  implements java.io.Serializable {
     
     public void setGpu(Gpu gpu) {
         this.gpu = gpu;
+    }
+    public Korisnici getKorisnici() {
+        return this.korisnici;
+    }
+    
+    public void setKorisnici(Korisnici korisnici) {
+        this.korisnici = korisnici;
     }
     public Kuciste getKuciste() {
         return this.kuciste;
@@ -96,6 +109,20 @@ public class Konfiguracije  implements java.io.Serializable {
     
     public void setRam(Ram ram) {
         this.ram = ram;
+    }
+    public String getOpis() {
+        return this.opis;
+    }
+    
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+    public String getImgPath() {
+        return this.imgPath;
+    }
+    
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
 
