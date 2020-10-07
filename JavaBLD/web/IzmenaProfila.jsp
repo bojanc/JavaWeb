@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="entity.Korisnici"%>
 <!DOCTYPE HTML>
 <!--
@@ -32,12 +33,12 @@
                                                                 <li style="color: #d4d4d6;">
                                                                     <%
                                                                         HttpSession sesija = request.getSession();
-                                                                        Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
-                                                                        if(korisnik!=null)
+                                                                        Korisnici kor = (Korisnici)sesija.getAttribute("korisnik");
+                                                                        if(kor!=null)
                                                                         {
-                                                                            %> Dobro došli <%= korisnik.getUsername()%>
+                                                                            %> Dobro došli <%= kor.getUsername()%>
                                                                             
-                                                                            <img src="<%= korisnik.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
+                                                                            <img src="<%= kor.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
 
                                                                     <%
                                                                     }
@@ -75,9 +76,9 @@
 							<section>
 								<ul class="links">
                                                                     <%
-                                                                        if(korisnik!=null)
+                                                                        if(kor!=null)
                                                                         {
-                                                                            if(korisnik.getUloga().equals("admin"))
+                                                                            if(kor.getUloga().equals("admin"))
                                                                             {
                                                                     %>
 									<li style="color: #d4d4d6;">
@@ -219,7 +220,6 @@
                                                         if(document.getElementById('sif').value=="")
                                                         {
                                                                 document.getElementById('errorpass').innerHTML="";
-                                                                $('#submit').prop('disabled', true);
                                                         }
                                                         else if(rezultat==null)
                                                         {
@@ -233,17 +233,19 @@
                                                                 $('#submit').prop('disabled', false);
                                                         }
                                                 }
-                                                $('#submit').attr('disabled','disabled');
-                                                
                                 </script>
+                                                        <%
+                                                            Korisnici korisnik = (Korisnici)request.getAttribute("korisnik");
+                                                        %>
+                               
 
 				<!-- Main -->
 					<div id="main">
-                                                <form method="post" action="ServletAdminDodajKorisnika" class="post" style="width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
+                                                <form method="post" action="ServletIzmenaProfila" class="post" style="width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Korisnička slika</label>
                                                         <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="#" alt="" style="border-radius: 50%;-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
+                                                        <img id="pic" src="<%= korisnik.getImgPath() %>" height="250" width="250" alt="" style="border-radius: 50%;-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                                     </div>
                                                     <div>
                                                          <h3 style="color:#f56a6a;" id="poruka">
@@ -259,30 +261,24 @@
                                                                {%><%= poruka1%><%}
                                                             %>
                                                           </h3>
-                                                          <input type="text" name="ime" id="imekor" placeholder="Ime" style="width: 40%; margin:0 !important;" onchange="return imekorcheck()">
+                                                        <input type="text" name="ime" placeholder="Ime" id="imekor" style="width: 40%; margin:0 !important;" value="<%= korisnik.getIme() %>" onchange="return imekorcheck()">
                                                         <span class="help-block" id="errorimekor" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="prezime" id="prekor" placeholder="Prezime" style="width: 40%;" onchange="return prekorcheck()">
+                                                        <input type="text" name="prezime" id="prekor" placeholder="Prezime" style="width: 40%;" value="<%= korisnik.getPrezime() %>" onchange="return prekorcheck()">
                                                         <span class="help-block" id="errorprekor" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 40%;" onchange="return user()">
+                                                        <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 40%;" onchange="return user()" value="<%= korisnik.getUsername()%>">
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         
                                                         <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 40%;" onchange="return pass()">
                                                         <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <select name="uloga" style="width: 40%;" id="sel" onchange="return select()">
-                                                            <optgroup>
-                                                                <option value="" disabled >Uloga</option>
-                                                                <option value="Admin">Admin</option>
-                                                                <option value="Klijent" selected>Klijent</option>
-                                                                <option value="Urednik">Urednik</option>
-                                                            </optgroup>
-                                                        </select><br>
+                                                       
+                                                        <input type="hidden" name="id" value="<%= korisnik.getKorisnikId() %>">
                                                         
                                                     </div>
                                                     
-                                                    <input type="submit" id="submit" value="Dodaj">
+                                                    <input type="submit" id="submit" value="Izmeni">
                                                 </form>
 
 					</div>

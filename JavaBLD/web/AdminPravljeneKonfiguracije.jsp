@@ -882,7 +882,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr style="background-color:transparent;border:none;"> 
-                                                            <td>
+                                                            <td style="width:20%;">
                                                                 <%
                                                                     for(int csub=1;csub<=cpu.size();csub++){
                                                                 %>
@@ -891,7 +891,7 @@
                                                                     }
                                                                 %>
                                                             </td>
-                                                            <td>
+                                                            <td style="padding:0;">
                                                                 <%
                                                                     for(int kasub=1;kasub<=kuciste.size();kasub++){
                                                                 %>

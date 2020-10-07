@@ -495,7 +495,7 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
                         }
                         else
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', rpm='"+Integer.parseInt(podaci.get(1))+"', buka='"+podaci.get(2)+"', radijtorDim='"+podaci.get(3)+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', rpm='"+Integer.parseInt(podaci.get(1))+"', buka='"+podaci.get(2)+"', radijatorDim='"+podaci.get(3)+"'"
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();

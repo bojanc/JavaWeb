@@ -13,6 +13,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -78,12 +79,17 @@
                                                                     <%
                                                                         if(korisnik!=null)
                                                                         {
-                                                                            if(korisnik.getUloga().equals("admin"))
+                                                                            if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
 									<li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazKorisnika">
                                                                                     <p style="font-size:0.8em;">Korisnici</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Vaš profil</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -140,6 +146,76 @@
 							</section>
 
 					</section>
+                                                        
+                                                        <style>
+                                    .modal {
+                                        display: none; 
+                                        position: fixed; 
+                                        z-index: 1; 
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; 
+                                        height: 100%; 
+                                        overflow: auto; 
+                                        background-color: rgb(0,0,0); 
+                                        background-color: rgba(0,0,0,0.4); 
+                                      }
+
+                                      
+                                      .modal-content {
+                                        background-color: #fefefe;
+                                        margin: 15% auto; 
+                                        padding: 30px;
+                                        border: 2px solid #2ebaae;
+                                        width: 17.5%; 
+                                        text-align: center;
+                                      }
+
+                                      
+                                      .close {
+                                        text-align: center;
+                                        color: #aaa;
+                                        font-size: 32px;
+                                        font-weight: bold;
+                                        float:right;
+                                      }
+
+                                      .close:hover,
+                                      .close:focus {
+                                        color: black;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                      }
+                                </style>
+
+                                
+                                <div id="myModalP" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeP">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <script>
+                                    var modalP = document.getElementById("myModalP");
+                                    var spanP = document.getElementById("closeP");
+                                    <%
+                                        if(request.getAttribute("uspesno")!=null)
+                                        {
+                                    %>
+                                    $(document).ready(function(){
+                                        modalP.style.display = "block";
+                                    })
+                                    <%
+                                        }
+                                    %>
+                                        spanP.onclick = function() {
+                                  modalP.style.display = "none";
+                                }
+                                </script>
 
 				<!-- Main -->
 					<div id="main">

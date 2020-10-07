@@ -246,7 +246,7 @@
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Korisnička slika</label>
                                                         <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="<%= korisnik.getImgPath() %>" height="250" width="250" alt="" style="border-radius: 50%;"/>
+                                                        <img id="pic" src="<%= korisnik.getImgPath() %>" height="250" width="250" alt="" style="border-radius: 50%;-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                                     </div>
                                                     <div>
                                                          <h3 style="color:#f56a6a;" id="poruka">
@@ -277,9 +277,9 @@
                                                         <select name="uloga" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Uloga</option>
-                                                                <option value="Admin">Admin</option>
-                                                                <option value="Klijent">Klijent</option>
-                                                                <option value="Urednik">Urednik</option>
+                                                                <option value="Admin" <% if(korisnik.getUloga().equals("Admin")){ %> selected<% } %>>Admin</option>
+                                                                <option value="Klijent"  <% if(korisnik.getUloga().equals("Klijent")){ %> selected<% } %>>Klijent</option>
+                                                                <option value="Urednik"  <% if(korisnik.getUloga().equals("Urednik")){ %> selected<% } %>>Urednik</option>
                                                             </optgroup>
                                                         </select><br>
                                                         

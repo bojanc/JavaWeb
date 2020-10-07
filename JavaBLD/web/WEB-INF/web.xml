@@ -76,6 +76,14 @@
         <servlet-name>ServletAdminPrikazDelovaKonfig</servlet-name>
         <servlet-class>servleti.ServletAdminPrikazDelovaKonfig</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletIzmenaProfila</servlet-name>
+        <servlet-class>servleti.ServletIzmenaProfila</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminPrikazKonfiguracija</servlet-name>
+        <servlet-class>servleti.ServletAdminPrikazKonfiguracija</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -151,6 +159,14 @@
     <servlet-mapping>
         <servlet-name>ServletAdminPrikazDelovaKonfig</servlet-name>
         <url-pattern>/ServletAdminPrikazDelovaKonfig</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletIzmenaProfila</servlet-name>
+        <url-pattern>/ServletIzmenaProfila</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminPrikazKonfiguracija</servlet-name>
+        <url-pattern>/ServletAdminPrikazKonfiguracija</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
