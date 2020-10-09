@@ -75,6 +75,11 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
             throws ServletException, IOException {
         
         ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
+        String poruka = "";
+        if(request.getParameter("poruka")!=null)
+        {
+            poruka = (String)request.getParameter("poruka");
+        }
         
         try
         {
@@ -125,6 +130,10 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
             for(Konfiguracije row:rows)
             {
                 konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getImgPath()));
+            }
+            if(!poruka.equals(""))
+            {
+                request.setAttribute("obrisano", "da");
             }
             
             request.setAttribute("konfig", konfig);

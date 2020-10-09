@@ -6,6 +6,7 @@
 package servleti;
 
 import entity.Gpu;
+import entity.Konfiguracije;
 import entity.Korisnici;
 import entity.Kuciste;
 import entity.Kuleri;
@@ -45,6 +46,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.transform.Transformers;
 
@@ -52,7 +54,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
+public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -88,6 +90,10 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
         ArrayList<Procesori> cpu = new ArrayList<Procesori>();
         ArrayList<Psu> psu = new ArrayList<Psu>();
         ArrayList<Ram> ram = new ArrayList<Ram>();
+        Konfiguracije konfig = new Konfiguracije();
+        
+        int id = 0;
+        id = Integer.parseInt(request.getParameter("id"));
         
         String polja="";
         String slika = "";
@@ -178,6 +184,36 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getImgPath()));
                 }
                 
+                List<Konfiguracije> rowsK = s.createSQLQuery(
+            "select {k.*}, {g.*}, {kuc.*},{kul.*}, {mat.*}, {mem.*}, {pro.*}, {ps.*}, {ram.*}, {kor.*} from Konfiguracije k,Gpu g, Kuciste kuc,Kuleri kul, Maticna mat, Memorija mem, Procesori pro, Psu ps, Ram ram, Korisnici kor where k.gpuID = g.gpuID and k.kucisteID = kuc.kucisteID and k.kulerID = kul.kulerID  and k.maticnaID = mat.maticnaID and k.memorijaID = mem.memorijaID and k.procesorID = pro.procesorID and k.psuID = ps.psuID and k.ramID = ram.ramID and k.korisnikID = kor.korisnikID and k.konfiguracijaID='"+id+"'")
+              .addEntity("k", Konfiguracije.class)
+              .addJoin("g", "k.gpu")
+              .addEntity("g", Gpu.class)
+              .addJoin("kuc", "k.kuciste")
+              .addEntity("kuc", Kuciste.class)
+                   .addJoin("kul", "k.kuleri")
+              .addEntity("kul", Kuleri.class)
+                   .addJoin("mat", "k.maticna")
+              .addEntity("mat", Maticna.class)
+                   .addJoin("mem", "k.memorija")
+              .addEntity("mem", Memorija.class)
+                   .addJoin("pro", "k.procesori")
+              .addEntity("pro", Procesori.class)
+                   .addJoin("ps", "k.psu")
+              .addEntity("ps", Psu.class)
+                   .addJoin("ram", "k.ram")
+              .addEntity("ram", Ram.class)
+                   .addJoin("kor", "k.korisnici")
+              .addEntity("kor", Korisnici.class)
+              .addEntity("k", Konfiguracije.class)
+              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+              .list();
+           
+            for(Konfiguracije row:rowsK)
+            {
+                konfig = new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getImgPath());
+            }
+                
                 request.setAttribute("gpu", gpu);
                 request.setAttribute("kuciste", kuciste);
                 request.setAttribute("kuler", kuler);
@@ -186,6 +222,8 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 request.setAttribute("cpu", cpu);
                 request.setAttribute("psu", psu);
                 request.setAttribute("ram", ram);
+                request.setAttribute("konfig", konfig);
+                
                 if(polja.equals("da"))
                 {
                     request.setAttribute("praznaPolja", "Morate izabrati sve delove!");
@@ -202,7 +240,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 }
                 
                 s.close();
-                request.getRequestDispatcher("AdminPravljeneKonfiguracije.jsp").forward(request, response);
+                request.getRequestDispatcher("AdminIzmenaKonfiguracije.jsp").forward(request, response);
         }
         catch(HibernateException ex)
         {
@@ -210,8 +248,6 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
             request.setAttribute("errormsg", errormsg);
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-        
-        
     }
 
     /**
@@ -308,7 +344,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
         {
             if(podaci.get(a)==null || (podaci.get(a).equals("")))
             {
-                response.sendRedirect("ServletAdminPrikazDelovaKonfig?polja=da");
+                response.sendRedirect("ServletAdminIzmenaKonfiguracije?polja=da&id="+podaci.get(10));
                 return;
             }
         }
@@ -320,8 +356,13 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     
                     if(imgpa.length()==21)
                     {
-                        response.sendRedirect("ServletAdminPrikazDelovaKonfig?slika=da");
+                        /*
+                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?slika=da&id="+podaci.get(10));
+                        */
+                        imgpa = podaci.get(11);
+                        /*
                         return;
+                        */
                     }
                     else
                     {
@@ -338,7 +379,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     s.close();
                     if(!socket1.equals(socket2))
                     {
-                        response.sendRedirect("ServletAdminPrikazDelovaKonfig?socket=da");
+                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?socket=da&id="+podaci.get(10));
                         return;
                     }
                 }
@@ -358,14 +399,16 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     if(imgpa.length()==21)
                     {
                         request.setAttribute("praznaSlika", "Morate izabrati sliku!");
-                        response.sendRedirect("ServletAdminPrikazDelovaKonfig?slika=da");
+                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?slika=da&id="+podaci.get(10));
                         return;
                     }
                     else
-                    {
+                    {/*
                         SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,imgPath,korisnikID)"
                             + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(7)+"','"+podaci.get(8)+"','"+imgpa+"','"+podaci.get(9)+"')");
-                        q.executeUpdate();
+                        */
+                        SQLQuery q1=s.createSQLQuery("update konfiguracije set gpuID = '"+podaci.get(0)+"', kucisteID='"+podaci.get(1)+"', kulerID='"+podaci.get(2)+"', maticnaID='"+podaci.get(3)+"', memorijaID='"+podaci.get(4)+"', procesorID='"+podaci.get(5)+"', psuID='"+podaci.get(6)+"', ramID='"+podaci.get(7)+"', opis='"+podaci.get(8)+"', imgPath='"+imgpa+"', korisnikID='"+podaci.get(9)+"' where konfiguracijaID = '"+podaci.get(10)+"'");
+                        q1.executeUpdate();
                         tr.commit();
                     }
                     
@@ -379,53 +422,6 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-        
-        
-        
-        
-        
-        /*
-        String[] gpuID = request.getParameterValues("gpuID");
-        String[] caseID = request.getParameterValues("caseID");
-        String[] coolerID = request.getParameterValues("coolerID");
-        String[] moboID = request.getParameterValues("moboID");
-        String[] memID = request.getParameterValues("memID");
-        String[] cpuID = request.getParameterValues("cpuID");
-        String[] psuID = request.getParameterValues("psuID");
-        String[] ramID = request.getParameterValues("ramID");
-        
-        List<String> gpu = Arrays.asList(gpuID);
-        List<String> cases = Arrays.asList(caseID);
-        List<String> cooler = Arrays.asList(coolerID);
-        List<String> mobo = Arrays.asList(moboID);
-        List<String> mem = Arrays.asList(memID);
-        List<String> cpu = Arrays.asList(cpuID);
-        List<String> psu = Arrays.asList(psuID);
-        List<String> ram = Arrays.asList(ramID);
-        
-         try
-        {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-            
-            
-            SQLQuery q=s.createSQLQuery("insert into konfiguracije (gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID) VALUES("
-            +"'"+ gpu.get(0) +"', '"+ cases.get(0) +"', '"+cooler.get(0)+"', '"+mobo.get(0)+"', '"+mem.get(0)+"', '"+cpu.get(0)+"', '"+psu.get(0)+"', '"+ram.get(0)+"')");
-            q.executeUpdate();
-            tr.commit();
-
-            s.close();
-            response.sendRedirect("ServletAdminPrikazDelovaKonfig");
-            return;
-        }
-        catch(HibernateException ex)
-        {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-        */
     }
 
     /**

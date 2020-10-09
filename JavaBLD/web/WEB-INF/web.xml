@@ -84,6 +84,14 @@
         <servlet-name>ServletAdminPrikazKonfiguracija</servlet-name>
         <servlet-class>servleti.ServletAdminPrikazKonfiguracija</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAdminObrisiKonfiguraciju</servlet-name>
+        <servlet-class>servleti.ServletAdminObrisiKonfiguraciju</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminIzmenaKonfiguracije</servlet-name>
+        <servlet-class>servleti.ServletAdminIzmenaKonfiguracije</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -167,6 +175,14 @@
     <servlet-mapping>
         <servlet-name>ServletAdminPrikazKonfiguracija</servlet-name>
         <url-pattern>/ServletAdminPrikazKonfiguracija</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminObrisiKonfiguraciju</servlet-name>
+        <url-pattern>/ServletAdminObrisiKonfiguraciju</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminIzmenaKonfiguracije</servlet-name>
+        <url-pattern>/ServletAdminIzmenaKonfiguracije</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -191,12 +191,86 @@
                                 </style>
 
                                 
+                                <div id="myModalI" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeI">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <script>
+                                    var modalI = document.getElementById("myModalI");
+                                    var spanI = document.getElementById("closeI");
+                                    <%
+                                        if(request.getAttribute("uspesno")!=null)
+                                        {
+                                    %>
+                                    $(document).ready(function(){
+                                        modalI.style.display = "block";
+                                    })
+                                    <%
+                                        }
+                                    %>
+                                        spanI.onclick = function() {
+                                  modalI.style.display = "none";
+                                }
+                                </script>
+                                <%
+                                    ArrayList<Konfiguracije> konfig = (ArrayList<Konfiguracije>)request.getAttribute("konfig");
+                                %>
+                                
+                                
+                                
+                                <style>
+                                    .modal {
+                                        display: none; 
+                                        position: fixed; 
+                                        z-index: 1; 
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; 
+                                        height: 100%; 
+                                        overflow: auto; 
+                                        background-color: rgb(0,0,0); 
+                                        background-color: rgba(0,0,0,0.4); 
+                                      }
+
+                                      
+                                      .modal-content {
+                                        background-color: #fefefe;
+                                        margin: 15% auto; 
+                                        padding: 30px;
+                                        border: 2px solid #2ebaae;
+                                        width: 17.5%; 
+                                        text-align: center;
+                                      }
+
+                                      
+                                      .close {
+                                        text-align: center;
+                                        color: #aaa;
+                                        font-size: 32px;
+                                        font-weight: bold;
+                                        float:right;
+                                      }
+
+                                      .close:hover,
+                                      .close:focus {
+                                        color: black;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                      }
+                                </style>
+                                
                                 <div id="myModalP" class="modal">
 
                                   <!-- Modal content -->
                                   <div class="modal-content">
                                     <span class="close" id="closeP">&times;</span>
-                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
+                                    <p style="margin-bottom:5px;"><b>Konfiguracija uspešno obrisana!</b></p>
                                   </div>
 
                                 </div>
@@ -205,51 +279,64 @@
                                     var modalP = document.getElementById("myModalP");
                                     var spanP = document.getElementById("closeP");
                                     <%
-                                        if(request.getAttribute("uspesno")!=null)
-                                        {
-                                    %>
+                                    if(request.getAttribute("obrisano")!=null)
+                                    {
+                                %>
                                     $(document).ready(function(){
                                         modalP.style.display = "block";
                                     })
                                     <%
-                                        }
+                                    }
                                     %>
                                         spanP.onclick = function() {
                                   modalP.style.display = "none";
                                 }
+                                
+                                window.onclick = function(event) {
+                                  if (event.target == modalP) {
+                                    modalP.style.display = "none";
+                                  }
+                                }
                                 </script>
-                                <%
-                                    ArrayList<Konfiguracije> konfig = (ArrayList<Konfiguracije>)request.getAttribute("konfig");
-                                %>
 
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Post -->
                                                 <%
+                                                    if(!konfig.isEmpty())
+                                                    {
                                                     for(Konfiguracije pom:konfig)
                                                     {
                                                 %>
-							<article class="post">
+							<article class="post" style="width: 30%;float:left;margin: 10px;">
+                                                            <header style="background-color:#12131E;padding: 0; height: 70px;">
+									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
+                                                                            <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
+									</div>
+								</header>
                                                             <table>
                                                                 <tr style="background-color:transparent;border:none;">
-                                                                    <td style="vertical-align:top;">
-                                                                        <img src="<%= pom.getImgPath() %>" alt="" width="300" height="500"/>
-                                                                    </td>
                                                                     <td>
-                                                                        <p>Grafička kartica: <%= pom.getGpu().getNaziv() %></p>
-                                                                        <p>Kućište: <%= pom.getKuciste().getNaziv() %></p>
-                                                                        <p>Kuler: <%= pom.getKuleri().getNaziv() %></p>
-                                                                        <p>Matična ploča: <%= pom.getMaticna().getNaziv() %></p>
-                                                                        <p>Procesor: <%= pom.getProcesori().getNaziv() %></p>
-                                                                        <p>Napajanje: <%= pom.getPsu().getNaziv() %></p>
-                                                                        <p>RAM: <%= pom.getRam().getNaziv() %></p>
-                                                                        <p>Memorija: <%= pom.getMemorija().getNaziv() %></p>
+                                                                        <img src="<%= pom.getImgPath() %>" alt="" width="150" height="150"/>
+                                                                        <p style="margin-bottom: 5px;">Grafička kartica: <%= pom.getGpu().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">Kućište: <%= pom.getKuciste().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">Kuler: <%= pom.getKuleri().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">Matična ploča: <%= pom.getMaticna().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">Procesor: <%= pom.getProcesori().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">Napajanje: <%= pom.getPsu().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">RAM: <%= pom.getRam().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;">Memorija: <%= pom.getMemorija().getNaziv() %></p>
                                                                     </td>
                                                                 </tr>
                                                             </table>
 								
 								<footer>
+                                                                        <ul class="actions">
+										<li><a href="ServletAdminDetaljiKonfiguracije?id=<%= pom.getKonfiguracijaId() %>" class="button small">Detalji</a></li>
+                                                                                <li><a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>" class="button small">Izmeni</a></li>
+                                                                                <li><a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" class="button small">Obriši</a></li>
+                                                                        </ul>
 									<ul class="stats" style="font-size:150% !important;">
 										<li><a href="#" class="icon solid fa-comment">128</a></li>
 									</ul>
@@ -257,7 +344,18 @@
 							</article>
                                                         <%
                                                             }
+                                                        }
+                                                        else
+                                                        {
                                                         %>
+                                                        <article class="post" style="max-width: 50%; margin: auto;">
+                                                            <h2 style="color: black;text-align: center;">
+                                                                Trenutno nema konfiguracija!
+                                                            </h2>
+							</article>
+                                                            <%
+                                                                }
+                                                            %>
 						<!-- Post -->
 						<!--
 							<article class="post">

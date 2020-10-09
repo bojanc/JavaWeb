@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Korisnici"%>
 <%@page import="entity.Gpu"%>
+<%@page import="entity.Konfiguracije"%>
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -149,6 +150,7 @@
                                                                     ArrayList<Procesori> cpu = (ArrayList<Procesori>)request.getAttribute("cpu");
                                                                     ArrayList<Psu> psu = (ArrayList<Psu>)request.getAttribute("psu");
                                                                     ArrayList<Ram> ram = (ArrayList<Ram>)request.getAttribute("ram");
+                                                                    Konfiguracije konfig = (Konfiguracije)request.getAttribute("konfig");
                                                                 %>
                                                                 
                                                                 <style>
@@ -234,12 +236,14 @@
                                                                             for(int gb=1;gb<=gpu.size();gb++){
                                                                         %>
                                                                     if (document.getElementById('gpuID<%= gb %>').checked) {
+                                                                        console.log("zdravo");
                                                                         $('#gpuIMG<%= gb %>')
                                                                             .attr('src', document.getElementById('gpuID<%= gb %>').getAttribute("data-original-title"))
                                                                             .attr('style', "display:block;")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('gpuID<%= gb %>').checked==false){
+                                                                        console.log("cao");
                                                                         $('#gpuIMG<%= gb %>')
                                                                             .attr('style', "display:none;")
                                                                     }
@@ -558,7 +562,7 @@
                                 </script>
                                 
 					<div id="main">
-                                            <form method="post" action="ServletAdminPrikazDelovaKonfig" enctype="multipart/form-data">
+                                            <form method="post" action="ServletAdminIzmenaKonfiguracije" enctype="multipart/form-data">
                                               <div class="w3-bar w3-black">
                                                 <button type="button" onclick="otvoriDeo('gpu')">Grafička kartica</button>
                                                 <button type="button" onclick="otvoriDeo('kuciste')">Kućište</button>
@@ -568,7 +572,7 @@
                                                 <button type="button" onclick="otvoriDeo('procesori')">Procesor</button>
                                                 <button type="button" onclick="otvoriDeo('psu')">Napajanje</button>
                                                 <button type="button" onclick="otvoriDeo('ram')">RAM</button>
-                                                <input type='submit' value='Dodaj konfiguraciju' style='margin-left:100px;'>
+                                                <input type='submit' value='Izmeni konfiguraciju' style='margin-left:100px;'>
                                               </div>
                                             
                                                 
@@ -596,11 +600,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" onchange="validateGPU(this)" name="gpuID" id="gpuID<%= g %>" class="gpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getGpuId() %>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" onchange="validateGPU(this)" name="gpuID" id="gpuID<%= g %>" class="gpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getGpuId() %>" <% if(pom.getGpuId()==konfig.getGpu().getGpuId()){ %> checked <%}%> ><span style='padding:0 !important; border: none;' id="spanGPU">Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                    <%
+                                                                        for(int gb=1;gb<=gpu.size();gb++){
+                                                                    %>
+                                                                    if (document.getElementById('gpuID<%= gb %>').checked) {
+                                                                        $('#gpuIMG<%= gb %>')
+                                                                            .attr('src', document.getElementById('gpuID<%= gb %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('gpuID<%= gb %>').checked==false){
+                                                                        $('#gpuIMG<%= gb %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -632,11 +656,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                   <input type="checkbox" name="caseID" id="caseID<%= ku %>" onchange="validateCase(this)" class="casecb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getKucisteId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                   <input type="checkbox" name="caseID" id="caseID<%= ku %>" onchange="validateCase(this)" class="casecb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getKucisteId()%>" <% if(pom.getKucisteId()==konfig.getKuciste().getKucisteId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                    <%
+                                                                            for(int kub=1;kub<=kuciste.size();kub++){
+                                                                        %>
+                                                                    if (document.getElementById('caseID<%= kub %>').checked) {
+                                                                        $('#caseIMG<%= kub %>')
+                                                                            .attr('src', document.getElementById('caseID<%= kub %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(250)
+                                                                            .height(250);
+                                                                    } else if(document.getElementById('caseID<%= kub %>').checked==false){
+                                                                        $('#caseIMG<%= kub %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -669,11 +713,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                   <input type="checkbox" name="coolerID" id="coolerID<%= k %>" onchange="validateCooler(this)" class="coolercb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getKulerId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                   <input type="checkbox" name="coolerID" id="coolerID<%= k %>" onchange="validateCooler(this)" class="coolercb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getKulerId()%>" <% if(pom.getKulerId()==konfig.getKuleri().getKulerId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                     <%
+                                                                            for(int kb=1;kb<=kuler.size();kb++){
+                                                                        %>
+                                                                    if (document.getElementById('coolerID<%= kb %>').checked) {
+                                                                        $('#coolerIMG<%= kb %>')
+                                                                            .attr('src', document.getElementById('coolerID<%= kb %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('coolerID<%= kb %>').checked==false){
+                                                                        $('#coolerIMG<%= kb %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -704,11 +768,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                   <input type="checkbox" name="moboID" id="moboID<%= mb %>" onchange="validateMobo(this)" class="mobocb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMaticnaId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                   <input type="checkbox" name="moboID" id="moboID<%= mb %>" onchange="validateMobo(this)" class="mobocb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMaticnaId()%>" <% if(pom.getMaticnaId()==konfig.getMaticna().getMaticnaId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                    <%
+                                                                            for(int meb=1;meb<=maticna.size();meb++){
+                                                                        %>
+                                                                    if (document.getElementById('moboID<%= meb %>').checked) {
+                                                                        $('#moboIMG<%= meb %>')
+                                                                            .attr('src', document.getElementById('moboID<%= meb %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('moboID<%= meb %>').checked==false){
+                                                                        $('#moboIMG<%= meb %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -739,11 +823,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                   <input type="checkbox" name="memID" id="memID<%= m %>" onchange="validateMem(this)" class="memcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMemorijaId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                   <input type="checkbox" name="memID" id="memID<%= m %>" onchange="validateMem(this)" class="memcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMemorijaId()%>" <% if(pom.getMemorijaId()==konfig.getMemorija().getMemorijaId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                     <%
+                                                                            for(int mb=1;mb<=memorija.size();mb++){
+                                                                        %>
+                                                                    if (document.getElementById('memID<%= mb %>').checked) {
+                                                                        $('#memIMG<%= mb %>')
+                                                                            .attr('src', document.getElementById('memID<%= mb %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('memID<%= mb %>').checked==false){
+                                                                        $('#memIMG<%= mb %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -774,11 +878,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" name="cpuID" id="cpuID<%= c %>" onchange="validateCPU(this)" class="cpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getProcesorId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" name="cpuID" id="cpuID<%= c %>" onchange="validateCPU(this)" class="cpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getProcesorId()%>" <% if(pom.getProcesorId()==konfig.getProcesori().getProcesorId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                    <%
+                                                                            for(int cb=1;cb<=cpu.size();cb++){
+                                                                        %>
+                                                                    if (document.getElementById('cpuID<%= cb %>').checked) {
+                                                                        $('#cpuIMG<%= cb %>')
+                                                                            .attr('src', document.getElementById('cpuID<%= cb %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('cpuID<%= cb %>').checked==false){
+                                                                         $('#cpuIMG<%= cb %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -809,11 +933,31 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" name="psuID" id="psuID<%= p %>" onchange="validatePSU(this)" class="psucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getPsuId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" name="psuID" id="psuID<%= p %>" onchange="validatePSU(this)" class="psucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getPsuId()%>" <% if(pom.getPsuId()==konfig.getPsu().getPsuId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                    <%
+                                                                            for(int pb=1;pb<=psu.size();pb++){
+                                                                        %>
+                                                                    if (document.getElementById('psuID<%= pb %>').checked) {
+                                                                        $('#psuIMG<%= pb %>')
+                                                                            .attr('src', document.getElementById('psuID<%= pb %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('psuID<%= pb %>').checked==false){
+                                                                        $('#psuIMG<%= pb %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -843,11 +987,32 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" name="ramID" id="ramID<%= r %>" onchange="validateRAM(this)" class="ramcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getRamId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" name="ramID" id="ramID<%= r %>" onchange="validateRAM(this)" class="ramcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getRamId()%>" <% if(pom.getRamId()==konfig.getRam().getRamId()){ %> checked <%}%>><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
                                                     </tr>
+                                                    <script>
+                                                        $( document ).ready(function() {
+                                                                    <%
+                                                                            for(int a=1;a<=ram.size();a++){
+                                                                        %>
+                                                                    if (document.getElementById('ramID<%= a %>').checked) {
+                                                                        $('#ramIMG<%= a %>')
+                                                                            .attr('src', document.getElementById('ramID<%= a %>').getAttribute("data-original-title"))
+                                                                            .attr('style', "display:block !important;")
+                                                                            .width(150)
+                                                                            .height(150);
+                                                                    } else if(document.getElementById('ramID<%= a %>').checked==false){
+                                                                        $('#ramIMG<%= a %>')
+                                                                            .attr('style', "display:none;")
+                                                                    }
+                                                                    
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                        });
+                                                    </script>
                                                     <%
                                                         }
                                                         }
@@ -855,7 +1020,7 @@
                                                 </table>
                                               </div>
                                             <!--</form>-->
-                                                <div style="float:right; width: 800px;padding-bottom: 250px;">
+                                                <div style="float:right; width: 800px;padding-bottom: 100px;">
                                                     
                                                     <table>
                                                         <tr style="background-color:transparent;border:none;"> 
@@ -942,6 +1107,11 @@
                                                         </tr>
                                                     </table>
                                                 </div>
+                                            <div style='clear: both;display:block;float:left;width:50%;padding-bottom: 50px;'>
+                                                <h2>Opis konfiguracije</h2>
+                                                <textarea name="text" cols="2" rows="5" maxlength="200" style="resize: none;width: 80%;"><%= konfig.getOpis() %></textarea>
+                                            </div>
+                                            
                                             <script>
                                                 function readURL(input) {
                                                     if (input.files && input.files[0]) {
@@ -958,19 +1128,15 @@
                                                     }
                                                 }
                                             </script>
-                                                            
-                                                            
-                                            <div style='clear: both;display:block;float:left;width:50%;padding-bottom: 50px;'>
-                                                <h2>Opis konfiguracije</h2>
-                                                <textarea name="text" cols="2" rows="5" maxlength="200" style="resize: none;width: 80%;"></textarea>
-                                            </div>
 
                                             <div style='float:right;width:50%;padding-bottom: 50px;'>
                                                 <h2>Slika konfiguracije</h2>
                                                 <input type="file" name="fajl" onChange="readURL(this)"><br><br>
-                                                <img id="pic" src="#" alt="" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
+                                                <img id="pic" src="<%= konfig.getImgPath() %>" width="250" height="250" alt="" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                             </div>
-                                                       <input type="hidden" id="korID" name="korID" value="<%= korisnik.getKorisnikId() %>">     
+                                                       <input type="hidden" id="korID" name="korID" value="<%= korisnik.getKorisnikId() %>">
+                                                       <input type="hidden" id="konfigID" name="konfigID" value="<%= konfig.getKonfiguracijaId()%>">
+                                                       <input type="hidden" id="slikaID" name="slikaID" value="<%= konfig.getImgPath()%>">
                                             </form>
 
 					</div>

@@ -103,7 +103,7 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
+										<a href="ServletAdminPrikazKonfiguracija">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
 										</a>
 									</li>
