@@ -772,21 +772,26 @@
                                                         <img id="pic1" src="#" alt=""/>
                                                     </div>
                                                     <div>
-                                                         <h3 style="color:#f56a6a;" id="poruka">
+                                                         
                                                             
                                                             <%
                                                                String poruka1 = (String)request.getAttribute("praznaPoljaGpu");
                                                                if(poruka1!=null)
-                                                               {%><%= poruka1%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= poruka1%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String poruka = (String)request.getAttribute("praznaSlikaGpu");
                                                                if(poruka!=null)
-                                                               {%><%= poruka%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= poruka%>
+                                                        </h3><%}
                                                                
                                                             %>
-                                                          </h3>
                                                           <input type="text" name="naziv" id="gpuname" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return gpucheck()">
                                                         <span class="help-block" id="errorgpucheck" style="color:#f56a6a;"></span><br>
                                                         
@@ -818,21 +823,24 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukakuc = (String)request.getAttribute("praznaPoljaKuciste");
                                                                if(porukakuc!=null)
-                                                               {%><%= porukakuc%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukakuc%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukaslik = (String)request.getAttribute("praznaSlikaKuciste");
                                                                if(porukaslik!=null)
-                                                               {%><%= porukaslik%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukaslik%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         
                                                           <input type="text" name="naziv" id="kucistenaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return kucistecheck()">
                                                         <span class="help-block" id="errorcasenaziv" style="color:#f56a6a;"></span><br>
@@ -852,21 +860,24 @@
                                                         <img id="pic3" src="#" alt=""/>
                                                     </div>
                                                     <div>
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukakul = (String)request.getAttribute("praznaPoljaKuler");
                                                                if(porukakul!=null)
-                                                               {%><%= porukakul%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukakul%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukaslikakul = (String)request.getAttribute("praznaSlikaKuler");
                                                                if(porukaslikakul!=null)
-                                                               {%><%= porukaslikakul%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukaslikakul%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         
                                                           <input type="text" name="naziv" id="colname" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return coolercheck()">
                                                         <span class="help-block" id="errorcoolername" style="color:#f56a6a;"></span><br>
@@ -892,21 +903,24 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukamat = (String)request.getAttribute("praznaPoljaMaticna");
                                                                if(porukamat!=null)
-                                                               {%><%= porukamat%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukamat%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukamat1 = (String)request.getAttribute("praznaSlikaMaticna");
                                                                if(porukamat1!=null)
-                                                               {%><%= porukamat1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukamat1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                           
                                                           <input type="text" name="naziv" id="moboname" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return mobocheck()">
                                                         <span class="help-block" id="errormobo" style="color:#f56a6a;"></span><br>
@@ -964,21 +978,24 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukamem = (String)request.getAttribute("praznaPoljaMemorija");
                                                                if(porukamem!=null)
-                                                               {%><%= porukamem%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukamem%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukamem1 = (String)request.getAttribute("praznaSlikaMemorija");
                                                                if(porukamem1!=null)
-                                                               {%><%= porukamem1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukamem1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                           <input type="text" name="naziv" id="memnaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return memcheck()">
                                                         <span class="help-block" id="errormem" style="color:#f56a6a;"></span><br>
                                                         <select name="kapacitet" style="width: 40%;">
@@ -1045,21 +1062,24 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukacpu = (String)request.getAttribute("praznaPoljaCpu");
                                                                if(porukacpu!=null)
-                                                               {%><%= porukacpu%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukacpu%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukacpu1 = (String)request.getAttribute("praznaSlikaCpu");
                                                                if(porukacpu1!=null)
-                                                               {%><%= porukacpu1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukacpu1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         <input type="text" name="naziv" id="cpunaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return cpucheck()">
                                                         <span class="help-block" id="errorcpunaziv" style="color:#f56a6a;"></span><br>
                                                          <select name="brojjez" style="width: 40%;">
@@ -1110,21 +1130,24 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukapsu = (String)request.getAttribute("praznaPoljaPsu");
                                                                if(porukapsu!=null)
-                                                               {%><%= porukapsu%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukapsu%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukapsu1 = (String)request.getAttribute("praznaSlikaPsu");
                                                                if(porukapsu1!=null)
-                                                               {%><%= porukapsu1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukapsu1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         
                                                           <input type="text" name="naziv" id="psunaziv" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return psucheck()">
                                                         <span class="help-block" id="errorpsu" style="color:#f56a6a;"></span><br>
@@ -1165,21 +1188,24 @@
                                                         <img id="pic8" src="#" alt=""/>
                                                     </div>
                                                     <div>
-                                                        <h3 style="color:#f56a6a;" id="poruka">
                                                             
                                                             <%
                                                                String porukaram = (String)request.getAttribute("praznaPoljaRam");
                                                                if(porukaram!=null)
-                                                               {%><%= porukaram%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukaram%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukaram1 = (String)request.getAttribute("praznaSlikaRam");
                                                                if(porukaram1!=null)
-                                                               {%><%= porukaram1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukaram1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                       
                                                         <input type="text" name="naziv" id="ramm" placeholder="Naziv" style="width: 40%; margin:0 !important;" onchange="return ramcheck()">
                                                         <span class="help-block" id="errorramm" style="color:#f56a6a;"></span><br>

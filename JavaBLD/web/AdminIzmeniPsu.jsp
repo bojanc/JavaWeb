@@ -208,21 +208,25 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
+                                                        
                                                             
                                                             <%
                                                                String porukapsu = (String)request.getAttribute("praznaPolja");
                                                                if(porukapsu!=null)
-                                                               {%><%= porukapsu%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukapsu%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukapsu1 = (String)request.getAttribute("praznaSlika");
                                                                if(porukapsu1!=null)
-                                                               {%><%= porukapsu1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukapsu1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         
                                                             <input type="text" name="naziv" id="psunaziv" placeholder="Naziv" value="<%= psu.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
                                                             <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>

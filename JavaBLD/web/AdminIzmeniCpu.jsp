@@ -276,21 +276,25 @@
                                                     </div>
                                                     <div>
                                                         
-                                                        <h3 style="color:#f56a6a;" id="poruka">
+                                                        
                                                             
                                                             <%
                                                                String porukamem = (String)request.getAttribute("praznaPolja");
                                                                if(porukamem!=null)
-                                                               {%><%= porukamem%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukamem%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukamem1 = (String)request.getAttribute("praznaSlika");
                                                                if(porukamem1!=null)
-                                                               {%><%= porukamem1%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukamem1%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                             <input type="text" name="naziv" placeholder="Naziv" id="cpunaziv" value="<%= cpu.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
                                                             <span class="help-block" id="errorcpunaziv" style="color:#f56a6a;"></span><br>
                                                          <select name="brojjez" style="width: 40%;">

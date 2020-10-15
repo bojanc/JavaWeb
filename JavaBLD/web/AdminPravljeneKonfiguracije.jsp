@@ -236,7 +236,7 @@
                                                                     if (document.getElementById('gpuID<%= gb %>').checked) {
                                                                         $('#gpuIMG<%= gb %>')
                                                                             .attr('src', document.getElementById('gpuID<%= gb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow: 2px 2px 11px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('gpuID<%= gb %>').checked==false){
@@ -260,7 +260,7 @@
                                                                     if (document.getElementById('caseID<%= kub %>').checked) {
                                                                         $('#caseIMG<%= kub %>')
                                                                             .attr('src', document.getElementById('caseID<%= kub %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(250)
                                                                             .height(250);
                                                                     } else if(document.getElementById('caseID<%= kub %>').checked==false){
@@ -284,7 +284,7 @@
                                                                     if (document.getElementById('coolerID<%= kb %>').checked) {
                                                                         $('#coolerIMG<%= kb %>')
                                                                             .attr('src', document.getElementById('coolerID<%= kb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('coolerID<%= kb %>').checked==false){
@@ -308,7 +308,7 @@
                                                                     if (document.getElementById('moboID<%= meb %>').checked) {
                                                                         $('#moboIMG<%= meb %>')
                                                                             .attr('src', document.getElementById('moboID<%= meb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('moboID<%= meb %>').checked==false){
@@ -333,7 +333,7 @@
                                                                     if (document.getElementById('memID<%= mb %>').checked) {
                                                                         $('#memIMG<%= mb %>')
                                                                             .attr('src', document.getElementById('memID<%= mb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('memID<%= mb %>').checked==false){
@@ -359,7 +359,7 @@
                                                                     if (document.getElementById('cpuID<%= cb %>').checked) {
                                                                         $('#cpuIMG<%= cb %>')
                                                                             .attr('src', document.getElementById('cpuID<%= cb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('cpuID<%= cb %>').checked==false){
@@ -383,7 +383,7 @@
                                                                     if (document.getElementById('psuID<%= pb %>').checked) {
                                                                         $('#psuIMG<%= pb %>')
                                                                             .attr('src', document.getElementById('psuID<%= pb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;")
+                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('psuID<%= pb %>').checked==false){
@@ -408,7 +408,7 @@
                                                                     if (document.getElementById('ramID<%= a %>').checked) {
                                                                         $('#ramIMG<%= a %>')
                                                                             .attr('src', document.getElementById('ramID<%= a %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block !important;")
+                                                                            .attr('style', "display:block !important;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('ramID<%= a %>').checked==false){

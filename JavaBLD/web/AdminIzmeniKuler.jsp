@@ -230,21 +230,25 @@
                                                         <img id="pic" src="<%= kuler.getImgPath() %>" alt=""/>
                                                     </div>
                                                     <div>
-                                                        <h3 style="color:#f56a6a;" id="poruka">
+                                                        
                                                             
                                                             <%
                                                                String porukakul = (String)request.getAttribute("praznaPolja");
                                                                if(porukakul!=null)
-                                                               {%><%= porukakul%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukakul%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String porukaslikakul = (String)request.getAttribute("praznaSlika");
                                                                if(porukaslikakul!=null)
-                                                               {%><%= porukaslikakul%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= porukaslikakul%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         
                                                         <input type="text" name="naziv" placeholder="Naziv" id="colname" value="<%= kuler.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>

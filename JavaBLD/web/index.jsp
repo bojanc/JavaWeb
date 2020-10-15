@@ -108,6 +108,11 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
 										<a href="#">
                                                                                     <p style="font-size:0.8em;">Korisničke konfiguracije</p>
 										</a>

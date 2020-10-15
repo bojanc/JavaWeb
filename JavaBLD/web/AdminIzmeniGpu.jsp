@@ -230,21 +230,25 @@
                                                         <img id="pic" src="<%= gpu.getImgPath() %>" alt=""/>
                                                     </div>
                                                     <div>
-                                                         <h3 style="color:#f56a6a;" id="poruka">
+                                                         
                                                             
                                                             <%
                                                                String poruka1 = (String)request.getAttribute("praznaPolja");
                                                                if(poruka1!=null)
-                                                               {%><%= poruka1%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= poruka1%>
+                                                        </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String poruka = (String)request.getAttribute("praznaSlika");
                                                                if(poruka!=null)
-                                                               {%><%= poruka%><%}
-                                                               
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= poruka%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                           <input type="text" name="naziv" placeholder="Naziv" id="gpuname" value="<%= gpu.getNaziv() %>" style="width: 40%; margin:0 !important;" onchange="return user()">
                                                           <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         

@@ -155,20 +155,26 @@
                                                 <form method="post" action="ServletPrijava" class="post" style="width:30%;height: 100%; text-align: center; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);">
                                                     
                                                     <div>
-                                                         <h3 style="color:#f56a6a;" id="poruka">
+                                                         
                                                             
                                                             <%
                                                                String poruka1 = (String)request.getAttribute("nepostoji");
                                                                if(poruka1!=null)
-                                                               {%><%= poruka1%><%}
+                                                               {%>
+                                                            <h3 style="color:#f56a6a;" id="poruka">
+                                                        <%= poruka1%>
+                                                            </h3>
+                                                            <%}
                                                             %>
                                                             
                                                             <%
                                                                String poruka2 = (String)request.getAttribute("polja");
                                                                if(poruka2!=null)
-                                                               {%><%= poruka2%><%}
+                                                               {%>
+                                                        <h3 style="color:#f56a6a;" id="poruka">    
+                                                        <%= poruka2%>
+                                                        </h3><%}
                                                             %>
-                                                          </h3>
                                                         
                                                         <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 60%; margin: auto;" onchange="return user()">
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>

@@ -74,6 +74,12 @@ public class ServletAdminIzmenaKorisnika extends HttpServlet {
         
         int id = 0;
         id = Integer.parseInt(request.getParameter("id"));
+        String zauzet = "";
+        if(request.getParameter("zauzetUser")!=null)
+        {
+            zauzet = (String)request.getParameter("zauzetUser");
+        }
+        
         
         Korisnici korisnik = new Korisnici();
         
@@ -91,6 +97,10 @@ public class ServletAdminIzmenaKorisnika extends HttpServlet {
                 korisnik = new Korisnici(row.getKorisnikId(),row.getImgPath(),row.getIme(),row.getPrezime(),row.getUsername(), row.getPassword(), row.getUloga());
             }
             
+            if(!zauzet.equals(""))
+            {
+                request.setAttribute("zauzetUser", "Korisničko ime je zauzeto!");
+            }
             request.setAttribute("korisnik", korisnik);
             s.close();
             request.getRequestDispatcher("AdminIzmenaKorisnika.jsp").forward(request, response);
@@ -221,6 +231,15 @@ public class ServletAdminIzmenaKorisnika extends HttpServlet {
                     SessionFactory sf = new Configuration().configure().buildSessionFactory();
                     Session s = sf.openSession();
                     Transaction tr = s.beginTransaction();
+                    
+                    SQLQuery q1=s.createSQLQuery("select * from korisnici where username = '"+podaci.get(2)+"' and korisnikID <>'"+podaci.get(5)+"'").addEntity("korisnici",Korisnici.class);
+
+                    List<Korisnici> rows = q1.list();
+                    if(rows.size()>0)
+                    {
+                        response.sendRedirect("ServletAdminIzmenaKorisnika?zauzetUser=da&id="+podaci.get(5));
+                        return;
+                    }
                     
                     if(imgpa.length()==21)
                     {

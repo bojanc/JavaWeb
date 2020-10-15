@@ -112,7 +112,7 @@ public class ServletPrijava extends HttpServlet {
 
                     List<Korisnici> rows = q1.list();
                     
-                    if(rows!=null)
+                    if(rows.size()!=0)
                     {
                         for(Korisnici kor:rows)
                         {

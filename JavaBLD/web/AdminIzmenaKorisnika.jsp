@@ -249,19 +249,33 @@
                                                         <img id="pic" src="<%= korisnik.getImgPath() %>" height="250" width="250" alt="" style="border-radius: 50%;-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                                     </div>
                                                     <div>
-                                                         <h3 style="color:#f56a6a;" id="poruka">
+                                                         
                                                             <%
                                                                String poruka = (String)request.getAttribute("zauzetoIme");
                                                                if(poruka!=null)
-                                                               {%><%= poruka%><%}
+                                                               {%>
+                                                               <h3 style="color:#f56a6a;" id="poruka">
+                                                            <%= poruka%>
+                                                               </h3><%}
                                                             %>
                                                             
                                                             <%
                                                                String poruka1 = (String)request.getAttribute("praznaPolja");
                                                                if(poruka1!=null)
-                                                               {%><%= poruka1%><%}
+                                                               {%>
+                                                               <h3 style="color:#f56a6a;" id="poruka">
+                                                            <%= poruka1%>
+                                                               </h3><%}
                                                             %>
-                                                          </h3>
+                                                            
+                                                            <%
+                                                               String poruka2 = (String)request.getAttribute("zauzetUser");
+                                                               if(poruka2!=null)
+                                                               {%>
+                                                               <h3 style="color:#f56a6a;" id="poruka">
+                                                            <%= poruka2%>
+                                                               </h3><%}
+                                                            %>
                                                         <input type="text" name="ime" placeholder="Ime" id="imekor" style="width: 40%; margin:0 !important;" value="<%= korisnik.getIme() %>" onchange="return imekorcheck()">
                                                         <span class="help-block" id="errorimekor" style="color:#f56a6a;"></span><br>
                                                         
