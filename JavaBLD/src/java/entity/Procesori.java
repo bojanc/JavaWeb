@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
+// Generated Oct 16, 2020 5:10:00 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -35,7 +35,7 @@ public class Procesori  implements java.io.Serializable {
         this.naziv = naziv;
         this.socket = socket;
         this.imgPath = imgPath;
-        this.procesorId = procesorId;
+        this.procesorId =procesorId;
     }
     public Procesori(int brojJezgara, String frekvencija, String boost, int tdp, String igpu, String naziv, String socket, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.brojJezgara = brojJezgara;

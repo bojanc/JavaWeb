@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
+// Generated Oct 16, 2020 5:10:00 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,7 +18,9 @@ public class Korisnici  implements java.io.Serializable {
      private String username;
      private String password;
      private String uloga;
+     private Set<Komentari> komentaris = new HashSet<Komentari>(0);
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
+     private Set<Podkomentari> podkomentaris = new HashSet<Podkomentari>(0);
 
     public Korisnici() {
     }
@@ -33,14 +35,16 @@ public class Korisnici  implements java.io.Serializable {
         this.uloga = uloga;
         this.korisnikId = korisnikId;
     }
-    public Korisnici(String imgPath, String ime, String prezime, String username, String password, String uloga, Set<Konfiguracije> konfiguracijes) {
+    public Korisnici(String imgPath, String ime, String prezime, String username, String password, String uloga, Set<Komentari> komentaris, Set<Konfiguracije> konfiguracijes, Set<Podkomentari> podkomentaris) {
        this.imgPath = imgPath;
        this.ime = ime;
        this.prezime = prezime;
        this.username = username;
        this.password = password;
        this.uloga = uloga;
+       this.komentaris = komentaris;
        this.konfiguracijes = konfiguracijes;
+       this.podkomentaris = podkomentaris;
     }
    
     public Integer getKorisnikId() {
@@ -92,12 +96,26 @@ public class Korisnici  implements java.io.Serializable {
     public void setUloga(String uloga) {
         this.uloga = uloga;
     }
+    public Set<Komentari> getKomentaris() {
+        return this.komentaris;
+    }
+    
+    public void setKomentaris(Set<Komentari> komentaris) {
+        this.komentaris = komentaris;
+    }
     public Set<Konfiguracije> getKonfiguracijes() {
         return this.konfiguracijes;
     }
     
     public void setKonfiguracijes(Set<Konfiguracije> konfiguracijes) {
         this.konfiguracijes = konfiguracijes;
+    }
+    public Set<Podkomentari> getPodkomentaris() {
+        return this.podkomentaris;
+    }
+    
+    public void setPodkomentaris(Set<Podkomentari> podkomentaris) {
+        this.podkomentaris = podkomentaris;
     }
 
 

@@ -1,3 +1,6 @@
+<%@page import="entity.Podkomentari"%>
+<%@page import="entity.Komentari"%>
+<%@page import="entity.Konfiguracije"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE HTML>
 <!--
@@ -7,7 +10,6 @@
 -->
 <%@page import="javax.servlet.http.*" %>
 <%@page import="entity.Korisnici" %>
-<%@page import="entity.Konfiguracije" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 	<head>
@@ -105,8 +107,13 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
+										<a href="ServletAdminPrikazKonfiguracija">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -120,6 +127,11 @@
                                                                         %>
 								</ul>
 							</section>
+                                                                <%
+                                                                    Konfiguracije konfig = (Konfiguracije)request.getAttribute("konfig");
+                                                                    ArrayList<Komentari> komentar = (ArrayList<Komentari>)request.getAttribute("komentar");
+                                                                    ArrayList<Podkomentari> podkom = (ArrayList<Podkomentari>)request.getAttribute("podkom");
+                                                                %>
 
 						<!-- Actions -->
 							<section>
@@ -191,86 +203,12 @@
                                 </style>
 
                                 
-                                <div id="myModalI" class="modal">
-
-                                  <!-- Modal content -->
-                                  <div class="modal-content">
-                                    <span class="close" id="closeI">&times;</span>
-                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
-                                  </div>
-
-                                </div>
-                                
-                                <script>
-                                    var modalI = document.getElementById("myModalI");
-                                    var spanI = document.getElementById("closeI");
-                                    <%
-                                        if(request.getAttribute("uspesno")!=null)
-                                        {
-                                    %>
-                                    $(document).ready(function(){
-                                        modalI.style.display = "block";
-                                    })
-                                    <%
-                                        }
-                                    %>
-                                        spanI.onclick = function() {
-                                  modalI.style.display = "none";
-                                }
-                                </script>
-                                <%
-                                    ArrayList<Konfiguracije> konfig = (ArrayList<Konfiguracije>)request.getAttribute("konfig");
-                                %>
-                                
-                                
-                                
-                                <style>
-                                    .modal {
-                                        display: none; 
-                                        position: fixed; 
-                                        z-index: 1; 
-                                        left: 0;
-                                        top: 0;
-                                        width: 100%; 
-                                        height: 100%; 
-                                        overflow: auto; 
-                                        background-color: rgb(0,0,0); 
-                                        background-color: rgba(0,0,0,0.4); 
-                                      }
-
-                                      
-                                      .modal-content {
-                                        background-color: #fefefe;
-                                        margin: 15% auto; 
-                                        padding: 30px;
-                                        border: 2px solid #2ebaae;
-                                        width: 17.5%; 
-                                        text-align: center;
-                                      }
-
-                                      
-                                      .close {
-                                        text-align: center;
-                                        color: #aaa;
-                                        font-size: 32px;
-                                        font-weight: bold;
-                                        float:right;
-                                      }
-
-                                      .close:hover,
-                                      .close:focus {
-                                        color: black;
-                                        text-decoration: none;
-                                        cursor: pointer;
-                                      }
-                                </style>
-                                
                                 <div id="myModalP" class="modal">
 
                                   <!-- Modal content -->
                                   <div class="modal-content">
                                     <span class="close" id="closeP">&times;</span>
-                                    <p style="margin-bottom:5px;"><b>Konfiguracija uspešno obrisana!</b></p>
+                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
                                   </div>
 
                                 </div>
@@ -279,156 +217,72 @@
                                     var modalP = document.getElementById("myModalP");
                                     var spanP = document.getElementById("closeP");
                                     <%
-                                    if(request.getAttribute("obrisano")!=null)
-                                    {
-                                %>
+                                        if(request.getAttribute("uspesno")!=null)
+                                        {
+                                    %>
                                     $(document).ready(function(){
                                         modalP.style.display = "block";
                                     })
                                     <%
-                                    }
+                                        }
                                     %>
                                         spanP.onclick = function() {
                                   modalP.style.display = "none";
                                 }
-                                
-                                window.onclick = function(event) {
-                                  if (event.target == modalP) {
-                                    modalP.style.display = "none";
-                                  }
-                                }
                                 </script>
-                                
-                                <style>
-                                    .dropbtn {
-                                        color: white;
-                                        font-size: 0.7em;
-                                        border: none;
-                                        cursor: pointer;
-                                        border: none;
-                                        outline: none;
-                                        padding-top:4px;
-                                        background: none;
-                                        height: 100%;
-                                        box-shadow: none;
-                                      }
-
-                                      .dropbtn:hover, .dropbtn:focus {
-                                        color: white;
-                                        outline: none;
-                                        box-shadow: none;
-                                      }
-
-                                      .dropdown {
-                                        position: relative;
-                                        display: inline-block;
-                                      }
-
-                                      .dropdown-content {
-                                        display: none;
-                                        position: absolute;
-                                        background-color: #f1f1f1;
-                                        min-width: 125px;
-                                        overflow: auto;
-                                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                                        z-index: 1;
-                                      }
-
-                                      .dropdown-content a {
-                                        color: black;
-                                        padding: 12px 16px;
-                                        text-decoration: none;
-                                        display: block;
-                                      }
-
-                                      .dropdown a:hover {background-color: #ddd;}
-
-                                      .show {display: block;}
-                                </style>
-                                
-                                
 
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Post -->
-                                                <%
-                                                    if(!konfig.isEmpty())
-                                                    {
-                                                    for(Konfiguracije pom:konfig)
-                                                    {
-                                                %>
-							<article class="post" style="width: 30%;float:left;margin: 10px;">
-                                                            <header style="background-color:#12131E;padding: 0; height: 70px;">
-									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                            <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
+							<article class="post">
+								<header>
+									<div class="title">
+										<h2>
+                                                                                    <%= konfig.getKorisnici().getIme() %> <%= konfig.getKorisnici().getPrezime()%> 
+                                                                                    <img src="<%= konfig.getKorisnici().getImgPath() %>" height="60" width="60" style="border-radius: 50%;vertical-align: middle;"/>
+                                                                                </h2>
+										<p><%= konfig.getOpis() %></p>
 									</div>
-                                                                        <div class="dropdown">
-                                                                            <button onclick="myFunction()"  class="dropbtn">Opcije</button>
-                                                                            <div id="myDropdown" class="dropdown-content">
-                                                                              <a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>">Izmeni</a>
-                                                                              <a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>">Obriši</a>
-                                                                            </div>
-                                                                          </div>
+									<div class="meta">
+										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 100%;"/>
+									</div>
 								</header>
-                                                                        
-                                                                        <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-                                                            <table>
-                                                                <tr style="background-color:transparent;border:none;">
-                                                                    <td>
-                                                                        <img src="<%= pom.getImgPath() %>" alt="" width="150" height="150"/>
-                                                                        <p style="margin-bottom: 5px;">Grafička kartica: <%= pom.getGpu().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Kućište: <%= pom.getKuciste().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Kuler: <%= pom.getKuleri().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Matična ploča: <%= pom.getMaticna().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Procesor: <%= pom.getProcesori().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Napajanje: <%= pom.getPsu().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">RAM: <%= pom.getRam().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Memorija: <%= pom.getMemorija().getNaziv() %></p>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                                        <h3>Komentari</h3><br>
+                                                                        <table>
+                                                                            <% for(Komentari pom:komentar){ %>
+                                                                            <tr style="background-color:transparent;border-top: none;">
+                                                                                <td style="padding-bottom:0;">
+                                                                                <img src="<%= pom.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
+                                                                                <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4>
+                                                                                <p style="width: 20%;margin:0;display: inline-block;"><%= pom.getVreme() %></p><br><br>
+                                                                                <p style="margin-left:50px;"><%= pom.getTekst() %></p>
+                                                                                </td>
+                                                                            </tr>
+                                                                                <% for(Podkomentari pomp:podkom) {
+                                                                                    if(pom.getKomentarId() == pomp.getKomentari().getKomentarId())
+                                                                                    {
+                                                                                %>
+                                                                            <tr style="background-color:transparent;border-top: none;">
+                                                                                <td style="padding-left: 100px;">
+                                                                                <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
+                                                                                <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%></h4>
+                                                                                <p style="width: 20%;margin:0;display: inline-block;"><%= pomp.getVreme() %></p><br><br>
+                                                                                    <%= pomp.getTekst() %>
+                                                                                <%
+                                                                                    }
+                                                                                }
+                                                                                %>
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                            <%
+                                                                            }
+                                                                            %>
+                                                                        </table>
 								
-								<footer>
-									<ul class="stats" style="font-size:180% !important;">
-                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
 							</article>
-                                                        <%
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                        %>
-                                                        <article class="post" style="max-width: 50%; margin: auto;">
-                                                            <h2 style="color: black;text-align: center;">
-                                                                Trenutno nema konfiguracija!
-                                                            </h2>
-							</article>
-                                                            <%
-                                                                }
-                                                            %>
+
 						<!-- Post -->
 						<!--
 							<article class="post">
@@ -742,8 +596,9 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 							</article>
 						-->
 
+						<!-- Pagination -->
+
 					</div>
-					
 
 			</div>
 

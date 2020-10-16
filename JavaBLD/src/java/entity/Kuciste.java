@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
+// Generated Oct 16, 2020 5:10:00 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -32,7 +32,6 @@ public class Kuciste  implements java.io.Serializable {
        this.dimenzije = dimenzije;
        this.imgPath = imgPath;
        this.konfiguracijes = konfiguracijes;
-       this.kucisteId = kucisteId;
     }
    
     public Integer getKucisteId() {

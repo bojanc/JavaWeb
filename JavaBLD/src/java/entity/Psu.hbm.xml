@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 16, 2020 5:10:00 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Psu" table="psu" catalog="bld" optimistic-lock="version">
         <id name="psuId" type="java.lang.Integer">
@@ -15,7 +15,7 @@
             <column name="efikasnost" length="50" not-null="true" />
         </property>
         <property name="jacina" type="int">
-            <column name="jacina" length="50" not-null="true" />
+            <column name="jacina" not-null="true" />
         </property>
         <property name="modularnost" type="string">
             <column name="modularnost" length="50" not-null="true" />

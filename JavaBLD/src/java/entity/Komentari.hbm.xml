@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 16, 2020 5:10:00 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Komentari" table="komentari" catalog="bld" optimistic-lock="version">
+        <id name="komentarId" type="java.lang.Integer">
+            <column name="komentarID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="konfiguracije" class="entity.Konfiguracije" fetch="select">
+            <column name="komentari_konfiguracijaID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="korisnici" class="entity.Korisnici" fetch="select">
+            <column name="komentari_korisnikID" not-null="true" />
+        </many-to-one>
+        <property name="vreme" type="string">
+            <column name="vreme" length="10" not-null="true" />
+        </property>
+        <property name="tekst" type="string">
+            <column name="tekst" length="65535" not-null="true" />
+        </property>
+        <set name="podkomentaris" table="podkomentari" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="komentarID" not-null="true" />
+            </key>
+            <one-to-many class="entity.Podkomentari" />
+        </set>
+    </class>
+</hibernate-mapping>

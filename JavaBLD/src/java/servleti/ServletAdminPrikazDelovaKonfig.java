@@ -381,7 +381,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     else
                     {
                         SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,imgPath,korisnikID)"
-                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(7)+"','"+podaci.get(8)+"','"+imgpa+"','"+podaci.get(9)+"')");
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(8)+"','"+podaci.get(10)+"','"+imgpa+"','"+podaci.get(11)+"')");
                         q.executeUpdate();
                         tr.commit();
                     }
