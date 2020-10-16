@@ -496,13 +496,25 @@
 
                                 </div>
                                 
+                                <div id="myModalLP" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeLP">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Potrošnja konfiguracije je veća od jačine napajanja!</b></p>
+                                  </div>
+
+                                </div>
+                                
                                 <script>
                                     var modalP = document.getElementById("myModalP");
                                     var modalS = document.getElementById("myModalS");
                                     var modalSC = document.getElementById("myModalSC");
+                                    var modalLP = document.getElementById("myModalLP");
                                 var spanS = document.getElementById("closeS");
                                 var spanP = document.getElementById("closeP");
                                 var spanSC = document.getElementById("closeSC");
+                                var spanLP = document.getElementById("closeLP");
                                 <%
                                     if(request.getAttribute("praznaPolja")!=null)
                                     {
@@ -535,6 +547,17 @@
                                     <%
                                     }
                                     %>
+                                        
+                                        <%
+                                    if(request.getAttribute("lowpsu")!=null)
+                                    {
+                                %>
+                                    $(document).ready(function(){
+                                        modalLP.style.display = "block";
+                                    })
+                                    <%
+                                    }
+                                    %>
 
                                 spanS.onclick = function() {
                                   modalS.style.display = "none";
@@ -547,12 +570,17 @@
                                 spanSC.onclick = function() {
                                   modalSC.style.display = "none";
                                 }
+                                
+                                spanLP.onclick = function() {
+                                  modalLP.style.display = "none";
+                                }
 
                                 window.onclick = function(event) {
-                                  if (event.target == modalS || event.target == modalP || event.target== modalSC) {
+                                  if (event.target == modalS || event.target == modalP || event.target== modalSC || event.target== modalLP) {
                                     modalS.style.display = "none";
                                     modalP.style.display = "none";
                                     modalSC.style.display = "none";
+                                    modalLP.style.display = "none";
                                   }
                                 }
                                 </script>
@@ -569,6 +597,7 @@
                                                 <button type="button" onclick="otvoriDeo('psu')">Napajanje</button>
                                                 <button type="button" onclick="otvoriDeo('ram')">RAM</button>
                                                 <input type='submit' value='Dodaj konfiguraciju' style='margin-left:100px;'>
+                                                
                                               </div>
                                             
                                                 
@@ -596,7 +625,7 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" onchange="validateGPU(this)" name="gpuID" id="gpuID<%= g %>" class="gpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getGpuId() %>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" onchange="validateGPU(this);gpufunc(this)" name="gpuID" id="gpuID<%= g %>" class="gpucb" data-original-title="<%= pom.getImgPath() %>" data-original-tdp="<%= pom.getTdp() %>" value="<%= pom.getGpuId() %>"><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
@@ -739,7 +768,7 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                   <input type="checkbox" name="memID" id="memID<%= m %>" onchange="validateMem(this)" class="memcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getMemorijaId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                   <input type="checkbox" name="memID" id="memID<%= m %>" onchange="validateMem(this);memfunc(this);" class="memcb" data-original-title="<%= pom.getImgPath() %>" data-original-tdp="<%= pom.getTdp()%>" value="<%= pom.getMemorijaId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
@@ -774,7 +803,7 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" name="cpuID" id="cpuID<%= c %>" onchange="validateCPU(this)" class="cpucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getProcesorId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" name="cpuID" id="cpuID<%= c %>" onchange="validateCPU(this);cpufunc(this);" class="cpucb" data-original-title="<%= pom.getImgPath() %>" data-original-tdp="<%= pom.getTdp()%>" value="<%= pom.getProcesorId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
@@ -810,6 +839,7 @@
                                                             <div id="ck-button">
                                                                 <label>
                                                                     <input type="checkbox" name="psuID" id="psuID<%= p %>" onchange="validatePSU(this)" class="psucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getPsuId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="hidden" name="psuTDP" value="<%= pom.getJacina() %>">
                                                                 </label>
                                                              </div>
                                                         </td>
@@ -843,7 +873,7 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" name="ramID" id="ramID<%= r %>" onchange="validateRAM(this)" class="ramcb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getRamId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" name="ramID" id="ramID<%= r %>" onchange="validateRAM(this);ramfunc(this);" class="ramcb" data-original-title="<%= pom.getImgPath() %>" data-original-tdp="<%= pom.getTdp()%>" value="<%= pom.getRamId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                 </label>
                                                              </div>
                                                         </td>
@@ -958,12 +988,184 @@
                                                     }
                                                 }
                                             </script>
+                                            
                                                             
                                                             
                                             <div style='clear: both;display:block;float:left;width:50%;padding-bottom: 50px;'>
+                                                <h2>Potrošnja konfiguracije</h2>
+                                                <input type="text" name="tdp" id="tdp" value="" readonly style='width:8%;'/>
+                                                <input type="text" id="subdomaintwo" value="W" disabled/><br><br>
                                                 <h2>Opis konfiguracije</h2>
                                                 <textarea name="text" cols="2" rows="5" maxlength="200" style="resize: none;width: 80%;"></textarea>
                                             </div>
+                                            
+                                            <style>
+                                                input[type="text"]#subdomaintwo{
+                                                -webkit-appearance:none!important;
+                                                color:black;
+                                                text-align:right;
+                                                width:65px;
+                                                border:1px solid gray;
+                                                border-left:0px;
+                                                margin:0 0 0 -7px;
+                                                background:#eeeeee;
+                                                display:inline-block;
+                                                padding-left: 0;
+                                            }
+                                            input[type="text"]#tdp{
+                                                -webkit-appearance:none!important;
+                                                border:1px solid gray;
+                                                border-right:0px;
+                                                outline:none;
+                                                margin-right: 0 !important;
+                                                display:inline-block;
+                                                padding-right: 0;
+                                            }
+                                            </style>
+                                            
+                                            <script>
+                                                var vrednosti = [0,0,0,0];
+                                                /*
+                                                    $('#gpuID').click(function(){
+                                                    var cbs = document.getElementsByClassName("gpucb");
+                                                                    for (var i = 0; i < cbs.length; i++) {
+                                                                        if(cbs[i].checked == true){
+                                                                            console.log("da");
+                                                                            var tdp = parseInt(document.getElementById("tdp").value) || 0;
+                                                                            var gpuTDP = parseInt(document.getElementById('gpuID').getAttribute("data-original-tdp"));
+                                                                            $('#tdp').val(tdp+gpuTDP);
+                                                                        }
+                                                                    }
+                                                    */
+                                                       function gpufunc(obj) {
+                                                        var vrednostiGPU = new Array();
+                                                        vrednostiGPU = [];
+                                                        <%
+                                                            for(int gb=1;gb<=gpu.size();gb++){
+                                                        %>
+                                                        
+                                                        var checkBox<%= gb %> = document.getElementById("gpuID<%= gb %>");
+                                                        var gpuTDP<%= gb %> = parseInt(document.getElementById('gpuID<%= gb %>').getAttribute("data-original-tdp"));
+                                                        
+                                                        
+                                                        if (checkBox<%= gb %>.checked == true)
+                                                        {
+                                                            console.log(gpuTDP<%= gb %>);
+                                                            vrednostiGPU.push(gpuTDP<%= gb %>);
+                                                            console.log(vrednostiGPU);
+                                                            
+                                                            var vrednost = vrednostiGPU[0];
+                                                            console.log(vrednost);
+                                                            vrednosti[0] = vrednost;
+                                                            console.log(vrednosti);
+                                                            $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            return;
+                                                        }
+                                                      
+                                                    <%
+                                                        }
+                                                    %>
+                                                            
+                                                        }
+                                                    
+                                                    
+                                                    
+                                                    
+                                                
+                                                    
+                                                function memfunc(obj) {
+                                                        var vrednostiMEM = new Array();
+                                                        vrednostiMEM = [];
+                                                        <%
+                                                            for(int mem=1;mem<=memorija.size();mem++){
+                                                        %>
+                                                        
+                                                        var checkBox<%= mem %> = document.getElementById("memID<%= mem %>");
+                                                        var memTDP<%= mem %> = parseInt(document.getElementById('memID<%= mem %>').getAttribute("data-original-tdp"));
+                                                        
+                                                        
+                                                        if (checkBox<%= mem %>.checked == true)
+                                                        {
+                                                            console.log(memTDP<%= mem %>);
+                                                            vrednostiMEM.push(memTDP<%= mem %>);
+                                                            console.log(vrednostiMEM);
+                                                            
+                                                            var vrednost = vrednostiMEM[0];
+                                                            console.log(vrednost);
+                                                            vrednosti[1] = vrednost;
+                                                            console.log(vrednosti);
+                                                            $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            return;
+                                                        }
+                                                      
+                                                    <%
+                                                        }
+                                                    %>
+                                                            
+                                                        }
+                                                        
+                                                        function cpufunc(obj) {
+                                                        var vrednostiCPU = new Array();
+                                                        vrednostiCPU = [];
+                                                        <%
+                                                            for(int cpub=1;cpub<=cpu.size();cpub++){
+                                                        %>
+                                                        
+                                                        var checkBox<%= cpub %> = document.getElementById("cpuID<%= cpub %>");
+                                                        var cpuTDP<%= cpub %> = parseInt(document.getElementById('cpuID<%= cpub %>').getAttribute("data-original-tdp"));
+                                                        
+                                                        
+                                                        if (checkBox<%= cpub %>.checked == true)
+                                                        {
+                                                            console.log(cpuTDP<%= cpub %>);
+                                                            vrednostiCPU.push(cpuTDP<%= cpub %>);
+                                                            console.log(vrednostiCPU);
+                                                            
+                                                            var vrednost = vrednostiCPU[0];
+                                                            console.log(vrednost);
+                                                            vrednosti[2] = vrednost;
+                                                            console.log(vrednosti);
+                                                            $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            return;
+                                                        }
+                                                      
+                                                    <%
+                                                        }
+                                                    %>
+                                                            
+                                                        }
+                                                        
+                                                        function ramfunc(obj) {
+                                                        var vrednostiRAM = new Array();
+                                                        vrednostiRAM = [];
+                                                        <%
+                                                            for(int ramb=1;ramb<=ram.size();ramb++){
+                                                        %>
+                                                        
+                                                        var checkBox<%= ramb %> = document.getElementById("ramID<%= ramb %>");
+                                                        var ramTDP<%= ramb %> = parseInt(document.getElementById('ramID<%= ramb %>').getAttribute("data-original-tdp"));
+                                                        
+                                                        
+                                                        if (checkBox<%= ramb %>.checked == true)
+                                                        {
+                                                            console.log(ramTDP<%= ramb %>);
+                                                            vrednostiRAM.push(ramTDP<%= ramb %>);
+                                                            console.log(vrednostiRAM);
+                                                            
+                                                            var vrednost = vrednostiRAM[0];
+                                                            console.log(vrednost);
+                                                            vrednosti[3] = vrednost;
+                                                            console.log(vrednosti);
+                                                            $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            return;
+                                                        }
+                                                      
+                                                    <%
+                                                        }
+                                                    %>
+                                                            
+                                                        }
+                                            </script>
 
                                             <div style='float:right;width:50%;padding-bottom: 50px;'>
                                                 <h2>Slika konfiguracije</h2>

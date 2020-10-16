@@ -251,6 +251,7 @@
                                                                     <th>Memorija</th>
                                                                     <th>Core clock</th>
                                                                     <th>Boost Clock</th>
+                                                                    <th>TDP</th>
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
@@ -264,6 +265,7 @@
                                                                         <td><%= pom.getMemorija()%></td>
                                                                         <td><%= pom.getCoreCl()%></td>
                                                                         <td><%= pom.getBoostCl()%></td>
+                                                                        <td><%= pom.getTdp()%> W</td>
                                                                         <td>
                                                                             <a href="ServletAdminIzmeniDeo?id=<%= pom.getGpuId()%>&deo=<%= deo %>&naziv=gpuID"" class="button">IZMENI</a>
                                                                             <a href="ServletAdminDeoObrisi?id=<%= pom.getGpuId() %>&deo=<%= deo %>&naziv=gpuID" class="button">OBRIŠI</a>
@@ -426,6 +428,7 @@
                                                                     <th>Cache</th>
                                                                     <th>Dimenzije</th>
                                                                     <th>Interfejs</th>
+                                                                    <th>TDP</th>
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
@@ -441,6 +444,7 @@
                                                                         <td><%= pom.getCache()%></td>
                                                                         <td><%= pom.getDimenzije()%></td>
                                                                         <td><%= pom.getInterfejs()%></td>
+                                                                        <td><%= pom.getTdp()%> W</td>
                                                                         <td>
                                                                             <a href="ServletAdminIzmeniDeo?id=<%= pom.getMemorijaId()%>&deo=<%= deo %>&naziv=memorijaID" class="button">IZMENI</a>
                                                                             <a href="ServletAdminDeoObrisi?id=<%= pom.getMemorijaId()%>&deo=<%= deo %>&naziv=memorijaID" class="button">OBRIŠI</a>
@@ -488,7 +492,7 @@
                                                                         <td><%= pom.getBrojJezgara()%></td>
                                                                         <td><%= pom.getFrekvencija()%></td>
                                                                         <td><%= pom.getBoost()%></td>
-                                                                        <td><%= pom.getTdp()%></td>
+                                                                        <td><%= pom.getTdp()%> W</td>
                                                                         <td><%= pom.getIgpu()%></td>
                                                                         <td>
                                                                             <a href="ServletAdminIzmeniDeo?id=<%= pom.getProcesorId()%>&deo=<%= deo %>&naziv=procesorID" class="button">IZMENI</a>
@@ -531,7 +535,7 @@
                                                                         <td><%= pom.getPsuId()%></td>
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getEfikasnost()%></td>
-                                                                        <td><%= pom.getJacina()%></td>
+                                                                        <td><%= pom.getJacina()%> W</td>
                                                                         <td><%= pom.getModularnost()%></td>
                                                                         <td>
                                                                             <a href="ServletAdminIzmeniDeo?id=<%= pom.getPsuId()%>&deo=<%= deo %>&naziv=psuID" class="button">IZMENI</a>
@@ -562,6 +566,7 @@
                                                                     <th>Naziv</th>
                                                                     <th>Brzina</th>
                                                                     <th>CAS latency</th>
+                                                                    <th>TDP</th>
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
@@ -574,6 +579,7 @@
                                                                         <td><%= pom.getNaziv()%></td>
                                                                         <td><%= pom.getBrzina()%> MHz</td>
                                                                         <td><%= pom.getCasLat()%></td>
+                                                                        <td><%= pom.getTdp()%> W</td>
                                                                         <td>
                                                                             <a href="ServletAdminIzmeniDeo?id=<%= pom.getRamId()%>&deo=<%= deo %>&naziv=ramID" class="button">IZMENI</a>
                                                                             <a href="ServletAdminDeoObrisi?id=<%= pom.getRamId()%>&deo=<%= deo %>&naziv=ramID" class="button">OBRIŠI</a>

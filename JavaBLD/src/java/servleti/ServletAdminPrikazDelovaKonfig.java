@@ -92,6 +92,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
         String polja="";
         String slika = "";
         String socket = "";
+        String lowpsu = "";
         
         if(request.getParameter("polja")!=null)
         {
@@ -108,6 +109,11 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
             socket = request.getParameter("socket");
         }
         
+        if(request.getParameter("lowpsu")!=null)
+        {
+            lowpsu = request.getParameter("lowpsu");
+        }
+        
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -119,7 +125,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 
                 for(Gpu row:rows)
                 {
-                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getImgPath()));
+                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
                 }
                 
                 SQLQuery q1=s.createSQLQuery("select * from kuciste").addEntity(Kuciste.class);
@@ -151,7 +157,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 
                 for(Memorija row:rows4)
                 {
-                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getImgPath()));
+                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath()));
                 }
                 
                 SQLQuery q5=s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
@@ -175,7 +181,7 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 
                 for(Ram row:rows7)
                 {
-                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getImgPath()));
+                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("gpu", gpu);
@@ -199,6 +205,11 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                 if(socket.equals("da"))
                 {
                     request.setAttribute("socket", "Socketi za procesor i matičnu ploču se ne poklapaju!");
+                }
+                
+                if(lowpsu.equals("da"))
+                {
+                    request.setAttribute("lowpsu", "Potrošnja konfiguracije je veća od jačine napajanja!");
                 }
                 
                 s.close();
@@ -347,6 +358,12 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                     String errormsg = ex.getMessage();
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                
+                if(Integer.parseInt((podaci.get(9)))>= Integer.parseInt((podaci.get(7))))
+                {
+                    response.sendRedirect("ServletAdminPrikazDelovaKonfig?lowpsu=da");
+                    return;
                 }
         
                 try

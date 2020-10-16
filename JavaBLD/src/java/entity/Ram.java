@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class Ram  implements java.io.Serializable {
      private String naziv;
      private String brzina;
      private int casLat;
+     private int tdp;
      private String imgPath;
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
 
@@ -22,17 +23,19 @@ public class Ram  implements java.io.Serializable {
     }
 
 	
-    public Ram(Integer ramId,String naziv, String brzina, int casLat, String imgPath) {
+    public Ram(Integer ramId,String naziv, String brzina, int casLat, int tdp, String imgPath) {
         this.naziv = naziv;
         this.brzina = brzina;
         this.casLat = casLat;
+        this.tdp = tdp;
         this.imgPath = imgPath;
         this.ramId = ramId;
     }
-    public Ram(String naziv, String brzina, int casLat, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Ram(String naziv, String brzina, int casLat, int tdp, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;
        this.brzina = brzina;
        this.casLat = casLat;
+       this.tdp = tdp;
        this.imgPath = imgPath;
        this.konfiguracijes = konfiguracijes;
     }
@@ -64,6 +67,13 @@ public class Ram  implements java.io.Serializable {
     
     public void setCasLat(int casLat) {
         this.casLat = casLat;
+    }
+    public int getTdp() {
+        return this.tdp;
+    }
+    
+    public void setTdp(int tdp) {
+        this.tdp = tdp;
     }
     public String getImgPath() {
         return this.imgPath;

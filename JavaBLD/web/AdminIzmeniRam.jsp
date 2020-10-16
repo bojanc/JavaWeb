@@ -222,7 +222,7 @@
                                                         </select><br>
                                                         
                                                         <input type="number" name="caslat" placeholder="CAS latency" value="<%= ram.getCasLat() %>" max="24" min="9" step="1" style="width: 40%;"><br><br>
-                                                        
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= ram.getTdp() %>" style="width: 40%;"><br><br>
                                                     </div>
                                                     
                                                     <input type="submit" id="submit" value="Izmeni">

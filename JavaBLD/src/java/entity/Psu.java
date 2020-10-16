@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,7 +14,7 @@ public class Psu  implements java.io.Serializable {
      private Integer psuId;
      private String naziv;
      private String efikasnost;
-     private String jacina;
+     private int jacina;
      private String modularnost;
      private String imgPath;
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
@@ -23,7 +23,7 @@ public class Psu  implements java.io.Serializable {
     }
 
 	
-    public Psu(Integer psuId,String naziv, String efikasnost, String jacina, String modularnost, String imgPath) {
+    public Psu(Integer psuId,String naziv, String efikasnost, int jacina, String modularnost, String imgPath) {
         this.naziv = naziv;
         this.efikasnost = efikasnost;
         this.jacina = jacina;
@@ -31,7 +31,7 @@ public class Psu  implements java.io.Serializable {
         this.imgPath = imgPath;
         this.psuId = psuId;
     }
-    public Psu(String naziv, String efikasnost, String jacina, String modularnost, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Psu(String naziv, String efikasnost, int jacina, String modularnost, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;
        this.efikasnost = efikasnost;
        this.jacina = jacina;
@@ -61,11 +61,11 @@ public class Psu  implements java.io.Serializable {
     public void setEfikasnost(String efikasnost) {
         this.efikasnost = efikasnost;
     }
-    public String getJacina() {
+    public int getJacina() {
         return this.jacina;
     }
     
-    public void setJacina(String jacina) {
+    public void setJacina(int jacina) {
         this.jacina = jacina;
     }
     public String getModularnost() {

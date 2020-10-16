@@ -189,8 +189,8 @@ public class ServletAdminDodajGpu extends HttpServlet {
                     }
                     else
                     {
-                        SQLQuery q=s.createSQLQuery("insert into gpu(naziv,memorija,coreCl,boostCl,imgPath)"
-                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(3)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+imgpa+"')");
+                        SQLQuery q=s.createSQLQuery("insert into gpu(naziv,memorija,coreCl,boostCl,TDP,imgPath)"
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(4)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"','"+podaci.get(3)+"', '"+imgpa+"')");
                         q.executeUpdate();
                         tr.commit();
                     }

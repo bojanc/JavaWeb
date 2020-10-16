@@ -258,6 +258,8 @@
                                                         <input type="text" name="boostclock" id="boostcl" value="<%= gpu.getBoostCl()%>" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= gpu.getTdp() %>" style="width: 40%;"><br><br>
+                                                        
                                                         <select name="memorija" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Memorija</option>

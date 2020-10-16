@@ -801,6 +801,8 @@
                                                         <input type="text" name="boostclock" id="checkboostcl" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;"><br><br>
+                                                        
                                                         <select name="memorija" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Memorija</option>
@@ -1047,6 +1049,8 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;"><br><br>
+                                                        
                                                         
                                                     </div>
                                                     
@@ -1110,8 +1114,7 @@
                                                         <input type="text" name="boost" id="bbost" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheckcpu()">
                                                         <span class="help-block" id="errorboostcpu" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="tdp" placeholder="TDP" id="tdpp" style="width: 40%;" onchange="return tdpcheck()">
-                                                        <span class="help-block" id="errortdp" style="color:#f56a6a;"></span><br>
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;"><br><br>
                                                         
                                                         <input type="text" name="igpu" placeholder="iGPU" id="igp" style="width: 40%;" onchange="return igpucheck()">
                                                         <span class="help-block" id="errorigpu" style="color:#f56a6a;"></span><br>
@@ -1162,8 +1165,7 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="jacina" id="wat" placeholder="Jačina" style="width: 40%;" onchange="return watcheck()">
-                                                        <span class="help-block" id="errorwat" style="color:#f56a6a;"></span><br>
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;"><br><br>
                                                         
                                                         <select name="modul" style="width: 40%;">
                                                             <optgroup>
@@ -1224,6 +1226,8 @@
                                                         </select><br>
                                                         
                                                         <input type="number" name="caslat" placeholder="CAS latency" max="24" min="9" step="1" style="width: 40%;"><br><br>
+                                                        
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;"><br><br>
                                                         
                                                         
                                                     </div>

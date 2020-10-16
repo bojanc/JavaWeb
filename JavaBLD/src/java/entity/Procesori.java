@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public class Procesori  implements java.io.Serializable {
      private int brojJezgara;
      private String frekvencija;
      private String boost;
-     private String tdp;
+     private int tdp;
      private String igpu;
      private String naziv;
      private String socket;
@@ -26,7 +26,7 @@ public class Procesori  implements java.io.Serializable {
     }
 
 	
-    public Procesori(Integer procesorId,int brojJezgara, String frekvencija, String boost, String tdp, String igpu, String naziv, String socket, String imgPath) {
+    public Procesori(Integer procesorId,int brojJezgara, String frekvencija, String boost, int tdp, String igpu, String naziv, String socket, String imgPath) {
         this.brojJezgara = brojJezgara;
         this.frekvencija = frekvencija;
         this.boost = boost;
@@ -37,7 +37,7 @@ public class Procesori  implements java.io.Serializable {
         this.imgPath = imgPath;
         this.procesorId = procesorId;
     }
-    public Procesori(int brojJezgara, String frekvencija, String boost, String tdp, String igpu, String naziv, String socket, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Procesori(int brojJezgara, String frekvencija, String boost, int tdp, String igpu, String naziv, String socket, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.brojJezgara = brojJezgara;
        this.frekvencija = frekvencija;
        this.boost = boost;
@@ -77,11 +77,11 @@ public class Procesori  implements java.io.Serializable {
     public void setBoost(String boost) {
         this.boost = boost;
     }
-    public String getTdp() {
+    public int getTdp() {
         return this.tdp;
     }
     
-    public void setTdp(String tdp) {
+    public void setTdp(int tdp) {
         this.tdp = tdp;
     }
     public String getIgpu() {

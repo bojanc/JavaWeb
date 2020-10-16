@@ -186,8 +186,8 @@ public class ServletAdminDodajMemoriju extends HttpServlet {
                     }
                     else
                     {
-                        SQLQuery q=s.createSQLQuery("insert into memorija(naziv,kapacitet,tip,cache,dimenzije,interfejs,imgPath)"
-                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"','"+podaci.get(2)+"','"+podaci.get(3)+"','"+podaci.get(4)+"','"+podaci.get(5)+"', '"+imgpa+"')");
+                        SQLQuery q=s.createSQLQuery("insert into memorija(naziv,kapacitet,tip,cache,dimenzije,interfejs,TDP,imgPath)"
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"','"+podaci.get(2)+"','"+podaci.get(3)+"','"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"', '"+imgpa+"')");
                         q.executeUpdate();
                         tr.commit();
                     }

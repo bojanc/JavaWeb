@@ -298,6 +298,55 @@
                                   }
                                 }
                                 </script>
+                                
+                                <style>
+                                    .dropbtn {
+                                        color: white;
+                                        font-size: 0.7em;
+                                        border: none;
+                                        cursor: pointer;
+                                        border: none;
+                                        outline: none;
+                                        padding-top:4px;
+                                        background: none;
+                                        height: 100%;
+                                        box-shadow: none;
+                                      }
+
+                                      .dropbtn:hover, .dropbtn:focus {
+                                        color: white;
+                                        outline: none;
+                                        box-shadow: none;
+                                      }
+
+                                      .dropdown {
+                                        position: relative;
+                                        display: inline-block;
+                                      }
+
+                                      .dropdown-content {
+                                        display: none;
+                                        position: absolute;
+                                        background-color: #f1f1f1;
+                                        min-width: 125px;
+                                        overflow: auto;
+                                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                                        z-index: 1;
+                                      }
+
+                                      .dropdown-content a {
+                                        color: black;
+                                        padding: 12px 16px;
+                                        text-decoration: none;
+                                        display: block;
+                                      }
+
+                                      .dropdown a:hover {background-color: #ddd;}
+
+                                      .show {display: block;}
+                                </style>
+                                
+                                
 
 				<!-- Main -->
 					<div id="main">
@@ -314,7 +363,36 @@
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
                                                                             <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
 									</div>
+                                                                        <div class="dropdown">
+                                                                            <button onclick="myFunction()"  class="dropbtn">Opcije</button>
+                                                                            <div id="myDropdown" class="dropdown-content">
+                                                                              <a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>">Izmeni</a>
+                                                                              <a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>">Obriši</a>
+                                                                            </div>
+                                                                          </div>
 								</header>
+                                                                        
+                                                                        <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
                                                             <table>
                                                                 <tr style="background-color:transparent;border:none;">
                                                                     <td>
@@ -332,12 +410,7 @@
                                                             </table>
 								
 								<footer>
-                                                                        <ul class="actions">
-										<li><a href="ServletAdminDetaljiKonfiguracije?id=<%= pom.getKonfiguracijaId() %>" class="button small">Detalji</a></li>
-                                                                                <li><a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>" class="button small">Izmeni</a></li>
-                                                                                <li><a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" class="button small">Obriši</a></li>
-                                                                        </ul>
-									<ul class="stats" style="font-size:150% !important;">
+									<ul class="stats" style="font-size:180% !important;">
 										<li><a href="#" class="icon solid fa-comment">128</a></li>
 									</ul>
 								</footer>

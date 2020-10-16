@@ -98,7 +98,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Gpu row:rows)
                 {
-                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getImgPath()));
+                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);
@@ -158,7 +158,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Memorija row:rows)
                 {
-                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getImgPath()));
+                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);
@@ -203,7 +203,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Ram row:rows)
                 {
-                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getImgPath()));
+                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);
@@ -260,7 +260,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Gpu row:rows)
                 {
-                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getImgPath()));
+                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);
@@ -320,7 +320,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Memorija row:rows)
                 {
-                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getImgPath()));
+                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);
@@ -365,7 +365,7 @@ public class ServletAdminPrikazDelova extends HttpServlet {
                 
                 for(Ram row:rows)
                 {
-                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getImgPath()));
+                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
                 }
                 
                 request.setAttribute("deo", deo);

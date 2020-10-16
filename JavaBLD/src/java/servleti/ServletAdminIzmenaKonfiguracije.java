@@ -98,6 +98,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
         String polja="";
         String slika = "";
         String socket = "";
+        String lowpsu = "";
         
         if(request.getParameter("polja")!=null)
         {
@@ -114,6 +115,11 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
             socket = request.getParameter("socket");
         }
         
+        if(request.getParameter("lowpsu")!=null)
+        {
+            lowpsu = request.getParameter("lowpsu");
+        }
+        
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -125,7 +131,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                 
                 for(Gpu row:rows)
                 {
-                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getImgPath()));
+                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
                 }
                 
                 SQLQuery q1=s.createSQLQuery("select * from kuciste").addEntity(Kuciste.class);
@@ -157,7 +163,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                 
                 for(Memorija row:rows4)
                 {
-                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getImgPath()));
+                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath()));
                 }
                 
                 SQLQuery q5=s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
@@ -181,7 +187,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                 
                 for(Ram row:rows7)
                 {
-                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getImgPath()));
+                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
                 }
                 
                 List<Konfiguracije> rowsK = s.createSQLQuery(
@@ -237,6 +243,11 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                 if(socket.equals("da"))
                 {
                     request.setAttribute("socket", "Socketi za procesor i matičnu ploču se ne poklapaju!");
+                }
+                
+                if(lowpsu.equals("da"))
+                {
+                    request.setAttribute("lowpsu", "Potrošnja konfiguracije je veća od jačine napajanja!");
                 }
                 
                 s.close();
@@ -344,7 +355,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
         {
             if(podaci.get(a)==null || (podaci.get(a).equals("")))
             {
-                response.sendRedirect("ServletAdminIzmenaKonfiguracije?polja=da&id="+podaci.get(10));
+                response.sendRedirect("ServletAdminIzmenaKonfiguracije?polja=da&id="+podaci.get(12));
                 return;
             }
         }
@@ -359,7 +370,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                         /*
                         response.sendRedirect("ServletAdminIzmenaKonfiguracije?slika=da&id="+podaci.get(10));
                         */
-                        imgpa = podaci.get(11);
+                        imgpa = podaci.get(13);
                         /*
                         return;
                         */
@@ -379,7 +390,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                     s.close();
                     if(!socket1.equals(socket2))
                     {
-                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?socket=da&id="+podaci.get(10));
+                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?socket=da&id="+podaci.get(12));
                         return;
                     }
                 }
@@ -388,6 +399,12 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                     String errormsg = ex.getMessage();
                     request.setAttribute("errormsg", errormsg);
                     request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+                
+                if(Integer.parseInt((podaci.get(9)))>= Integer.parseInt((podaci.get(7))))
+                {
+                    response.sendRedirect("ServletAdminIzmenaKonfiguracije?lowpsu=da&id="+podaci.get(12));
+                    return;
                 }
         
                 try
@@ -399,7 +416,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                     if(imgpa.length()==21)
                     {
                         request.setAttribute("praznaSlika", "Morate izabrati sliku!");
-                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?slika=da&id="+podaci.get(10));
+                        response.sendRedirect("ServletAdminIzmenaKonfiguracije?slika=da&id="+podaci.get(12));
                         return;
                     }
                     else
@@ -407,7 +424,7 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                         SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,imgPath,korisnikID)"
                             + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(7)+"','"+podaci.get(8)+"','"+imgpa+"','"+podaci.get(9)+"')");
                         */
-                        SQLQuery q1=s.createSQLQuery("update konfiguracije set gpuID = '"+podaci.get(0)+"', kucisteID='"+podaci.get(1)+"', kulerID='"+podaci.get(2)+"', maticnaID='"+podaci.get(3)+"', memorijaID='"+podaci.get(4)+"', procesorID='"+podaci.get(5)+"', psuID='"+podaci.get(6)+"', ramID='"+podaci.get(7)+"', opis='"+podaci.get(8)+"', imgPath='"+imgpa+"', korisnikID='"+podaci.get(9)+"' where konfiguracijaID = '"+podaci.get(10)+"'");
+                        SQLQuery q1=s.createSQLQuery("update konfiguracije set gpuID = '"+podaci.get(0)+"', kucisteID='"+podaci.get(1)+"', kulerID='"+podaci.get(2)+"', maticnaID='"+podaci.get(3)+"', memorijaID='"+podaci.get(4)+"', procesorID='"+podaci.get(5)+"', psuID='"+podaci.get(6)+"', ramID='"+podaci.get(8)+"', opis='"+podaci.get(10)+"', imgPath='"+imgpa+"', korisnikID='"+podaci.get(11)+"' where konfiguracijaID = '"+podaci.get(12)+"'");
                         q1.executeUpdate();
                         tr.commit();
                     }

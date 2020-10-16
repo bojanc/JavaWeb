@@ -325,8 +325,7 @@
                                                         <input type="text" name="boost"placeholder="Boost clock" id="bbost" value="<%= cpu.getBoost()%>" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="tdp" placeholder="TDP" id="tdpp" style="width: 40%;" value="<%= cpu.getTdp()%>" onchange="return tdpcheck()">
-                                                        <span class="help-block" id="errortdp" style="color:#f56a6a;"></span><br>
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= cpu.getTdp() %>" style="width: 40%;"><br><br>
                                                         
                                                         <input type="text" name="igpu" placeholder="iGPU" id="igp" style="width: 40%;" value="<%= cpu.getIgpu() %>" onchange="return igpucheck()">
                                                         <span class="help-block" id="errorigpu" style="color:#f56a6a;"></span><br>

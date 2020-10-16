@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,6 +16,7 @@ public class Gpu  implements java.io.Serializable {
      private String memorija;
      private String coreCl;
      private String boostCl;
+     private int tdp;
      private String imgPath;
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
 
@@ -23,19 +24,21 @@ public class Gpu  implements java.io.Serializable {
     }
 
 	
-    public Gpu(Integer gpuId,String naziv, String memorija, String coreCl, String boostCl, String imgPath) {
+    public Gpu(Integer gpuId,String naziv, String memorija, String coreCl, String boostCl, int tdp, String imgPath) {
         this.naziv = naziv;
         this.memorija = memorija;
         this.coreCl = coreCl;
         this.boostCl = boostCl;
+        this.tdp = tdp;
         this.imgPath = imgPath;
         this.gpuId = gpuId;
     }
-    public Gpu(String naziv, String memorija, String coreCl, String boostCl, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Gpu(String naziv, String memorija, String coreCl, String boostCl, int tdp, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;
        this.memorija = memorija;
        this.coreCl = coreCl;
        this.boostCl = boostCl;
+       this.tdp = tdp;
        this.imgPath = imgPath;
        this.konfiguracijes = konfiguracijes;
     }
@@ -74,6 +77,13 @@ public class Gpu  implements java.io.Serializable {
     
     public void setBoostCl(String boostCl) {
         this.boostCl = boostCl;
+    }
+    public int getTdp() {
+        return this.tdp;
+    }
+    
+    public void setTdp(int tdp) {
+        this.tdp = tdp;
     }
     public String getImgPath() {
         return this.imgPath;

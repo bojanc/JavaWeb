@@ -1,5 +1,5 @@
 package entity;
-// Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Memorija  implements java.io.Serializable {
      private String cache;
      private String dimenzije;
      private String interfejs;
+     private int tdp;
      private String imgPath;
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
 
@@ -25,23 +26,25 @@ public class Memorija  implements java.io.Serializable {
     }
 
 	
-    public Memorija(Integer memorijaId,String naziv, String kapacitet, String tip, String cache, String dimenzije, String interfejs, String imgPath) {
+    public Memorija(Integer memorijaId,String naziv, String kapacitet, String tip, String cache, String dimenzije, String interfejs, int tdp, String imgPath) {
         this.naziv = naziv;
         this.kapacitet = kapacitet;
         this.tip = tip;
         this.cache = cache;
         this.dimenzije = dimenzije;
         this.interfejs = interfejs;
+        this.tdp = tdp;
         this.imgPath = imgPath;
         this.memorijaId = memorijaId;
     }
-    public Memorija(String naziv, String kapacitet, String tip, String cache, String dimenzije, String interfejs, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Memorija(String naziv, String kapacitet, String tip, String cache, String dimenzije, String interfejs, int tdp, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;
        this.kapacitet = kapacitet;
        this.tip = tip;
        this.cache = cache;
        this.dimenzije = dimenzije;
        this.interfejs = interfejs;
+       this.tdp = tdp;
        this.imgPath = imgPath;
        this.konfiguracijes = konfiguracijes;
     }
@@ -94,6 +97,13 @@ public class Memorija  implements java.io.Serializable {
     
     public void setInterfejs(String interfejs) {
         this.interfejs = interfejs;
+    }
+    public int getTdp() {
+        return this.tdp;
+    }
+    
+    public void setTdp(int tdp) {
+        this.tdp = tdp;
     }
     public String getImgPath() {
         return this.imgPath;

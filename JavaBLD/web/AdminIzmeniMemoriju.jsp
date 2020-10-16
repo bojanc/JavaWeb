@@ -256,6 +256,8 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= mem.getTdp() %>" style="width: 40%;"><br><br>
+                                                        
                                                         
                                                     </div>
                                                     

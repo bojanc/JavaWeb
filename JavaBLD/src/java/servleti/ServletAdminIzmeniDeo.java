@@ -107,7 +107,7 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     for(Gpu row:rows)
                     {
-                        gpu = new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getImgPath());
+                        gpu = new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath());
                     }
 
                     request.setAttribute("deo", deo);
@@ -196,7 +196,7 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     for(Memorija row:rows)
                     {
-                        memorija = new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getImgPath());
+                        memorija = new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath());
                     }
 
                     request.setAttribute("deo", deo);
@@ -262,7 +262,7 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                     for(Ram row:rows)
                     {
-                        ram = new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getImgPath());
+                        ram = new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath());
                     }
 
                     request.setAttribute("deo", deo);
@@ -403,14 +403,14 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                 if(imgpa.length()==21)
                 {
-                    SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"', memorija='"+podaci.get(3)+"'"
+                    SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"',TDP='"+podaci.get(3)+"', memorija='"+podaci.get(4)+"'"
                         + "where "+naziv+"='"+id+"'");
                     q.executeUpdate();
                     tr.commit();
                 }
                 else
                 {
-                    SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"', memorija='"+podaci.get(3)+"'"
+                    SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', coreCl='"+podaci.get(1)+"', boostCl='"+podaci.get(2)+"',TDP='"+podaci.get(3)+"', memorija='"+podaci.get(4)+"'"
                         + "where "+naziv+"='"+id+"'");
                     q.executeUpdate();
                     tr.commit();
@@ -572,14 +572,14 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                         if(imgpa.length()==21)
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', kapacitet='"+podaci.get(1)+"', tip='"+podaci.get(2)+"', cache='"+podaci.get(3)+"', dimenzije='"+podaci.get(4)+"', interfejs='"+podaci.get(5)+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', kapacitet='"+podaci.get(1)+"', tip='"+podaci.get(2)+"', cache='"+podaci.get(3)+"', dimenzije='"+podaci.get(4)+"', interfejs='"+podaci.get(5)+"', TDP='"+podaci.get(6)+"' "
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();
                         }
                         else
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', kapacitet='"+podaci.get(1)+"', tip='"+podaci.get(2)+"', cache='"+podaci.get(3)+"', dimenzije='"+podaci.get(4)+"', interfejs='"+podaci.get(5)+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', kapacitet='"+podaci.get(1)+"', tip='"+podaci.get(2)+"', cache='"+podaci.get(3)+"', dimenzije='"+podaci.get(4)+"', interfejs='"+podaci.get(5)+"', TDP='"+podaci.get(6)+"' "
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();
@@ -698,14 +698,14 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
 
                         if(imgpa.length()==21)
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', brzina='"+ podaci.get(1)+"', casLat='"+Integer.parseInt(podaci.get(2))+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set naziv='"+podaci.get(0)+"', brzina='"+ podaci.get(1)+"', casLat='"+Integer.parseInt(podaci.get(2))+"', TDP='"+podaci.get(3)+"' "
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();
                         }
                         else
                         {
-                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', brzina='"+ podaci.get(1)+"', casLat='"+Integer.parseInt(podaci.get(2))+"'"
+                            SQLQuery q=s.createSQLQuery("update "+deo+" set imgPath='"+imgpa+"', naziv='"+podaci.get(0)+"', brzina='"+ podaci.get(1)+"', casLat='"+Integer.parseInt(podaci.get(2))+"', TDP='"+podaci.get(3)+"'"
                                 + "where "+naziv+"='"+id+"'");
                             q.executeUpdate();
                             tr.commit();

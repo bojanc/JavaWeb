@@ -241,8 +241,7 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="text" name="jacina" id="wat" placeholder="Jačina" value="<%= psu.getJacina() %>" style="width: 40%;" onchange="return pass()">
-                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= psu.getJacina() %>" style="width: 40%;"><br><br>
                                                         
                                                         <select name="modul" style="width: 40%;">
                                                             <optgroup>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Sep 30, 2020 5:37:19 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 15, 2020 12:00:49 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Procesori" table="procesori" catalog="bld" optimistic-lock="version">
         <id name="procesorId" type="java.lang.Integer">
@@ -17,7 +17,7 @@
         <property name="boost" type="string">
             <column name="boost" length="50" not-null="true" />
         </property>
-        <property name="tdp" type="string">
+        <property name="tdp" type="int">
             <column name="tdp" length="50" not-null="true" />
         </property>
         <property name="igpu" type="string">

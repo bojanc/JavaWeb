@@ -188,8 +188,8 @@ public class ServletAdminDodajRAM extends HttpServlet {
                     }
                     else
                     {
-                        SQLQuery q=s.createSQLQuery("insert into ram(naziv,brzina,casLat,imgPath)"
-                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"','"+ Integer.parseInt(podaci.get(2))+"', '"+imgpa+"')");
+                        SQLQuery q=s.createSQLQuery("insert into ram(naziv,brzina,casLat,TDP,imgPath)"
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"','"+ Integer.parseInt(podaci.get(2))+"','"+podaci.get(3)+"', '"+imgpa+"')");
                         q.executeUpdate();
                         tr.commit();
                     }
