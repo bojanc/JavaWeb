@@ -138,7 +138,7 @@ public class ServletPrikazKomentara extends HttpServlet {
               .list();
            
            List<Komentari> komrows = s.createSQLQuery(
-            "select {k.*}, {konfig.*}, {kor.*} from Komentari k,Konfiguracije konfig, Korisnici kor where k.komentari_konfiguracijaID = konfig.konfiguracijaID and k.komentari_korisnikID = kor.korisnikID")
+            "select {k.*}, {konfig.*}, {kor.*} from Komentari k,Konfiguracije konfig, Korisnici kor where k.komentari_konfiguracijaID = konfig.konfiguracijaID and k.komentari_korisnikID = kor.korisnikID and k.komentari_konfiguracijaID = "+id+"")
               .addEntity("k", Komentari.class)
               .addJoin("konfig", "k.konfiguracije")
               .addEntity("konfig", Konfiguracije.class)

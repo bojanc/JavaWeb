@@ -235,6 +235,7 @@
 					<div id="main">
 
 						<!-- Post -->
+                                                <form method="post" action="ServletPrikazKomentara" id="form">
 							<article class="post">
 								<header>
 									<div class="title">
@@ -250,16 +251,29 @@
 								</header>
                                                                         <h3>Komentari</h3><br>
                                                                         <table>
-                                                                            <% for(Komentari pom:komentar){ %>
+                                                                            <% 
+                                                                                int a = 0;
+                                                                                for(Komentari pom:komentar){
+                                                                                
+                                                                                a++;
+                                                                            %>
                                                                             <tr style="background-color:transparent;border-top: none;">
                                                                                 <td style="padding-bottom:0;">
                                                                                 <img src="<%= pom.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
                                                                                 <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pom.getVreme() %></p><br><br>
-                                                                                <p style="margin-left:50px;"><%= pom.getTekst() %></p>
+                                                                                <p style="margin-left:50px;display: inline-block;"><%= pom.getTekst() %></p>
+                                                                                <div id="kom<%= a %>" class="odgovor" style="display: none;">
+                                                                                <textarea cols="5"  rows="2"  style="resize:none;"></textarea><br><br>
+                                                                                <input type="submit" value="Odgovori" style="float:right;"><br><br>
+                                                                                </div>
+                                                                                <a href="#" id="replykom<%= a %>" style="float:right;border-bottom: none;" onclick="otvoriOdgovorkom('kom<%= a %>','replykom<%= a %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                                                                 </td>
                                                                             </tr>
-                                                                                <% for(Podkomentari pomp:podkom) {
+                                                                                <%  int b = 0;
+                                                                                    for(Podkomentari pomp:podkom) {
+                                                                                    
+                                                                                    b++;
                                                                                     if(pom.getKomentarId() == pomp.getKomentari().getKomentarId())
                                                                                     {
                                                                                 %>
@@ -268,7 +282,12 @@
                                                                                 <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
                                                                                 <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%></h4>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pomp.getVreme() %></p><br><br>
-                                                                                    <%= pomp.getTekst() %>
+                                                                                <p style="margin-left:50px;display: inline-block;"><%= pom.getTekst() %></p>
+                                                                                <div id="podkom<%= b %>" class="odgovorpodkom" style="display: none;">
+                                                                                <textarea cols="5"  rows="2"  style="resize:none;"></textarea><br><br>
+                                                                                <input type="submit" value="Odgovori" style="float:right;"><br><br>
+                                                                                </div>
+                                                                                <a href="#" id="replypodkom<%= b %>" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodkom('podkom<%= b %>','replypodkom<%= b %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                                                                 <%
                                                                                     }
                                                                                 }
@@ -280,8 +299,31 @@
                                                                             }
                                                                             %>
                                                                         </table>
+                                                                        
+                                                                        <script>
+                                                                            function otvoriOdgovorkom(obj,obj1) {
+                                                                              var i;
+                                                                              var x = document.getElementsByClassName("odgovor");
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display = "none";  
+                                                                              }
+                                                                              document.getElementById(obj).style.display = "block";  
+                                                                              document.getElementById(obj1).style.display = "none";  
+                                                                            }
+                                                                            
+                                                                            function otvoriOdgovorpodkom(obj,obj1) {
+                                                                              var i;
+                                                                              var x = document.getElementsByClassName("odgovorpodkom");
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display = "none";  
+                                                                              }
+                                                                              document.getElementById(obj).style.display = "block";  
+                                                                              document.getElementById(obj1).style.display = "none";  
+                                                                            }
+                                                                        </script>
 								
 							</article>
+                                                </form>
 
 						<!-- Post -->
 						<!--
