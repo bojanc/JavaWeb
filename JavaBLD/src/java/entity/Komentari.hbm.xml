@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 16, 2020 5:10:00 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 17, 2020 1:03:27 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Komentari" table="komentari" catalog="bld" optimistic-lock="version">
         <id name="komentarId" type="java.lang.Integer">
@@ -15,7 +15,7 @@
             <column name="komentari_korisnikID" not-null="true" />
         </many-to-one>
         <property name="vreme" type="string">
-            <column name="vreme" length="10" not-null="true" />
+            <column name="vreme" length="100" not-null="true" />
         </property>
         <property name="tekst" type="string">
             <column name="tekst" length="65535" not-null="true" />

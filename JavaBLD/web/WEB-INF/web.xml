@@ -96,6 +96,10 @@
         <servlet-name>ServletPrikazKomentara</servlet-name>
         <servlet-class>servleti.ServletPrikazKomentara</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletOdgovorKomentar</servlet-name>
+        <servlet-class>servleti.ServletOdgovorKomentar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>ServletPrikazKomentara</servlet-name>
         <url-pattern>/ServletPrikazKomentara</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletOdgovorKomentar</servlet-name>
+        <url-pattern>/ServletOdgovorKomentar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

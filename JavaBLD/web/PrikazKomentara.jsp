@@ -235,7 +235,7 @@
 					<div id="main">
 
 						<!-- Post -->
-                                                <form method="post" action="ServletPrikazKomentara" id="form">
+                                                <form method="post" action="ServletOdgovorKomentar">
 							<article class="post">
 								<header>
 									<div class="title">
@@ -250,7 +250,7 @@
 									</div>
 								</header>
                                                                         <h3>Komentari</h3><br>
-                                                                        <table>
+                                                                        <table><input type="hidden" name="konfigID" value="<%= komentar.get(0).getKonfiguracije().getKonfiguracijaId() %>">
                                                                             <% 
                                                                                 int a = 0;
                                                                                 for(Komentari pom:komentar){
@@ -263,62 +263,604 @@
                                                                                 <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pom.getVreme() %></p><br><br>
                                                                                 <p style="margin-left:50px;display: inline-block;"><%= pom.getTekst() %></p>
+                                                                                
                                                                                 <div id="kom<%= a %>" class="odgovor" style="display: none;">
-                                                                                <textarea cols="5"  rows="2"  style="resize:none;"></textarea><br><br>
-                                                                                <input type="submit" value="Odgovori" style="float:right;"><br><br>
+                                                                                <textarea cols="5" name="tekst" id="tekst<%= a %>"  rows="2" class="tekstovi"  style="resize:none;"></textarea><br><br>
+                                                                                <span class="close" id="closeP" onclick="zatvorikom('kom<%= a %>','replykom<%= a %>')">&times;</span>
+                                                                                <input type="submit" value="Odgovori" style="float:right;margin-right: 50px;">
+                                                                                <input type="hidden" name="komID" id="podpodpodkomKOMID<%= a %>11" class="odgovorpodpodkomKOM" value="<%= pom.getKomentarId() %>">
+                                                                                
                                                                                 </div>
-                                                                                <a href="#" id="replykom<%= a %>" style="float:right;border-bottom: none;" onclick="otvoriOdgovorkom('kom<%= a %>','replykom<%= a %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                
+                                                                                <a href="#" id="replykom<%= a %>" class="komikona" style="float:right;border-bottom: none;" onclick="otvoriOdgovorkom('kom<%= a %>','replykom<%= a %>','podpodpodkomKOMID<%= a %>11','tekst<%= a %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
                                                                                 </td>
                                                                             </tr>
-                                                                                <%  int b = 0;
+                                                                                <%  int b = 0;int m = 0;
                                                                                     for(Podkomentari pomp:podkom) {
-                                                                                    
+                                                                                    int komid = 0;
                                                                                     b++;
                                                                                     if(pom.getKomentarId() == pomp.getKomentari().getKomentarId())
-                                                                                    {
+                                                                                    {if(pomp.getPodkomentari()==null){ komid = pomp.getPodkomentarId();
                                                                                 %>
+                                                                                
                                                                             <tr style="background-color:transparent;border-top: none;">
                                                                                 <td style="padding-left: 100px;">
-                                                                                <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
-                                                                                <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%></h4>
+                                                                                <img src="<%= pom.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
+                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%> : <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%></h4>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pomp.getVreme() %></p><br><br>
-                                                                                <p style="margin-left:50px;display: inline-block;"><%= pom.getTekst() %></p>
+                                                                                <p style="margin-left:50px;display: inline-block;"><%= pomp.getTekst() %></p>
+                                                                                
                                                                                 <div id="podkom<%= b %>" class="odgovorpodkom" style="display: none;">
-                                                                                <textarea cols="5"  rows="2"  style="resize:none;"></textarea><br><br>
-                                                                                <input type="submit" value="Odgovori" style="float:right;"><br><br>
+                                                                                <textarea cols="5"  rows="2" id="tekst1<%= b %>" name="tekst" class="tekstovi"  style="resize:none;"></textarea><br><br>
+                                                                                <span class="close" id="closeP" onclick="zatvoripodkom('podkom<%= b %>','replypodkom<%= b %>')">&times;</span>
+                                                                                <input type="submit" value="Odgovori" style="float:right;margin-right: 50px;">
+                                                                                <input type="hidden" name="podkomID" id="podpodpodkomPODKOMID<%= b %>1" class="odgovorpodpodkomPODKOM" value="<%= pomp.getPodkomentarId() %>">
+                                                                                <input type="hidden" name="komID" id="podpodpodkomKOMID<%= b %>1" class="odgovorpodpodkomKOM" value="<%= pom.getKomentarId() %>">
                                                                                 </div>
-                                                                                <a href="#" id="replypodkom<%= b %>" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodkom('podkom<%= b %>','replypodkom<%= b %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                
+                                                                                <a href="#" id="replypodkom<%= b %>" class="podkomikona" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodkom('podkom<%= b %>','replypodkom<%= b %>','podpodpodkomPODKOMID<%= b %>1','podpodpodkomKOMID<%= b %>1','tekst1<%= b %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                </td>
+                                                                            </tr>
+                                                                                <%} int c = 0;
+                                                                                        for(Podkomentari pompp : podkom)
+                                                                                        {   c++;
+                                                                                            int w = 1;
+                                                                                            if(pompp.getPodkomentari()!=null && pomp.getPodkomentarId() == pompp.getPodkomentari().getPodkomentarId())
+                                                                                            {
+                                                                                                if(pompp.getPodkomentari().getPodkomentari()!=null)
+                                                                                                {
+                                                                                                    if(pompp.getPodkomentari().getPodkomentari().getPodkomentarId()==komid)
+                                                                                                    {
+                                                                                                        w=2;
+                                                                                                    }
+                                                                                                }
+                                                                                                else if(pompp.getPodkomentari()!=null)
+                                                                                                {
+                                                                                                    if(pompp.getPodkomentari().getPodkomentarId()==komid)
+                                                                                                    {
+                                                                                                        w=2;
+                                                                                                    }
+                                                                                                }
+
+
+
+
+                                                                                    if(w==2)
+                                                                                    {
+                                                                                %>      
+                                                                            <tr style="background-color:transparent;border-top: none;">
+                                                                                <td style="padding-left: 200px;">
+                                                                                <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
+                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"><%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%> : <img src="<%= pompp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pompp.getKorisnici().getIme() %> <%= pompp.getKorisnici().getPrezime()%></h4>
+                                                                                <p style="width: 20%;margin:0;display: inline-block;"><%= pompp.getVreme() %></p><br><br>
+                                                                                <p style="margin-left:50px;display: inline-block;"><%= pompp.getTekst() %></p>
+                                                                                
+                                                                                <div id="podpodkom<%= c %>" class="odgovorpodpodkom" style="display: none;">
+                                                                                <textarea cols="5"  rows="2" id="tekst2<%= c %>" name="tekst" class="tekstovi"  style="resize:none;"></textarea><br><br>
+                                                                                <span class="close" id="closeP" onclick="zatvoripodpodkom('podpodkom<%= c %>','replypodpodkom<%= c %>')">&times;</span>
+                                                                                <input type="submit" value="Odgovori" style="float:right;margin-right: 50px;">
+                                                                                
+                                                                                <input type="hidden" name="podkomID" id="podpodpodkomPODKOMID<%= c %>2" class="odgovorpodpodkomPODKOM" value="<%= pompp.getPodkomentarId() %>">
+                                                                                <input type="hidden" name="komID" id="podpodpodkomKOMID<%= c %>2" class="odgovorpodpodkomKOM" value="<%= pom.getKomentarId() %>">
+                                                                                </div>
+                                                                                
+                                                                                <a href="#" id="replypodpodkom<%= c %>" class="podpodkomikona" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodpodkom('podpodkom<%= c %>','replypodpodkom<%= c %>','podpodpodkomPODKOMID<%= c %>2','podpodpodkomKOMID<%= c %>2','tekst2<%= c %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <%}}
+                                                                                if(w==2)
+                                                                                {int z = 0;
+                                                                                    for(Podkomentari pomppp : podkom)
+                                                                                    {
+                                                                                        if(pomppp.getPodkomentari()!=null)
+                                                                                        {
+                                                                                            if(pomppp.getPodkomentari().getPodkomentari()!=null)
+                                                                                            {
+                                                                                                if(pomppp.getPodkomentari().getPodkomentarId() == pompp.getPodkomentarId() || pomppp.getPodkomentari().getPodkomentari().getPodkomentarId() == pompp.getPodkomentarId())
+                                                                                                {z++;m++;
+                                                                            %>                      
+                                                                            <tr style="background-color:transparent;border-top: none;">
+                                                                                <td style="padding-left: 300px;">
+                                                                                <img src="<%= pompp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
+                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"><%= pompp.getKorisnici().getIme() %> <%= pompp.getKorisnici().getPrezime()%> : <img src="<%= pomppp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pomppp.getKorisnici().getIme() %> <%= pomppp.getKorisnici().getPrezime()%></h4>
+                                                                                <p style="width: 20%;margin:0;display: inline-block;"><%= pomppp.getVreme() %></p><br><br>
+                                                                                <p style="margin-left:50px;display: inline-block;"><%= pomppp.getTekst() %></p>
+                                                                                
+                                                                                    <%
+                                                                                        if(z==1){
+                                                                                    %>
+                                                                                <div id="podpodpodkom<%= pomppp.getPodkomentarId() %>" class="odgovorpodpodpodkom" style="display: none;">
+                                                                                <textarea cols="5" id="tekst3<%= pomppp.getPodkomentarId() %>" class="tekstovi"  rows="2" name="tekst"  style="resize:none;"></textarea><br><br>
+                                                                                <span class="close" id="closeP" onclick="zatvoripodpodpodkom('podpodpodkom<%= pomppp.getPodkomentarId() %>','replypodpodpodkom<%= m %>')">&times;</span>
+                                                                                <input type="submit" value="Odgovori" style="float:right;margin-right: 50px;">
+                                                                                
+                                                                                <input type="hidden" id="podpodpodkomPODKOMID<%= pomppp.getPodkomentarId() %>posl" name="podkomID" class="odgovorpodpodpodkomPODKOM" value="<%= pomppp.getPodkomentarId() %>">
+                                                                                <input type="hidden" id="podpodpodkomKOMID<%= pomppp.getPodkomentarId() %>posl" name="komID" class="odgovorpodpodpodkomKOM" value="<%= pom.getKomentarId() %>">
+                                                                                </div>
+                                                                                
+                                                                                <a href="#" id="replypodpodpodkom<%= m %>" class="podpodpodkomikona" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodpodpodkom('podpodpodkom<%= pomppp.getPodkomentarId() %>','replypodpodpodkom<%= m %>','podpodpodkomPODKOMID<%= pomppp.getPodkomentarId() %>posl','podpodpodkomKOMID<%= pomppp.getPodkomentarId() %>posl','tekst3<%= pomppp.getPodkomentarId() %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                
                                                                                 <%
                                                                                     }
-                                                                                }
                                                                                 %>
                                                                                 </td>
                                                                             </tr>
+                                                                                    
+                                                                                    <%          }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                }}
+                                                                                %>
+                                                                                
+                                                                                
                                                                             
                                                                             <%
-                                                                            }
+                                                                            }}
                                                                             %>
                                                                         </table>
                                                                         
                                                                         <script>
-                                                                            function otvoriOdgovorkom(obj,obj1) {
-                                                                              var i;
+                                                                            
+                                                                            function otvoriOdgovorkom(obj,obj1,obj2,obj3) {
                                                                               var x = document.getElementsByClassName("odgovor");
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var n = document.getElementsByClassName("podpodpodkomikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              var tekstovi = document.getElementsByClassName("tekstovi");
+                                                                              
                                                                               for (i = 0; i < x.length; i++) {
                                                                                 x[i].style.display = "none";  
                                                                               }
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < n.length; i++) {
+                                                                                n[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).removeAttribute("name");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < tekstovi.length; i++) {
+                                                                                var id = tekstovi[i].id;console.log(tekstovi[i]);
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
                                                                               document.getElementById(obj).style.display = "block";  
-                                                                              document.getElementById(obj1).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "none";
+                                                                              document.getElementById(obj2).setAttribute("name", "komID");
+                                                                              document.getElementById(obj3).setAttribute("name", "tekst"); 
+                                                                              
                                                                             }
                                                                             
-                                                                            function otvoriOdgovorpodkom(obj,obj1) {
-                                                                              var i;
-                                                                              var x = document.getElementsByClassName("odgovorpodkom");
+                                                                            function zatvorikom(obj,obj1) {
+                                                                              document.getElementById(obj).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "block";  
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="block";
+                                                                              }
+                                                                            }
+                                                                            
+                                                                            function otvoriOdgovorpodkom(obj,obj1,obj2,obj3,obj4) {
+                                                                              var x = document.getElementsByClassName("odgovor");
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var n = document.getElementsByClassName("podpodpodkomikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              var tekstovi = document.getElementsByClassName("tekstovi");
+                                                                              
                                                                               for (i = 0; i < x.length; i++) {
                                                                                 x[i].style.display = "none";  
                                                                               }
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < n.length; i++) {
+                                                                                n[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).removeAttribute("name");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < tekstovi.length; i++) {
+                                                                                var id = tekstovi[i].id;console.log(tekstovi[i]);
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
                                                                               document.getElementById(obj).style.display = "block";  
-                                                                              document.getElementById(obj1).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "none";
+                                                                              document.getElementById(obj2).setAttribute("name", "podkomID");
+                                                                              document.getElementById(obj3).setAttribute("name", "komID");
+                                                                              document.getElementById(obj4).setAttribute("name", "tekst");
+                                                                            }
+                                                                            
+                                                                            function zatvoripodkom(obj,obj1) {
+                                                                              document.getElementById(obj).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "block";  
+                                                                              
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var x = document.getElementsByClassName("podpodpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).setAttribute("name","podkomID");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).setAttribute("name","komID");
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).setAttribute("name","podkomID");
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).setAttribute("name","komID");
+                                                                              }
+                                                                            }
+                                                                            
+                                                                            function otvoriOdgovorpodpodkom(obj,obj1,obj2,obj3,obj4) {
+                                                                              var x = document.getElementsByClassName("odgovor");
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var n = document.getElementsByClassName("podpodpodkomikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              var tekstovi = document.getElementsByClassName("tekstovi");
+                                                                              
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display = "none";  
+                                                                              }
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < n.length; i++) {
+                                                                                n[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).removeAttribute("name");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < tekstovi.length; i++) {
+                                                                                var id = tekstovi[i].id;console.log(tekstovi[i]);
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              document.getElementById(obj).style.display = "block";  
+                                                                              document.getElementById(obj1).style.display = "none";
+                                                                              document.getElementById(obj2).setAttribute("name", "podkomID");
+                                                                              document.getElementById(obj3).setAttribute("name", "komID");
+                                                                              document.getElementById(obj4).setAttribute("name", "tekst");  
+                                                                            }
+                                                                            
+                                                                            function zatvoripodpodkom(obj,obj1) {
+                                                                              document.getElementById(obj).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "block";  
+                                                                              
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var x = document.getElementsByClassName("podpodpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).setAttribute("name","podkomID");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).setAttribute("name","komID");
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).setAttribute("name","podkomID");
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).setAttribute("name","komID");
+                                                                              }
+                                                                            }
+                                                                            
+                                                                            function otvoriOdgovorpodpodpodkom(obj,obj1,obj2,obj3,obj4) {
+                                                                              var x = document.getElementsByClassName("odgovor");
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var n = document.getElementsByClassName("podpodpodkomikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              var tekstovi = document.getElementsByClassName("tekstovi");
+                                                                              
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display = "none";  
+                                                                              }
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < n.length; i++) {
+                                                                                n[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).removeAttribute("name");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < tekstovi.length; i++) {
+                                                                                var id = tekstovi[i].id;console.log(tekstovi[i]);
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              document.getElementById(obj).style.display = "block";  
+                                                                              document.getElementById(obj1).style.display = "none";
+                                                                              document.getElementById(obj2).setAttribute("name", "podkomID");
+                                                                              document.getElementById(obj3).setAttribute("name", "komID");
+                                                                              document.getElementById(obj4).setAttribute("name", "tekst");
+                                                                            }
+                                                                            
+                                                                            function zatvoripodpodpodkom(obj,obj1) {
+                                                                              document.getElementById(obj).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "block";  
+                                                                              
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var x = document.getElementsByClassName("podpodpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).setAttribute("name","podkomID");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).setAttribute("name","komID");
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).setAttribute("name","podkomID");
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).setAttribute("name","komID");
+                                                                              }
+                                                                              
+                                                                              
                                                                             }
                                                                         </script>
 								

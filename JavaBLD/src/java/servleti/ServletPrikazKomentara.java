@@ -149,7 +149,7 @@ public class ServletPrikazKomentara extends HttpServlet {
               .list();
            
            List<Podkomentari> podkomrows = s.createSQLQuery(
-            "select {podk.*}, {k.*}, {kor.*} from Podkomentari podk,Komentari k, Korisnici kor where podk.komentarID = k.komentarID and podk.podkomentari_korisnikID = kor.korisnikID")
+            "select {podk.*}, {k.*}, {kor.*} from Podkomentari podk left join Podkomentari podkk on podk.podkomentarID = podkk.odPodKomID,Komentari k, Korisnici kor where podk.komentarID = k.komentarID and podk.podkomentari_korisnikID = kor.korisnikID order by podk.PodkomentarID")
               .addEntity("podk", Podkomentari.class)
               .addJoin("k", "podk.komentari")
               .addEntity("k", Komentari.class)
@@ -171,7 +171,7 @@ public class ServletPrikazKomentara extends HttpServlet {
             
             for(Podkomentari row:podkomrows)
             {
-                podkom.add(new Podkomentari(row.getPodkomentarId(),row.getKomentari(),row.getKorisnici(),row.getVreme(),row.getTekst()));
+                podkom.add(new Podkomentari(row.getPodkomentarId(),row.getKomentari(),row.getKorisnici(),row.getPodkomentari(),row.getVreme(),row.getTekst()));
             }
             
             if(!poruka.equals(""))
