@@ -21,11 +21,9 @@
 						<h1><a href="index.html">BLD</a></h1>
 						<nav class="links">
 							<ul>
-                                                            <li><a href="#" style="color: #ffffff">Lorem</a></li>
-								<li><a href="#" style="color: #ffffff">Ipsum</a></li>
-								<li><a href="#" style="color: #ffffff">Feugiat</a></li>
-								<li><a href="#" style="color: #ffffff">Tempus</a></li>
-								<li><a href="#" style="color: #ffffff">Adipiscing</a></li>
+                                                            <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
 							</ul>
 						</nav>
 						<nav class="main">

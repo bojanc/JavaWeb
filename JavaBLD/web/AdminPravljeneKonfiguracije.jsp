@@ -33,11 +33,9 @@
 						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-                                                            <li><a href="#" style="color: #ffffff">Lorem</a></li>
-								<li><a href="#" style="color: #ffffff">Ipsum</a></li>
-								<li><a href="#" style="color: #ffffff">Feugiat</a></li>
-								<li><a href="#" style="color: #ffffff">Tempus</a></li>
-								<li><a href="#" style="color: #ffffff">Adipiscing</a></li>
+                                                            <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 <li style="color: #d4d4d6;">
                                                                     <%
                                                                         HttpSession sesija = request.getSession();
@@ -86,7 +84,7 @@
                                                                     <%
                                                                         if(korisnik!=null)
                                                                         {
-                                                                            if(korisnik.getUloga().equals("admin"))
+                                                                            if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
 									<li style="color: #d4d4d6;">
@@ -95,7 +93,12 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Vaš profil</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="AdminPrikazDelova.jsp">
                                                                                     <p style="font-size:0.8em;">Računarski delovi</p>
 										</a>
 									</li>
@@ -105,8 +108,13 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
+										<a href="ServletAdminPrikazKonfiguracija">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">

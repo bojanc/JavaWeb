@@ -5,12 +5,14 @@
  */
 package servleti;
 import entity.Gpu;
+import entity.Komentari;
 import entity.Konfiguracije;
 import entity.Korisnici;
 import entity.Kuciste;
 import entity.Kuleri;
 import entity.Maticna;
 import entity.Memorija;
+import entity.Podkomentari;
 import entity.Procesori;
 import entity.Psu;
 import entity.Ram;
@@ -75,7 +77,12 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
             throws ServletException, IOException {
         
         ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
+        
+        ArrayList<Komentari> komentar = new ArrayList<Komentari>();
+        ArrayList<Podkomentari> podkom = new ArrayList<Podkomentari>();
+        
         String poruka = "";
+        
         if(request.getParameter("poruka")!=null)
         {
             poruka = (String)request.getParameter("poruka");
@@ -127,16 +134,51 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
               .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
               .list();
            
+           List<Komentari> komrows = s.createSQLQuery(
+            "select {k.*}, {konfig.*}, {kor.*} from Komentari k,Konfiguracije konfig, Korisnici kor where k.komentari_konfiguracijaID = konfig.konfiguracijaID and k.komentari_korisnikID = kor.korisnikID")
+              .addEntity("k", Komentari.class)
+              .addJoin("konfig", "k.konfiguracije")
+              .addEntity("konfig", Konfiguracije.class)
+                   .addJoin("kor", "k.korisnici")
+              .addEntity("kor", Korisnici.class)
+              .addEntity("k", Komentari.class)
+              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+              .list();
+           
+           List<Podkomentari> podkomrows = s.createSQLQuery(
+            "select {podk.*}, {k.*}, {kor.*} from Podkomentari podk left join Podkomentari podkk on podk.podkomentarID = podkk.odPodKomID,Komentari k, Korisnici kor where podk.komentarID = k.komentarID and podk.podkomentari_korisnikID = kor.korisnikID order by podk.PodkomentarID")
+              .addEntity("podk", Podkomentari.class)
+              .addJoin("k", "podk.komentari")
+              .addEntity("k", Komentari.class)
+                   .addJoin("kor", "k.korisnici")
+              .addEntity("kor", Korisnici.class)
+              .addEntity("podk", Podkomentari.class)
+              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+              .list();
+           
+           for(Komentari row:komrows)
+            {
+                komentar.add(new Komentari(row.getKomentarId(),row.getKonfiguracije(),row.getKorisnici(),row.getVreme(),row.getTekst()));
+            }
+            
+            for(Podkomentari row:podkomrows)
+            {
+                podkom.add(new Podkomentari(row.getPodkomentarId(),row.getKomentari(),row.getKorisnici(),row.getPodkomentari(),row.getVreme(),row.getTekst()));
+            }
+           
             for(Konfiguracije row:rows)
             {
                 konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getImgPath()));
             }
+            
             if(!poruka.equals(""))
             {
                 request.setAttribute("obrisano", "da");
             }
             
             request.setAttribute("konfig", konfig);
+            request.setAttribute("komentar", komentar);
+            request.setAttribute("podkom", podkom);
             s.close();
             request.getRequestDispatcher("AdminPrikazKonfiguracija.jsp").forward(request, response);
         }

@@ -1,3 +1,5 @@
+<%@page import="entity.Podkomentari"%>
+<%@page import="entity.Komentari"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE HTML>
 <!--
@@ -27,11 +29,9 @@
 						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="#" style="color: #ffffff">Lorem</a></li>
-								<li><a href="#" style="color: #ffffff">Ipsum</a></li>
-								<li><a href="#" style="color: #ffffff">Feugiat</a></li>
-								<li><a href="#" style="color: #ffffff">Tempus</a></li>
-								<li><a href="#" style="color: #ffffff">Adipiscing</a></li>
+								<li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 <li style="color: #d4d4d6;">
                                                                     <%
                                                                         HttpSession sesija = request.getSession();
@@ -105,8 +105,13 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
+										<a href="ServletAdminPrikazKonfiguracija">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -220,6 +225,13 @@
                                 </script>
                                 <%
                                     ArrayList<Konfiguracije> konfig = (ArrayList<Konfiguracije>)request.getAttribute("konfig");
+                                    ArrayList<Komentari> komentar = new ArrayList<Komentari>();
+                                    if(((ArrayList<Komentari>)request.getAttribute("komentar")).size()>0)
+                                    {
+                                        komentar = (ArrayList<Komentari>)request.getAttribute("komentar");
+                                    }
+
+                                    ArrayList<Podkomentari> podkom = (ArrayList<Podkomentari>)request.getAttribute("podkom");
                                 %>
                                 
                                 
@@ -352,11 +364,11 @@
 					<div id="main">
 
 						<!-- Post -->
-                                                <%
+                                                <%  int a = 0;
                                                     if(!konfig.isEmpty())
                                                     {
                                                     for(Konfiguracije pom:konfig)
-                                                    {
+                                                    {a++;
                                                 %>
 							<article class="post" style="width: 30%;float:left;margin: 10px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
@@ -364,35 +376,40 @@
                                                                             <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
 									</div>
                                                                         <div class="dropdown">
-                                                                            <button onclick="myFunction()"  class="dropbtn">Opcije</button>
-                                                                            <div id="myDropdown" class="dropdown-content">
-                                                                              <a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>">Izmeni</a>
-                                                                              <a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>">Obriši</a>
+                                                                            <button onclick="myFunction('myDropdown<%= a %>')" id="drp<%= a %>"  class="dropbtn">Opcije</button>
+                                                                            <div id="myDropdown<%= a %>" class="dropdown-content">
+                                                                              <a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Izmeni</a>
+                                                                              <a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Obriši</a>
                                                                             </div>
                                                                           </div>
 								</header>
                                                                         
                                                                         <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
+                                                                        function myFunction(obj) {
+                                                                          
+                                                                          var x = document.getElementsByClassName("dropdown-content");
+                                                                          for(a = 0; a<x.length;a++)
+                                                                          {
+                                                                              var id = x[a].id;
+                                                                              console.log(id);
+                                                                              document.getElementById(id).setAttribute("class","dropdown-content");
+                                                                          }
+                                                                          document.getElementById(obj).classList.toggle("show");
+                                                                        }
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
+                                                                        window.onclick = function(event) {
+                                                                          if (!event.target.matches('.dropbtn')) {
+                                                                            var dropdowns = document.getElementsByClassName("dropdown-content");
+                                                                            var i;
+                                                                            for (i = 0; i < dropdowns.length; i++) {
+                                                                              var openDropdown = dropdowns[i];
+                                                                              if (openDropdown.classList.contains('show')) {
+                                                                                openDropdown.classList.remove('show');
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                        </script>
                                                             <table>
                                                                 <tr style="background-color:transparent;border:none;">
                                                                     <td>
@@ -411,7 +428,29 @@ window.onclick = function(event) {
 								
 								<footer>
 									<ul class="stats" style="font-size:180% !important;">
-                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment">128</a></li>
+                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment">
+                                                                                    <% int x = 0;
+                                                                                        for(Komentari kom:komentar)
+                                                                                        {
+                                                                                            if(kom.getKonfiguracije().getKonfiguracijaId() == pom.getKonfiguracijaId())
+                                                                                            {
+                                                                                                x++;
+                                                                                                
+                                                                                                for(Podkomentari pkom:podkom)
+                                                                                                {
+                                                                                                    if(pkom.getKomentari().getKomentarId() == kom.getKomentarId())
+                                                                                                    {
+                                                                                                        x++;
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                            
+                                                                                            
+                                                                                        }
+                                                                                        
+                                                                                        
+                                                                                    %><%= x %>
+                                                                                </a></li>
 									</ul>
 								</footer>
 							</article>

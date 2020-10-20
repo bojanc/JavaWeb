@@ -25,6 +25,7 @@ public class Kuciste  implements java.io.Serializable {
         this.naziv = naziv;
         this.dimenzije = dimenzije;
         this.imgPath = imgPath;
+        this.kucisteId = kucisteId;
     }
     public Kuciste(String naziv, String dimenzije, String imgPath, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;
