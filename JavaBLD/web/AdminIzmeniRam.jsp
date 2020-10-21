@@ -229,8 +229,41 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="number" name="caslat" placeholder="CAS latency" value="<%= ram.getCasLat() %>" max="24" min="9" step="1" style="width: 40%;"><br><br>
-                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= ram.getTdp() %>" style="width: 40%;"><br><br>
+                                                        <input type="number" name="caslat" placeholder="CAS latency" value="<%= ram.getCasLat() %>" max="24" min="9" step="1" style="width: 40%;">
+                                                         <input type="text" id="cas" value="CAS" disabled/><br><br>
+                                                        
+                                                         <style>
+                                                            input[type="text"]#cas{
+                                                            -webkit-appearance:none!important;
+                                                            color:black;
+                                                            text-align:right;
+                                                            width:65px;;
+                                                            border: none;
+                                                            margin:0 0 0 -87px;
+                                                            background:white;
+                                                            display:inline-block;
+                                                            padding-left: 0;
+                                                            height:32px;
+                                                        }
+                                                        </style>
+                                                        
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= ram.getTdp() %>" style="width: 40%;">
+                                                         <input type="text" id="subdomaintwo" value="W" disabled/><br><br>
+                                                        
+                                                         <style>
+                                                            input[type="text"]#subdomaintwo{
+                                                            -webkit-appearance:none!important;
+                                                            color:black;
+                                                            text-align:right;
+                                                            width:65px;;
+                                                            border: none;
+                                                            margin:0 0 0 -87px;
+                                                            background:white;
+                                                            display:inline-block;
+                                                            padding-left: 0;
+                                                            height:32px;
+                                                        }
+                                                        </style>
                                                     </div>
                                                     
                                                     <input type="submit" id="submit" value="Izmeni">

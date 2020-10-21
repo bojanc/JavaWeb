@@ -104,6 +104,18 @@
         <servlet-name>ServletKomentarObrisi</servlet-name>
         <servlet-class>servleti.ServletKomentarObrisi</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletMojeKonfiguracije</servlet-name>
+        <servlet-class>servleti.ServletMojeKonfiguracije</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrikazDelova</servlet-name>
+        <servlet-class>servleti.PrikazDelova</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletUporedi</servlet-name>
+        <servlet-class>servleti.ServletUporedi</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -207,6 +219,18 @@
     <servlet-mapping>
         <servlet-name>ServletKomentarObrisi</servlet-name>
         <url-pattern>/ServletKomentarObrisi</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletMojeKonfiguracije</servlet-name>
+        <url-pattern>/ServletMojeKonfiguracije</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrikazDelova</servlet-name>
+        <url-pattern>/PrikazDelova</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUporedi</servlet-name>
+        <url-pattern>/ServletUporedi</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

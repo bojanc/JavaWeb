@@ -266,7 +266,23 @@
                                                         <input type="text" name="boostclock" id="boostcl" value="<%= gpu.getBoostCl()%>" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= gpu.getTdp() %>" style="width: 40%;"><br><br>
+                                                        <input type="number" id="tdp" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= gpu.getTdp() %>" style="width: 40%;">
+                                                        <input type="text" id="subdomaintwo" value="W" disabled/><br><br>
+                                                        
+                                                         <style>
+                                                            input[type="text"]#subdomaintwo{
+                                                            -webkit-appearance:none!important;
+                                                            color:black;
+                                                            text-align:right;
+                                                            width:65px;;
+                                                            border: none;
+                                                            margin:0 0 0 -87px;
+                                                            background:white;
+                                                            display:inline-block;
+                                                            padding-left: 0;
+                                                            height:32px;
+                                                        }
+                                                        </style>
                                                         
                                                         <select name="memorija" style="width: 40%;">
                                                             <optgroup>

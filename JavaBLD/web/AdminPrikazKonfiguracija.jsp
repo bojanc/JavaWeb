@@ -370,11 +370,14 @@
                                                     for(Konfiguracije pom:konfig)
                                                     {a++;
                                                 %>
-							<article class="post" style="width: 30%;float:left;margin: 10px;">
+							<article class="post" style="width: 32%;float:left;margin: 10px;height: 780px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
                                                                             <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
 									</div>
+                                                                        <%
+                                                                            if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pom.getKorisnici().getKorisnikId()){
+                                                                        %>
                                                                         <div class="dropdown">
                                                                             <button onclick="myFunction('myDropdown<%= a %>')" id="drp<%= a %>"  class="dropbtn">Opcije</button>
                                                                             <div id="myDropdown<%= a %>" class="dropdown-content">
@@ -382,6 +385,9 @@
                                                                               <a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Obriši</a>
                                                                             </div>
                                                                           </div>
+                                                                            <%
+                                                                                }
+                                                                            %>
 								</header>
                                                                         
                                                                         <script>

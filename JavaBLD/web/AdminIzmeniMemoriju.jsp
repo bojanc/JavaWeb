@@ -264,8 +264,23 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= mem.getTdp() %>" style="width: 40%;"><br><br>
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" value="<%= mem.getTdp() %>" style="width: 40%;">
+                                                         <input type="text" id="subdomaintwo" value="W" disabled/><br><br>
                                                         
+                                                         <style>
+                                                            input[type="text"]#subdomaintwo{
+                                                            -webkit-appearance:none!important;
+                                                            color:black;
+                                                            text-align:right;
+                                                            width:65px;;
+                                                            border: none;
+                                                            margin:0 0 0 -87px;
+                                                            background:white;
+                                                            display:inline-block;
+                                                            padding-left: 0;
+                                                            height:32px;
+                                                        }
+                                                        </style>
                                                         
                                                     </div>
                                                     
