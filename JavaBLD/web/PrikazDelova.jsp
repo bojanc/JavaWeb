@@ -173,7 +173,7 @@
 							<article class="post">
 								<header style="margin: auto; text-align: center; padding-left: 60px;">
                                                                         <h2>Spisak delova</h2>
-                                                                        <a href="ServletUporedi?" class="button" id="uporedi" style="margin-left: 70%; padding-bottom: 10px;">Uporedi</a>
+                                                                        <a href="ServletUporedi?" class="button" id="uporedi" onclick="return check()" style="margin-left: 70%; padding-bottom: 10px;margin-bottom: 20px;">Uporedi</a>
                                                                         
                                                                 </header>
                                                             <form method="post" action="PrikazDelova">
@@ -362,6 +362,16 @@
                                   <div class="modal-content">
                                     <span class="close" id="closeS">&times;</span>
                                     <p style="margin-bottom:5px;"><b>Možete da uporedite samo dva proizvoda odjednom!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <div id="myModalManje" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeManje">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Morate da izaberete dva proizvoda za upoređivanje!</b></p>
                                   </div>
 
                                 </div>
@@ -902,6 +912,41 @@
                                                                 }
                                                                     
                                                                     
+                                                                </script>
+                                                                
+                                                                <script>
+                                                                    var modalM = document.getElementById("myModalManje");
+                                                                    var spanM = document.getElementById("closeManje");
+                                                                    function check(){
+                                                                        
+                                                                        
+                                                                    
+                                                                    
+                                                                        var x = document.getElementById("uporedi");
+                                                                        var href = x.href;
+                                                                        var href2 = href.replace("http://localhost:8080/JavaBLD/ServletUporedi?", "");
+                                                                        console.log(href2);
+                                                                        
+                                                                        if(href2.length<6)
+                                                                        {
+                                                                            modalM.style.display = "block";
+                                                                            
+                                                                            return false;
+                                                                        }
+                                                                        
+                                                                        
+                                                                        
+                                                                    }
+                                                                    
+                                                                    spanM.onclick = function() {
+                                                                        modalM.style.display = "none";
+                                                                      }
+                                                                          
+                                                                    window.onclick = function(event) {
+                                                                      if (event.target == modalM) {
+                                                                        modalM.style.display = "none";
+                                                                      }
+                                                                    }
                                                                 </script>
                                                                 
                                                                 

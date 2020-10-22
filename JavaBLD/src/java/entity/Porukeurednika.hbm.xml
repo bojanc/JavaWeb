@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Porukeurednika" table="porukeurednika" catalog="bld" optimistic-lock="version">
+        <id name="porukaUrednikId" type="java.lang.Integer">
+            <column name="porukaUrednikID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="porukekorisnika" class="entity.Porukekorisnika" fetch="select">
+            <column name="porukaKorisnikaID" not-null="true" />
+        </many-to-one>
+        <property name="vreme" type="string">
+            <column name="vreme" length="200" not-null="true" />
+        </property>
+        <property name="tekst" type="string">
+            <column name="tekst" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

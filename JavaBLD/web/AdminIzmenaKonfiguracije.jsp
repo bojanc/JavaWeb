@@ -1394,7 +1394,7 @@
                                                 <input type="file" name="fajl" onChange="readURL(this)"><br><br>
                                                 <img id="pic" src="<%= konfig.getImgPath() %>" width="250" height="250" alt="" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                             </div>
-                                                       <input type="hidden" id="korID" name="korID" value="<%= korisnik.getKorisnikId() %>">
+                                                       <input type="hidden" id="korID" name="korID" value="<%= konfig.getKorisnici().getKorisnikId() %>">
                                                        <input type="hidden" id="konfigID" name="konfigID" value="<%= konfig.getKonfiguracijaId()%>">
                                                        <input type="hidden" id="slikaID" name="slikaID" value="<%= konfig.getImgPath()%>">
                                             </form>

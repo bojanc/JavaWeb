@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 17, 2020 1:03:27 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Korisnici" table="korisnici" catalog="bld" optimistic-lock="version">
         <id name="korisnikId" type="java.lang.Integer">
@@ -37,6 +37,12 @@
                 <column name="korisnikID" not-null="true" />
             </key>
             <one-to-many class="entity.Konfiguracije" />
+        </set>
+        <set name="porukekorisnikas" table="porukekorisnika" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="poruke_korisnikID" not-null="true" />
+            </key>
+            <one-to-many class="entity.Porukekorisnika" />
         </set>
         <set name="podkomentaris" table="podkomentari" inverse="true" lazy="true" fetch="select">
             <key>

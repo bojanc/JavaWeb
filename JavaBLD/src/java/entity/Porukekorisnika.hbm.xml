@@ -3,16 +3,13 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entity.Komentari" table="komentari" catalog="bld" optimistic-lock="version">
-        <id name="komentarId" type="java.lang.Integer">
-            <column name="komentarID" />
+    <class name="entity.Porukekorisnika" table="porukekorisnika" catalog="bld" optimistic-lock="version">
+        <id name="porukaKorisnikaId" type="java.lang.Integer">
+            <column name="porukaKorisnikaID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="konfiguracije" class="entity.Konfiguracije" fetch="select">
-            <column name="komentari_konfiguracijaID" not-null="true" />
-        </many-to-one>
         <many-to-one name="korisnici" class="entity.Korisnici" fetch="select">
-            <column name="komentari_korisnikID" not-null="true" />
+            <column name="poruke_korisnikID" not-null="true" />
         </many-to-one>
         <property name="vreme" type="string">
             <column name="vreme" length="100" not-null="true" />
@@ -20,11 +17,11 @@
         <property name="tekst" type="string">
             <column name="tekst" length="65535" not-null="true" />
         </property>
-        <set name="podkomentaris" table="podkomentari" inverse="true" lazy="true" fetch="select">
+        <set name="porukeurednikas" table="porukeurednika" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="komentarID" not-null="true" />
+                <column name="porukaKorisnikaID" not-null="true" />
             </key>
-            <one-to-many class="entity.Podkomentari" />
+            <one-to-many class="entity.Porukeurednika" />
         </set>
     </class>
 </hibernate-mapping>

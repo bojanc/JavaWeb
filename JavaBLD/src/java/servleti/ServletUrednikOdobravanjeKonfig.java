@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package servleti;
+
 import entity.Gpu;
 import entity.Komentari;
 import entity.Konfiguracije;
@@ -48,7 +49,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletAdminPrikazKonfiguracija extends HttpServlet {
+public class ServletUrednikOdobravanjeKonfig extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -78,14 +79,19 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
         
         ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
         
-        ArrayList<Komentari> komentar = new ArrayList<Komentari>();
-        ArrayList<Podkomentari> podkom = new ArrayList<Podkomentari>();
-        
         String poruka = "";
+        String obrisano = "";
         
         if(request.getParameter("poruka")!=null)
         {
             poruka = (String)request.getParameter("poruka");
+        }
+        
+        
+        
+        if(request.getParameter("obrisano")!=null)
+        {
+            obrisano = (String)request.getParameter("obrisano");
         }
         
         try
@@ -110,7 +116,7 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
             }
             */
            List<Konfiguracije> rows = s.createSQLQuery(
-            "select {k.*}, {g.*}, {kuc.*},{kul.*}, {mat.*}, {mem.*}, {pro.*}, {ps.*}, {ram.*}, {kor.*} from Konfiguracije k,Gpu g, Kuciste kuc,Kuleri kul, Maticna mat, Memorija mem, Procesori pro, Psu ps, Ram ram, Korisnici kor where k.gpuID = g.gpuID and k.kucisteID = kuc.kucisteID and k.kulerID = kul.kulerID  and k.maticnaID = mat.maticnaID and k.memorijaID = mem.memorijaID and k.procesorID = pro.procesorID and k.psuID = ps.psuID and k.ramID = ram.ramID and k.korisnikID = kor.korisnikID and k.odobreno = 'da'")
+            "select {k.*}, {g.*}, {kuc.*},{kul.*}, {mat.*}, {mem.*}, {pro.*}, {ps.*}, {ram.*}, {kor.*} from Konfiguracije k,Gpu g, Kuciste kuc,Kuleri kul, Maticna mat, Memorija mem, Procesori pro, Psu ps, Ram ram, Korisnici kor where k.gpuID = g.gpuID and k.kucisteID = kuc.kucisteID and k.kulerID = kul.kulerID  and k.maticnaID = mat.maticnaID and k.memorijaID = mem.memorijaID and k.procesorID = pro.procesorID and k.psuID = ps.psuID and k.ramID = ram.ramID and k.korisnikID = kor.korisnikID and k.odobreno = 'ne'")
               .addEntity("k", Konfiguracije.class)
               .addJoin("g", "k.gpu")
               .addEntity("g", Gpu.class)
@@ -134,38 +140,6 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
               .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
               .list();
            
-           List<Komentari> komrows = s.createSQLQuery(
-            "select {k.*}, {konfig.*}, {kor.*} from Komentari k,Konfiguracije konfig, Korisnici kor where k.komentari_konfiguracijaID = konfig.konfiguracijaID and k.komentari_korisnikID = kor.korisnikID")
-              .addEntity("k", Komentari.class)
-              .addJoin("konfig", "k.konfiguracije")
-              .addEntity("konfig", Konfiguracije.class)
-                   .addJoin("kor", "k.korisnici")
-              .addEntity("kor", Korisnici.class)
-              .addEntity("k", Komentari.class)
-              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-              .list();
-           
-           List<Podkomentari> podkomrows = s.createSQLQuery(
-            "select {podk.*}, {k.*}, {kor.*} from Podkomentari podk left join Podkomentari podkk on podk.podkomentarID = podkk.odPodKomID,Komentari k, Korisnici kor where podk.komentarID = k.komentarID and podk.podkomentari_korisnikID = kor.korisnikID order by podk.PodkomentarID")
-              .addEntity("podk", Podkomentari.class)
-              .addJoin("k", "podk.komentari")
-              .addEntity("k", Komentari.class)
-                   .addJoin("kor", "k.korisnici")
-              .addEntity("kor", Korisnici.class)
-              .addEntity("podk", Podkomentari.class)
-              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-              .list();
-           
-           for(Komentari row:komrows)
-            {
-                komentar.add(new Komentari(row.getKomentarId(),row.getKonfiguracije(),row.getKorisnici(),row.getVreme(),row.getTekst()));
-            }
-            
-            for(Podkomentari row:podkomrows)
-            {
-                podkom.add(new Podkomentari(row.getPodkomentarId(),row.getKomentari(),row.getKorisnici(),row.getPodkomentari(),row.getVreme(),row.getTekst()));
-            }
-           
             for(Konfiguracije row:rows)
             {
                 konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getOdobreno(),row.getImgPath()));
@@ -173,14 +147,17 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
             
             if(!poruka.equals(""))
             {
+                request.setAttribute("odobreno", "da");
+            }
+            
+            if(!obrisano.equals(""))
+            {
                 request.setAttribute("obrisano", "da");
             }
             
             request.setAttribute("konfig", konfig);
-            request.setAttribute("komentar", komentar);
-            request.setAttribute("podkom", podkom);
             s.close();
-            request.getRequestDispatcher("AdminPrikazKonfiguracija.jsp").forward(request, response);
+            request.getRequestDispatcher("UrednikPrikazKonfiguracija.jsp").forward(request, response);
         }
         catch(HibernateException ex)
         {
@@ -188,6 +165,7 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
             request.setAttribute("errormsg", errormsg);
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
+        
     }
 
     /**
@@ -201,9 +179,7 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+        processRequest(request, response);
     }
 
     /**

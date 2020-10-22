@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 17, 2020 1:03:26 PM by Hibernate Tools 4.3.1
+// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class Korisnici  implements java.io.Serializable {
      private String uloga;
      private Set<Komentari> komentaris = new HashSet<Komentari>(0);
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
+     private Set<Porukekorisnika> porukekorisnikas = new HashSet<Porukekorisnika>(0);
      private Set<Podkomentari> podkomentaris = new HashSet<Podkomentari>(0);
 
     public Korisnici() {
@@ -35,7 +36,7 @@ public class Korisnici  implements java.io.Serializable {
         this.uloga = uloga;
         this.korisnikId = korisnikId;
     }
-    public Korisnici(String imgPath, String ime, String prezime, String username, String password, String uloga, Set<Komentari> komentaris, Set<Konfiguracije> konfiguracijes, Set<Podkomentari> podkomentaris) {
+    public Korisnici(String imgPath, String ime, String prezime, String username, String password, String uloga, Set<Komentari> komentaris, Set<Konfiguracije> konfiguracijes, Set<Porukekorisnika> porukekorisnikas, Set<Podkomentari> podkomentaris) {
        this.imgPath = imgPath;
        this.ime = ime;
        this.prezime = prezime;
@@ -44,6 +45,7 @@ public class Korisnici  implements java.io.Serializable {
        this.uloga = uloga;
        this.komentaris = komentaris;
        this.konfiguracijes = konfiguracijes;
+       this.porukekorisnikas = porukekorisnikas;
        this.podkomentaris = podkomentaris;
     }
    
@@ -109,6 +111,13 @@ public class Korisnici  implements java.io.Serializable {
     
     public void setKonfiguracijes(Set<Konfiguracije> konfiguracijes) {
         this.konfiguracijes = konfiguracijes;
+    }
+    public Set<Porukekorisnika> getPorukekorisnikas() {
+        return this.porukekorisnikas;
+    }
+    
+    public void setPorukekorisnikas(Set<Porukekorisnika> porukekorisnikas) {
+        this.porukekorisnikas = porukekorisnikas;
     }
     public Set<Podkomentari> getPodkomentaris() {
         return this.podkomentaris;

@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="entity.Ram"%>
 <%@page import="entity.Psu"%>
 <%@page import="entity.Procesori"%>
@@ -362,6 +363,32 @@
                                 }
                                 </script>
                                 
+                                <style>
+                                    .progress {
+                                        background: #12131E;
+                                        justify-content: flex-start;
+                                        border-radius: 100px;
+                                        align-items: center;
+                                        position: relative;
+                                        padding: 0 5px;
+                                        display: flex;
+                                        height: 40px;
+                                        width: 35%;
+                                        margin: 0 auto;
+                                      }
+
+                                      .progress-value {
+                                        animation: load 3s normal forwards;
+                                        box-shadow: 0 10px 40px -10px #2ebaae;
+                                        border-radius: 100px;
+                                        background: #2ebaae;
+                                        height: 30px;
+                                        width: 0;
+                                      }
+
+                                      
+                                </style>
+                                
                                 
 
 				<!-- Main -->
@@ -377,7 +404,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -390,11 +417,51 @@
                                                                         <p style="margin-bottom: 5px;">TDP: <%= pom.getTdp() %> W</p>
                                                                     </td>
                                                                 </tr>
+                                                                
                                                             </table>
 							</article>
+                                                                    
                                                 <%
                                                     }
-                                                    }
+                                                    String gpu1 = gpu.get(0).getMemorija().substring(0, gpu.get(0).getMemorija().length() - 2);
+                                                    String gpu2 = gpu.get(1).getMemorija().substring(0, gpu.get(1).getMemorija().length() - 2);
+                                                    int gpu1int = Integer.parseInt(gpu1);
+                                                    int gpu2int = Integer.parseInt(gpu2);
+                                                    if(gpu1int > gpu2int)
+                                                    {
+                                                        float razlika = ((float)gpu1int/gpu2int)*10;
+
+                                                %>
+                                                <h2><%= gpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brža od <%= gpu.get(1).getNaziv() %></h2>
+                                                    <div class="progress">
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= razlika %>%; }
+                                                              }
+                                                    </style>
+                                                
+                                                <%}
+                                                else if(gpu2int > gpu1int){
+                                                    float razlika = ((float)gpu2int/gpu1int)*10;
+                                                %>
+                                                <h2><%= gpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brža od <%= gpu.get(0).getNaziv() %></h2>
+                                                    <div class="progress">
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= razlika %>%; }
+                                                              }
+                                                    </style>
+                                                <%}
+                                                    else if(gpu1int == gpu2int){%>
+                                                    <h2>Obe grafičke kartice su sličnih performansi.</h2>
+                                               <%} }
                                                 %>
                                                 
                                                 <% 
@@ -406,7 +473,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -434,7 +501,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -460,7 +527,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -489,7 +556,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -511,7 +578,7 @@
                                                     }
                                                 %>
                                                 
-                                                <% 
+                                                <%  DecimalFormat df = new DecimalFormat("#.##");
                                                     if(!cpu.isEmpty())
                                                     {
                                                     for(Procesori pom:cpu)
@@ -520,7 +587,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;width: 100%;white-space: nowrap"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;width: 100%;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -528,17 +595,65 @@
                                                                     <td>
                                                                         <img src="<%= pom.getImgPath() %>" alt="" width="200" height="200"/>
                                                                         <p style="margin-bottom: 5px;">Frekvencija: <%= pom.getFrekvencija()%></p>
-                                                                        <p style="margin-bottom: 5px;">Boost clock: <%= pom.getBoost()%> W</p>
+                                                                        <p style="margin-bottom: 5px;">Boost clock: <%= pom.getBoost()%></p>
+                                                                        <p style="margin-bottom: 5px;">Broj jezgara: <%= pom.getBrojJezgara()%></p>
                                                                         <p style="margin-bottom: 5px;">TDP: <%= pom.getTdp()%> W</p>
                                                                         <p style="margin-bottom: 5px;">iGPU: <%= pom.getIgpu()%></p>
-                                                                        <p style="margin-bottom: 5px;">Socket: <%= pom.getSocket()%> W</p>
+                                                                        <p style="margin-bottom: 5px;">Socket: <%= pom.getSocket()%></p>
                                                                     </td>
                                                                 </tr>
                                                             </table>
 							</article>
-                                                <%
+                                                                    
+                                                                    <%
                                                     }
-                                                    }
+                                                    String cpu1frek = cpu.get(0).getBoost().substring(0, cpu.get(0).getFrekvencija().length() - 3);
+                                                    String cpu2frek = cpu.get(1).getBoost().substring(0, cpu.get(1).getFrekvencija().length() - 3);
+                                                    
+
+                                                    float cpu1int = Float.parseFloat(cpu1frek);
+                                                    float cpu2int = Float.parseFloat(cpu2frek);
+                                                    
+                                                    int cpu1jez = cpu.get(0).getBrojJezgara();
+                                                    int cpu2jez = cpu.get(1).getBrojJezgara();
+                                                    
+                                                    if(cpu1int > cpu2int && cpu1jez>cpu2jez)
+                                                    {
+                                                        float razlika = (cpu1int/cpu2int)*10;
+                                                        
+                                                        df.format(razlika);
+
+                                                %>
+                                                <h2><%= cpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= cpu.get(1).getNaziv() %></h2>
+                                                    <div class="progress">
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= razlika %>%; }
+                                                              }
+                                                    </style>
+                                                
+                                                <%}
+                                                else if(cpu2int > cpu1int && cpu2jez>cpu1jez){
+                                                    float razlika = (cpu2int/cpu1int)*10;
+                                                %>
+                                                <h2><%= cpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= cpu.get(0).getNaziv() %></h2>
+                                                    <div class="progress">
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= razlika %>%; }
+                                                              }
+                                                    </style>
+                                                <%}
+                                                    else if(cpu1int == cpu2int){%>
+                                                    <h2>Oba procesora su sličnih performansi.</h2>
+                                               <%} }
                                                 %>
                                                 
                                                 <% 
@@ -550,7 +665,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -578,7 +693,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -594,7 +709,45 @@
 							</article>
                                                 <%
                                                     }
-                                                    }
+                                                    String ram1 = ram.get(0).getBrzina().substring(ram.get(0).getBrzina().length() - 4);
+                                                    String ram2 = ram.get(1).getBrzina().substring(ram.get(1).getBrzina().length() - 4);
+                                                    int ram1int = Integer.parseInt(ram1);
+                                                    int ram2int = Integer.parseInt(ram2);
+                                                    if(ram1int > ram2int)
+                                                    {
+                                                        float razlika = ((float)ram1int/ram2int)*10;
+
+                                                %>
+                                                <h2><%= ram.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brži od <%= ram.get(1).getNaziv() %></h2>
+                                                    <div class="progress">
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= razlika %>%; }
+                                                              }
+                                                    </style>
+                                                
+                                                <%}
+                                                else if(ram2int > ram1int){
+                                                    float razlika = ((float)ram2int/ram1int)*10;
+                                                %>
+                                                <h2><%= ram.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brži od <%= ram.get(0).getNaziv() %></h2>
+                                                    <div class="progress">
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= razlika %>%; }
+                                                              }
+                                                    </style>
+                                                <%}
+                                                    else if(ram1int == ram2int){%>
+                                                    <h2>Obe RAM memorije su sličnih performansi.</h2>
+                                               <%} }
                                                 %>
 						
 

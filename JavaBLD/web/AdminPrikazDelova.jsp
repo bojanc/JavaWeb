@@ -173,7 +173,7 @@
 							<article class="post">
 								<header style="margin: auto; text-align: center; padding-left: 60px;">
                                                                         <h2>Spisak delova</h2>
-                                                                        <a href="AdminDodajDeo.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;">DODAJ</a>
+                                                                        <a href="AdminDodajDeo.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;margin-bottom: 20px;">DODAJ</a>
                                                                         
                                                                 </header>
                                                             <form method="post" action="ServletAdminPrikazDelova">

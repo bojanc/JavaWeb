@@ -241,6 +241,10 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
         String nazivF = "";
         ArrayList<String> podaci = new ArrayList<String>();
         
+        HttpSession sesija = request.getSession();
+        
+        Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+        
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         if (isMultipart)
@@ -378,10 +382,17 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                         response.sendRedirect("ServletAdminPrikazDelovaKonfig?slika=da");
                         return;
                     }
+                    else if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Urednik"))
+                    {
+                        SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,odobreno,imgPath,korisnikID)"
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(8)+"','"+podaci.get(10)+"','da','"+imgpa+"','"+podaci.get(11)+"')");
+                        q.executeUpdate();
+                        tr.commit();
+                    }
                     else
                     {
-                        SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,imgPath,korisnikID)"
-                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(8)+"','"+podaci.get(10)+"','"+imgpa+"','"+podaci.get(11)+"')");
+                        SQLQuery q=s.createSQLQuery("insert into konfiguracije(gpuID,kucisteID,kulerID,maticnaID,memorijaID,procesorID,psuID,ramID,opis,odobreno,imgPath,korisnikID)"
+                            + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(8)+"','"+podaci.get(10)+"','ne','"+imgpa+"','"+podaci.get(11)+"')");
                         q.executeUpdate();
                         tr.commit();
                     }

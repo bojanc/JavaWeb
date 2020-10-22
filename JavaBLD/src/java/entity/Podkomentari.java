@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 17, 2020 1:03:26 PM by Hibernate Tools 4.3.1
+// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -28,8 +28,8 @@ public class Podkomentari  implements java.io.Serializable {
         this.korisnici = korisnici;
         this.vreme = vreme;
         this.tekst = tekst;
-        this. podkomentarId = podkomentarId;
         this.podkomentari = podkomentari;
+        this.podkomentarId = podkomentarId;
     }
     public Podkomentari(Komentari komentari, Korisnici korisnici, Podkomentari podkomentari, String vreme, String tekst, Set<Podkomentari> podkomentaris) {
        this.komentari = komentari;
