@@ -17,6 +17,9 @@
         <property name="tekst" type="string">
             <column name="tekst" length="65535" not-null="true" />
         </property>
+        <property name="odgovoreno" type="string">
+            <column name="odgovoreno" length="2" not-null="true" />
+        </property>
         <set name="porukeurednikas" table="porukeurednika" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="porukaKorisnikaID" not-null="true" />

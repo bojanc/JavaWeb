@@ -141,13 +141,16 @@ public class ServletUporedi extends HttpServlet {
         }
         
         ArrayList<Gpu> gpu = new ArrayList<Gpu>();
+        ArrayList<Gpu> gpusve = new ArrayList<Gpu>();
         ArrayList<Kuciste> kuciste = new ArrayList<Kuciste>();
         ArrayList<Kuleri> kuler = new ArrayList<Kuleri>();
         ArrayList<Maticna> maticna = new ArrayList<Maticna>();
         ArrayList<Memorija> memorija = new ArrayList<Memorija>();
         ArrayList<Procesori> cpu = new ArrayList<Procesori>();
+        ArrayList<Procesori> cpusve = new ArrayList<Procesori>();
         ArrayList<Psu> psu = new ArrayList<Psu>();
         ArrayList<Ram> ram = new ArrayList<Ram>();
+        ArrayList<Ram> ramsve = new ArrayList<Ram>();
         
         try
         {
@@ -160,12 +163,21 @@ public class ServletUporedi extends HttpServlet {
                 SQLQuery q=s.createSQLQuery("select * from gpu where gpuID in ('"+gpul.get(0)+"','"+gpul.get(1)+"')").addEntity(Gpu.class);
                 List<Gpu> rows = q.list();
                 
+                SQLQuery q1=s.createSQLQuery("select * from gpu").addEntity(Gpu.class);
+                List<Gpu> rows1 = q1.list();
+                
                 for(Gpu row:rows)
                 {
                     gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
                 }
                 
+                for(Gpu row:rows1)
+                {
+                    gpusve.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
+                }
+                
                 request.setAttribute("gpu", gpu);
+                request.setAttribute("gpusve", gpusve);
                 s.close();
                 request.getRequestDispatcher("UporedjivanjeDelova.jsp").forward(request, response);
             }
@@ -235,12 +247,21 @@ public class ServletUporedi extends HttpServlet {
                 SQLQuery q=s.createSQLQuery("select * from procesori where procesorID in ('"+procesorl.get(0)+"','"+procesorl.get(1)+"')").addEntity(Procesori.class);
                 List<Procesori> rows = q.list();
                 
+                SQLQuery q1=s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
+                List<Procesori> rows1 = q1.list();
+                
                 for(Procesori row:rows)
                 {
                     cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
                 }
                 
+                for(Procesori row:rows1)
+                {
+                    cpusve.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
+                }
+                
                 request.setAttribute("cpu", cpu);
+                request.setAttribute("cpusve", cpusve);
                 s.close();
                 request.getRequestDispatcher("UporedjivanjeDelova.jsp").forward(request, response);
             }
@@ -265,12 +286,21 @@ public class ServletUporedi extends HttpServlet {
                 SQLQuery q=s.createSQLQuery("select * from ram where ramID in ('"+raml.get(0)+"','"+raml.get(1)+"')").addEntity(Ram.class);
                 List<Ram> rows = q.list();
                 
+                SQLQuery q1=s.createSQLQuery("select * from ram").addEntity(Ram.class);
+                List<Ram> rows1 = q1.list();
+                
                 for(Ram row:rows)
                 {
                     ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
                 }
                 
+                for(Ram row:rows1)
+                {
+                    ramsve.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
+                }
+                
                 request.setAttribute("ram", ram);
+                request.setAttribute("ramsve", ramsve);
                 s.close();
                 request.getRequestDispatcher("UporedjivanjeDelova.jsp").forward(request, response);
             }

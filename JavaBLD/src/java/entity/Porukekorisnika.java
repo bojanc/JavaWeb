@@ -15,23 +15,26 @@ public class Porukekorisnika  implements java.io.Serializable {
      private Korisnici korisnici;
      private String vreme;
      private String tekst;
+     private String odgovoreno;
      private Set<Porukeurednika> porukeurednikas = new HashSet<Porukeurednika>(0);
 
     public Porukekorisnika() {
     }
 
 	
-    public Porukekorisnika(Integer porukaKorisnikaId, Korisnici korisnici, String vreme, String tekst) {
+    public Porukekorisnika(Integer porukaKorisnikaId, Korisnici korisnici, String vreme, String tekst,String odgovoreno) {
         this.porukaKorisnikaId = porukaKorisnikaId;
         this.korisnici = korisnici;
         this.vreme = vreme;
         this.tekst = tekst;
+        this.odgovoreno = odgovoreno;
     }
-    public Porukekorisnika(Integer porukaKorisnikaId, Korisnici korisnici, String vreme, String tekst, Set<Porukeurednika> porukeurednikas) {
+    public Porukekorisnika(Integer porukaKorisnikaId, Korisnici korisnici, String vreme, String tekst,String odgovoreno, Set<Porukeurednika> porukeurednikas) {
        this.porukaKorisnikaId = porukaKorisnikaId;
        this.korisnici = korisnici;
        this.vreme = vreme;
        this.tekst = tekst;
+       this.odgovoreno = odgovoreno;
        this.porukeurednikas = porukeurednikas;
     }
    
@@ -62,6 +65,14 @@ public class Porukekorisnika  implements java.io.Serializable {
     
     public void setTekst(String tekst) {
         this.tekst = tekst;
+    }
+    
+    public String getOdgovoreno() {
+        return this.odgovoreno;
+    }
+    
+    public void setOdgovoreno(String odgovoreno) {
+        this.odgovoreno = odgovoreno;
     }
     public Set<Porukeurednika> getPorukeurednikas() {
         return this.porukeurednikas;

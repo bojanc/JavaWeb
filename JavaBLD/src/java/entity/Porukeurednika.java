@@ -11,17 +11,19 @@ public class Porukeurednika  implements java.io.Serializable {
 
      private Integer porukaUrednikId;
      private Porukekorisnika porukekorisnika;
+     private Korisnici korisnici;
      private String vreme;
      private String tekst;
 
     public Porukeurednika() {
     }
 
-    public Porukeurednika(Integer porukaUrednikId, Porukekorisnika porukekorisnika, String vreme, String tekst) {
+    public Porukeurednika(Integer porukaUrednikId, Porukekorisnika porukekorisnika,Korisnici korisnici, String vreme, String tekst) {
        this.porukaUrednikId = porukaUrednikId;
        this.porukekorisnika = porukekorisnika;
        this.vreme = vreme;
        this.tekst = tekst;
+       this.korisnici = korisnici;
     }
    
     public Integer getPorukaUrednikId() {
@@ -45,6 +47,15 @@ public class Porukeurednika  implements java.io.Serializable {
     public void setVreme(String vreme) {
         this.vreme = vreme;
     }
+    
+    public Korisnici getKorisnici() {
+        return this.korisnici;
+    }
+    
+    public void setKorisnici(Korisnici korisnici) {
+        this.korisnici = korisnici;
+    }
+    
     public String getTekst() {
         return this.tekst;
     }

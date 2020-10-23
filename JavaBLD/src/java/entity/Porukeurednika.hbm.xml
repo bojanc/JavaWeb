@@ -17,5 +17,8 @@
         <property name="tekst" type="string">
             <column name="tekst" length="65535" not-null="true" />
         </property>
+        <many-to-one name="korisnici" class="entity.Korisnici" fetch="select">
+            <column name="pu_korisnikID" not-null="true" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

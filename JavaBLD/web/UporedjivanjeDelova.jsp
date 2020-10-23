@@ -31,7 +31,7 @@
 	<body class="is-preload">
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+			<div id="wrapper" style="padding-left: 10px; padding-right: 0; margin-left: 0; margin-right: -200px;width: 110%;">
 
 				<!-- Header -->
 					<header id="header">
@@ -234,19 +234,27 @@
                                 </script>
                                 <%
                                     ArrayList<Gpu> gpu = new ArrayList<Gpu>();
+                                    ArrayList<Gpu> gpusve = new ArrayList<Gpu>();
                                     ArrayList<Kuciste> kuciste = new ArrayList<Kuciste>();
                                     ArrayList<Kuleri> kuler = new ArrayList<Kuleri>();
                                     ArrayList<Maticna> maticna = new ArrayList<Maticna>();
                                     ArrayList<Memorija> memorija = new ArrayList<Memorija>();
                                     ArrayList<Procesori> cpu = new ArrayList<Procesori>();
+                                    ArrayList<Procesori> cpusve = new ArrayList<Procesori>();
                                     ArrayList<Psu> psu = new ArrayList<Psu>();
                                     ArrayList<Ram> ram = new ArrayList<Ram>();
+                                    ArrayList<Ram> ramsve = new ArrayList<Ram>();
                                     
 
 
                                     if(request.getAttribute("gpu")!=null)
                                     {
                                             gpu = (ArrayList<Gpu>)request.getAttribute("gpu");
+                                    }
+                                    
+                                    if(request.getAttribute("gpusve")!=null)
+                                    {
+                                            gpusve = (ArrayList<Gpu>)request.getAttribute("gpusve");
                                     }
                                     
                                     if(request.getAttribute("kuciste")!=null)
@@ -273,6 +281,11 @@
                                     {
                                             cpu = (ArrayList<Procesori>)request.getAttribute("cpu");
                                     }
+                                    
+                                    if(request.getAttribute("cpusve")!=null)
+                                    {
+                                            cpusve = (ArrayList<Procesori>)request.getAttribute("cpusve");
+                                    }
 
                                     if(request.getAttribute("psu")!=null)
                                     {
@@ -282,6 +295,11 @@
                                     if(request.getAttribute("ram")!=null)
                                     {
                                             ram = (ArrayList<Ram>)request.getAttribute("ram");
+                                    }
+                                    
+                                    if(request.getAttribute("ramsve")!=null)
+                                    {
+                                            ramsve = (ArrayList<Ram>)request.getAttribute("ramsve");
                                     }
 
                                 %>
@@ -389,11 +407,117 @@
                                       
                                 </style>
                                 
+                                <style>
+                                                                    #ck-button {
+                                                                        -moz-appearance: none;
+                                                                        -webkit-appearance: none;
+                                                                        -ms-appearance: none;
+                                                                        appearance: none;
+                                                                        -moz-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        -webkit-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        -ms-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        background-color: transparent;
+                                                                        border: 0;
+                                                                        box-shadow: inset 0 0 0 1px rgba(160, 160, 160, 0.3);
+                                                                        color: #000;
+                                                                        cursor: pointer;
+                                                                        display: inline-block;
+                                                                        font-family: "Raleway", Helvetica, sans-serif;
+                                                                        font-size: 0.6em;
+                                                                        font-weight: 800;
+                                                                        height: 4.8125em;
+                                                                        letter-spacing: 0.25em;
+                                                                        line-height: 4.8125em;
+                                                                        padding: 0;
+                                                                        text-align: center;
+                                                                        text-decoration: none;
+                                                                        text-transform: uppercase;
+                                                                        white-space: nowrap;
+                                                                    }
+
+                                                                    #ck-button:hover {
+                                                                        box-shadow: inset 0 0 0 1px #2ebaae;
+                                                                        color: #2ebaae !important;
+                                                                    }
+
+                                                                    #ck-button label {
+                                                                        float:left;
+                                                                        font-family: "Raleway", Helvetica, sans-serif;
+                                                                    }
+
+                                                                    #ck-button label span {
+                                                                        -moz-appearance: none;
+                                                                        -webkit-appearance: none;
+                                                                        -ms-appearance: none;
+                                                                        appearance: none;
+                                                                        -moz-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        -webkit-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        -ms-transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+                                                                        background-color: transparent;
+                                                                        border: 0;
+                                                                        color: #000;
+                                                                        cursor: pointer;
+                                                                        display: inline-block;
+                                                                        font-family: "Raleway", Helvetica, sans-serif;
+                                                                    }
+
+                                                                    #ck-button label input {
+                                                                        position:absolute;
+                                                                        top:-20px;
+                                                                    }
+                                                                    
+                                                                    #ck-button span {
+                                                                        width: 125px;
+                                                                    }
+
+                                                                    #ck-button input:checked + span{
+                                                                        background-color:transparent;
+                                                                        box-shadow: inset 0 0 0 1px #2ebaae;
+                                                                        color: #2ebaae !important;
+                                                                    }
+                                                                </style>
+                                
                                 
 
 				<!-- Main -->
-					<div id="main" style="text-align:center;">
-
+					<div id="main" style="text-align:center; width: 100%;">
+                                            <%
+                                                if(!gpusve.isEmpty())
+                                                {
+                                            %>
+                                            <div id="gpu" class="deo" style="float:left;display:inline-block;width:20%;">
+                                                
+                                                <table style='width:20%;'>
+                                                    <%
+                                                        if(gpusve.size()>0)
+                                                        {
+                                                            int g= 0;
+                                                        for(Gpu pom:gpusve)
+                                                        {
+                                                            if(pom.getGpuId() != gpu.get(1).getGpuId()){
+                                                    %>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;width:20%;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <a href="ServletUporedi?gpu=<%= pom.getGpuId() %>&gpu=<%= gpu.get(1).getGpuId() %>" class="button" id="uporedi" onclick="return check()" style="padding-bottom: 10px;">Uporedi</a>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                        }}
+                                                    %>
+                                                </table>
+                                              </div>
+                                                <%
+                                                    }
+                                                %>
 						<!-- Post -->
                                                 <% 
                                                     if(!gpu.isEmpty())
@@ -401,7 +525,7 @@
                                                     for(Gpu pom:gpu)
                                                     {
                                                 %>
-							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
+							<article class="post" style="width: 25%;margin-right: 10px; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
                                                                 <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
@@ -422,7 +546,44 @@
 							</article>
                                                                     
                                                 <%
+                                                    }%>
+                                                <%
+                                                if(!gpusve.isEmpty())
+                                                {
+                                            %>
+                                            <div id="gpu" class="deo" style="float:right;display:inline-block;width:20%; padding-right: 10px;">
+                                                
+                                                <table style='width:20%;float:right;padding-right: 50px;'>
+                                                    <%
+                                                        if(gpusve.size()>0)
+                                                        {
+                                                            int g= 0;
+                                                        for(Gpu pom:gpusve)
+                                                        {
+                                                            if(pom.getGpuId() != gpu.get(0).getGpuId()){
+                                                    %>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;width:20%;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <a href="ServletUporedi?gpu=<%= gpu.get(0).getGpuId() %>&gpu=<%= pom.getGpuId() %>" class="button" id="uporedi" onclick="return check()" style="padding-bottom: 10px;">Uporedi</a>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }}
+                                                        }
+                                                    %>
+                                                </table>
+                                              </div>
+                                                <%
                                                     }
+                                                %>
+                                                
+                                                <%
                                                     String gpu1 = gpu.get(0).getMemorija().substring(0, gpu.get(0).getMemorija().length() - 2);
                                                     String gpu2 = gpu.get(1).getMemorija().substring(0, gpu.get(1).getMemorija().length() - 2);
                                                     int gpu1int = Integer.parseInt(gpu1);
@@ -577,6 +738,41 @@
                                                     }
                                                     }
                                                 %>
+                                                <%
+                                                    if(!cpusve.isEmpty())
+                                                    {
+                                                %>
+                                            <div id="cpu" class="deo" style="float:left;display:inline-block;width:20%;">
+                                                
+                                                <table style='width:20%;'>
+                                                    <%
+                                                        if(cpusve.size()>0)
+                                                        {
+                                                            int g= 0;
+                                                        for(Procesori pom:cpusve)
+                                                        {
+                                                            if(pom.getProcesorId() != cpu.get(1).getProcesorId()){
+                                                    %>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;width:20%;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <a href="ServletUporedi?cpu=<%= pom.getProcesorId() %>&cpu=<%= cpu.get(1).getProcesorId() %>" class="button" id="uporedi" onclick="return check()" style="padding-bottom: 10px;">Uporedi</a>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                        }}
+                                                    %>
+                                                </table>
+                                              </div>
+                                                <%
+                                                    }
+                                                %>
                                                 
                                                 <%  DecimalFormat df = new DecimalFormat("#.##");
                                                     if(!cpu.isEmpty())
@@ -584,7 +780,7 @@
                                                     for(Procesori pom:cpu)
                                                     {
                                                 %>
-							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
+							<article class="post" style="width: 25%;margin-right: 10px; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
                                                                 <h2 style="color:white;float:left;padding-top: 5px;width: 100%;white-space: nowrap;"><%= pom.getNaziv() %></h2>
@@ -606,7 +802,45 @@
 							</article>
                                                                     
                                                                     <%
+                                                    }%>
+                                                    <%
+                                                    if(!cpusve.isEmpty())
+                                                    {
+                                                %>
+                                            <div id="cpu" class="deo" style="float:right;display:inline-block;width:20%;">
+                                                
+                                                <table style='width:20%;'>
+                                                    <%
+                                                        if(cpusve.size()>0)
+                                                        {
+                                                            int g= 0;
+                                                        for(Procesori pom:cpusve)
+                                                        {
+                                                            if(pom.getProcesorId() != cpu.get(0).getProcesorId()){
+                                                    %>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;width:20%;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <a href="ServletUporedi?cpu=<%= cpu.get(0).getProcesorId() %>&cpu=<%= pom.getProcesorId() %>" class="button" id="uporedi" onclick="return check()" style="padding-bottom: 10px;">Uporedi</a>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                        }}
+                                                    %>
+                                                </table>
+                                              </div>
+                                                <%
                                                     }
+                                                %>                
+                                                    
+                                                    
+                                                    <%
                                                     String cpu1frek = cpu.get(0).getBoost().substring(0, cpu.get(0).getFrekvencija().length() - 3);
                                                     String cpu2frek = cpu.get(1).getBoost().substring(0, cpu.get(1).getFrekvencija().length() - 3);
                                                     
@@ -617,7 +851,7 @@
                                                     int cpu1jez = cpu.get(0).getBrojJezgara();
                                                     int cpu2jez = cpu.get(1).getBrojJezgara();
                                                     
-                                                    if(cpu1int > cpu2int && cpu1jez>cpu2jez)
+                                                    if(cpu1int > cpu2int && cpu1jez>=cpu2jez)
                                                     {
                                                         float razlika = (cpu1int/cpu2int)*10;
                                                         
@@ -636,7 +870,7 @@
                                                     </style>
                                                 
                                                 <%}
-                                                else if(cpu2int > cpu1int && cpu2jez>cpu1jez){
+                                                else if(cpu2int > cpu1int && cpu2jez>=cpu1jez){
                                                     float razlika = (cpu2int/cpu1int)*10;
                                                 %>
                                                 <h2><%= cpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= cpu.get(0).getNaziv() %></h2>
@@ -684,13 +918,49 @@
                                                     }
                                                 %>
                                                 
+                                                <%
+                                                    if(!ramsve.isEmpty())
+                                                    {
+                                                %>
+                                            <div id="ram" class="deo" style="float:left;display:inline-block;width:20%;">
+                                                
+                                                <table style='width:20%;'>
+                                                    <%
+                                                        if(ramsve.size()>0)
+                                                        {
+                                                            int g= 0;
+                                                        for(Ram pom:ramsve)
+                                                        {
+                                                            if(pom.getRamId()!= ram.get(1).getRamId()){
+                                                    %>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;width:20%;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <a href="ServletUporedi?ram=<%= pom.getRamId()%>&ram=<%= ram.get(1).getRamId()%>" class="button" id="uporedi" onclick="return check()" style="padding-bottom: 10px;">Uporedi</a>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                        }}
+                                                    %>
+                                                </table>
+                                              </div>
+                                                <%
+                                                    }
+                                                %>
+                                                
                                                 <% 
                                                     if(!ram.isEmpty())
                                                     {
                                                     for(Ram pom:ram)
                                                     {
                                                 %>
-							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
+							<article class="post" style="width: 25%;margin-right: 10px; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
                                                                 <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
@@ -708,7 +978,44 @@
                                                             </table>
 							</article>
                                                 <%
+                                                    }%>
+                                                <%
+                                                    if(!ramsve.isEmpty())
+                                                    {
+                                                %>
+                                            <div id="ram" class="deo" style="float:right;display:inline-block;width:20%;margin-right: 25px;">
+                                                
+                                                <table style='width:20%;'>
+                                                    <%
+                                                        if(ramsve.size()>0)
+                                                        {
+                                                            int g= 0;
+                                                        for(Ram pom:ramsve)
+                                                        {
+                                                            if(pom.getRamId()!= ram.get(0).getRamId()){
+                                                    %>
+                                                    <tr style="background-color:transparent; border: 1px solid #2ebaae;width:20%;">
+                                                        <td style="vertical-align: middle;">
+                                                            <img src='<%= pom.getImgPath() %>' height="100" width="100">
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <p><%= pom.getNaziv()%></p>
+                                                        </td>
+                                                        <td style="vertical-align: middle;">
+                                                            <a href="ServletUporedi?ram=<%= ram.get(0).getRamId()%>&ram=<%= pom.getRamId()%>" class="button" id="uporedi" onclick="return check()" style="padding-bottom: 10px;">Uporedi</a>
+                                                        </td>
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                        }}
+                                                    %>
+                                                </table>
+                                              </div>
+                                                <%
                                                     }
+                                                %>     
+                                                    
+                                                    <%
                                                     String ram1 = ram.get(0).getBrzina().substring(ram.get(0).getBrzina().length() - 4);
                                                     String ram2 = ram.get(1).getBrzina().substring(ram.get(1).getBrzina().length() - 4);
                                                     int ram1int = Integer.parseInt(ram1);
@@ -716,9 +1023,10 @@
                                                     if(ram1int > ram2int)
                                                     {
                                                         float razlika = ((float)ram1int/ram2int)*10;
+                                                        df.format(razlika);
 
                                                 %>
-                                                <h2><%= ram.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brži od <%= ram.get(1).getNaziv() %></h2>
+                                                <h2><%= ram.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= ram.get(1).getNaziv() %></h2>
                                                     <div class="progress">
                                                         <div class="progress-value"></div>
                                                     </div>
@@ -733,7 +1041,7 @@
                                                 else if(ram2int > ram1int){
                                                     float razlika = ((float)ram2int/ram1int)*10;
                                                 %>
-                                                <h2><%= ram.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brži od <%= ram.get(0).getNaziv() %></h2>
+                                                <h2><%= ram.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= ram.get(0).getNaziv() %></h2>
                                                     <div class="progress">
                                                         <div class="progress-value"></div>
                                                     </div>
