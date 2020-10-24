@@ -76,14 +76,16 @@
 							</section>
 
 						<!-- Links -->
-							<section>
-								<ul class="links">
-                                                                    <%
+							<%
                                                                         if(korisnik!=null)
-                                                                        {
+                                                                        {%>
+                                                        <section>
+								<ul class="links">
+                                                <%
                                                                             if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
+                                                                    
 									<li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazKorisnika">
                                                                                     <p style="font-size:0.8em;">Korisnici</p>
@@ -114,17 +116,62 @@
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
-                                                                        <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Korisničke konfiguracije</p>
-										</a>
-									</li>
                                                                         <%
                                                                                 }
+
+                                                                                if(korisnik.getUloga().equals("Urednik"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaKorisnika">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                                <%}
+                                                                                if(korisnik.getUloga().equals("Klijent"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                            
+								
+                                                                            <%}%>
+                                                        </ul>
+							</section>
+                                                                        <%
                                                                             }
                                                                         %>
-								</ul>
-							</section>
                                                                 <%
                                                                     Konfiguracije konfig = (Konfiguracije)request.getAttribute("konfig");
                                                                     ArrayList<Komentari> komentar = new ArrayList<Komentari>();
@@ -253,7 +300,7 @@
 								</header>
                                                                         
                                                                         <style>
-                                                                                    .button:hover {
+                                                                                    #buttonobrisi:hover {
                                                                                         box-shadow: inset 0 0 0 1px red;
                                                                                         color: red !important;
                                                                                     }
@@ -274,7 +321,7 @@
                                                                             <tr style="background-color:transparent;border-top: none;">
                                                                                 <td style="padding-bottom:0;">
                                                                                 <img src="<%= pom.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
-                                                                                <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%> </h4><% if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pom.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?komid=<%= pom.getKomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}%>
+                                                                                <h4 style="width: 15%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%> </h4><%if(korisnik!=null){ if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pom.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?komid=<%= pom.getKomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" id="buttonobrisi" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}}%>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pom.getVreme() %></p><br><br>
                                                                                 <p style="margin-left:50px;display: inline-block;"><%= pom.getTekst() %></p>
                                                                                 
@@ -285,8 +332,9 @@
                                                                                 <input type="hidden" name="komID" id="podpodpodkomKOMID<%= a %>11" class="odgovorpodpodkomKOM" value="<%= pom.getKomentarId() %>">
                                                                                 
                                                                                 </div>
-                                                                                
+                                                                                <%if(korisnik!=null){%>
                                                                                 <a href="#" id="replykom<%= a %>" class="komikona" style="float:right;border-bottom: none;" onclick="otvoriOdgovorkom('kom<%= a %>','replykom<%= a %>','podpodpodkomKOMID<%= a %>11','tekst<%= a %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                <%}%>
                                                                                 </td>
                                                                             </tr>
                                                                                 <%  int b = 0;int m = 0;
@@ -300,7 +348,7 @@
                                                                             <tr style="background-color:transparent;border-top: none;">
                                                                                 <td style="padding-left: 100px;">
                                                                                 <img src="<%= pom.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
-                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%> : <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%></h4> <% if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pomp.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?id=<%= pomp.getPodkomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}%>
+                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"> <%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%> : <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%></h4> <%if(korisnik!=null){ if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pomp.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?id=<%= pomp.getPodkomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" id="buttonobrisi" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}}%>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pomp.getVreme() %></p><br><br>
                                                                                 <p style="margin-left:50px;display: inline-block;"><%= pomp.getTekst() %></p>
                                                                                 
@@ -311,8 +359,9 @@
                                                                                 <input type="hidden" name="podkomID" id="podpodpodkomPODKOMID<%= b %>1" class="odgovorpodpodkomPODKOM" value="<%= pomp.getPodkomentarId() %>">
                                                                                 <input type="hidden" name="komID" id="podpodpodkomKOMID<%= b %>1" class="odgovorpodpodkomKOM" value="<%= pom.getKomentarId() %>">
                                                                                 </div>
-                                                                                
+                                                                                <%if(korisnik!=null){%>
                                                                                 <a href="#" id="replypodkom<%= b %>" class="podkomikona" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodkom('podkom<%= b %>','replypodkom<%= b %>','podpodpodkomPODKOMID<%= b %>1','podpodpodkomKOMID<%= b %>1','tekst1<%= b %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                <%}%>
                                                                                 </td>
                                                                             </tr>
                                                                                 <%} int c = 0;
@@ -345,7 +394,7 @@
                                                                             <tr style="background-color:transparent;border-top: none;">
                                                                                 <td style="padding-left: 200px;">
                                                                                 <img src="<%= pomp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
-                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"><%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%> : <img src="<%= pompp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pompp.getKorisnici().getIme() %> <%= pompp.getKorisnici().getPrezime()%></h4><% if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pompp.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?id=<%= pompp.getPodkomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}%>
+                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"><%= pomp.getKorisnici().getIme() %> <%= pomp.getKorisnici().getPrezime()%> : <img src="<%= pompp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pompp.getKorisnici().getIme() %> <%= pompp.getKorisnici().getPrezime()%></h4><%if(korisnik!=null){ if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pompp.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?id=<%= pompp.getPodkomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" id="buttonobrisi" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}}%>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pompp.getVreme() %></p><br><br>
                                                                                 <p style="margin-left:50px;display: inline-block;"><%= pompp.getTekst() %></p>
                                                                                 
@@ -357,8 +406,9 @@
                                                                                 <input type="hidden" name="podkomID" id="podpodpodkomPODKOMID<%= c %>2" class="odgovorpodpodkomPODKOM" value="<%= pompp.getPodkomentarId() %>">
                                                                                 <input type="hidden" name="komID" id="podpodpodkomKOMID<%= c %>2" class="odgovorpodpodkomKOM" value="<%= pom.getKomentarId() %>">
                                                                                 </div>
-                                                                                
+                                                                                <%if(korisnik!=null){%>
                                                                                 <a href="#" id="replypodpodkom<%= c %>" class="podpodkomikona" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodpodkom('podpodkom<%= c %>','replypodpodkom<%= c %>','podpodpodkomPODKOMID<%= c %>2','podpodpodkomKOMID<%= c %>2','tekst2<%= c %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                                                                                <%}%>
                                                                                 </td>
                                                                             </tr>
                                                                             <%}}
@@ -376,7 +426,7 @@
                                                                             <tr style="background-color:transparent;border-top: none;">
                                                                                 <td style="padding-left: 300px;">
                                                                                 <img src="<%= pompp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/>
-                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"><%= pompp.getKorisnici().getIme() %> <%= pompp.getKorisnici().getPrezime()%> : <img src="<%= pomppp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pomppp.getKorisnici().getIme() %> <%= pomppp.getKorisnici().getPrezime()%></h4><% if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pomppp.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?id=<%= pomppp.getPodkomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}%>
+                                                                                <h4 style="width: 40%;margin:0;display: inline-block;"><%= pompp.getKorisnici().getIme() %> <%= pompp.getKorisnici().getPrezime()%> : <img src="<%= pomppp.getKorisnici().getImgPath() %>" height="30" width="30" style="border-radius: 50%;vertical-align: middle;display: inline-block;margin-right: 10px;"/> <%= pomppp.getKorisnici().getIme() %> <%= pomppp.getKorisnici().getPrezime()%></h4><%if(korisnik!=null){ if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pomppp.getKorisnici().getKorisnikId()){ %><a href="ServletKomentarObrisi?id=<%= pomppp.getPodkomentarId() %>&konfigid=<%= pom.getKonfiguracije().getKonfiguracijaId() %>" class="button" id="buttonobrisi" style="float:right;display: inline-block;margin-left: 50px;box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Obriši</a><%}}%>
                                                                                 <p style="width: 20%;margin:0;display: inline-block;"><%= pomppp.getVreme() %></p><br><br>
                                                                                 <p style="margin-left:50px;display: inline-block;"><%= pomppp.getTekst() %></p>
                                                                                 
@@ -391,9 +441,9 @@
                                                                                 <input type="hidden" id="podpodpodkomPODKOMID<%= pomppp.getPodkomentarId() %>posl" name="podkomID" class="odgovorpodpodpodkomPODKOM" value="<%= pomppp.getPodkomentarId() %>">
                                                                                 <input type="hidden" id="podpodpodkomKOMID<%= pomppp.getPodkomentarId() %>posl" name="komID" class="odgovorpodpodpodkomKOM" value="<%= pom.getKomentarId() %>">
                                                                                 </div>
-                                                                                
+                                                                                <%if(korisnik!=null){%>
                                                                                 <a href="#" id="replypodpodpodkom<%= m %>" class="podpodpodkomikona" style="float:right;border-bottom: none" onclick="otvoriOdgovorpodpodpodkom('podpodpodkom<%= pomppp.getPodkomentarId() %>','replypodpodpodkom<%= m %>','podpodpodkomPODKOMID<%= pomppp.getPodkomentarId() %>posl','podpodpodkomKOMID<%= pomppp.getPodkomentarId() %>posl','tekst3<%= pomppp.getPodkomentarId() %>')"><i class="fa fa-reply" aria-hidden="true"></i></a>
-                                                                                
+                                                                                <%}%>
                                                                                 <%
                                                                                     }
                                                                                 %>

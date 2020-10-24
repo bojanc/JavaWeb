@@ -76,14 +76,16 @@
 							</section>
 
 						<!-- Links -->
-							<section>
-								<ul class="links">
-                                                                    <%
+							<%
                                                                         if(korisnik!=null)
-                                                                        {
+                                                                        {%>
+                                                        <section>
+								<ul class="links">
+                                                <%
                                                                             if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
+                                                                    
 									<li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazKorisnika">
                                                                                     <p style="font-size:0.8em;">Korisnici</p>
@@ -114,17 +116,62 @@
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
-                                                                        <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Korisničke konfiguracije</p>
-										</a>
-									</li>
                                                                         <%
                                                                                 }
+
+                                                                                if(korisnik.getUloga().equals("Urednik"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaKorisnika">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                                <%}
+                                                                                if(korisnik.getUloga().equals("Klijent"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                            
+								
+                                                                            <%}%>
+                                                        </ul>
+							</section>
+                                                                        <%
                                                                             }
                                                                         %>
-								</ul>
-							</section>
 
 						<!-- Actions -->
 							<section>
@@ -376,6 +423,7 @@
                                                                             <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
 									</div>
                                                                         <%
+                                                                            if(korisnik!=null){
                                                                             if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pom.getKorisnici().getKorisnikId()){
                                                                         %>
                                                                         <div class="dropdown">
@@ -386,7 +434,7 @@
                                                                             </div>
                                                                           </div>
                                                                             <%
-                                                                                }
+                                                                                }}
                                                                             %>
 								</header>
                                                                         

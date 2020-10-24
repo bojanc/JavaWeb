@@ -222,14 +222,14 @@ public class ServletRegistracija extends HttpServlet {
                     if(imgpa.length()==21)
                     {
                         SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
-                            + "VALUES('images/img_avatar.png', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+sha1+"', 'klijent')");
+                            + "VALUES('images/img_avatar.png', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+sha1+"', 'Klijent')");
                         q.executeUpdate();
                         tr.commit();
                     }
                     else
                     {
                         SQLQuery q=s.createSQLQuery("insert into korisnici(imgPath,ime,prezime,username,password,uloga)"
-                            + "VALUES('"+imgpa+"', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+sha1+"', 'klijent')");
+                            + "VALUES('"+imgpa+"', '"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+sha1+"', 'Klijent')");
                         q.executeUpdate();
                         tr.commit();
                     }

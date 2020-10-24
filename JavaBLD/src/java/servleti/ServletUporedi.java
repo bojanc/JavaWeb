@@ -160,7 +160,7 @@ public class ServletUporedi extends HttpServlet {
             
             if(gpul.size()>0)
             {
-                SQLQuery q=s.createSQLQuery("select * from gpu where gpuID in ('"+gpul.get(0)+"','"+gpul.get(1)+"')").addEntity(Gpu.class);
+                SQLQuery q=s.createSQLQuery("select * from gpu where gpuID in ('"+gpul.get(0)+"','"+gpul.get(1)+"') ORDER BY FIELD(gpuID,'"+gpul.get(0)+"','"+gpul.get(1)+"')").addEntity(Gpu.class);
                 List<Gpu> rows = q.list();
                 
                 SQLQuery q1=s.createSQLQuery("select * from gpu").addEntity(Gpu.class);
@@ -244,7 +244,7 @@ public class ServletUporedi extends HttpServlet {
             
             if(procesorl.size()>0)
             {
-                SQLQuery q=s.createSQLQuery("select * from procesori where procesorID in ('"+procesorl.get(0)+"','"+procesorl.get(1)+"')").addEntity(Procesori.class);
+                SQLQuery q=s.createSQLQuery("select * from procesori where procesorID in ('"+procesorl.get(0)+"','"+procesorl.get(1)+"')  ORDER BY FIELD(procesorID,'"+procesorl.get(0)+"','"+procesorl.get(1)+"')").addEntity(Procesori.class);
                 List<Procesori> rows = q.list();
                 
                 SQLQuery q1=s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
@@ -283,7 +283,7 @@ public class ServletUporedi extends HttpServlet {
             
             if(raml.size()>0)
             {
-                SQLQuery q=s.createSQLQuery("select * from ram where ramID in ('"+raml.get(0)+"','"+raml.get(1)+"')").addEntity(Ram.class);
+                SQLQuery q=s.createSQLQuery("select * from ram where ramID in ('"+raml.get(0)+"','"+raml.get(1)+"')   ORDER BY FIELD(ramID,'"+raml.get(0)+"','"+raml.get(1)+"')").addEntity(Ram.class);
                 List<Ram> rows = q.list();
                 
                 SQLQuery q1=s.createSQLQuery("select * from ram").addEntity(Ram.class);

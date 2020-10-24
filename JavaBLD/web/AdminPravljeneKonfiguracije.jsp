@@ -79,14 +79,16 @@
 							</section>
 
 						<!-- Links -->
-							<section>
-								<ul class="links">
-                                                                    <%
+							<%
                                                                         if(korisnik!=null)
-                                                                        {
+                                                                        {%>
+                                                        <section>
+								<ul class="links">
+                                                <%
                                                                             if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
+                                                                    
 									<li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazKorisnika">
                                                                                     <p style="font-size:0.8em;">Korisnici</p>
@@ -117,17 +119,62 @@
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
-                                                                        <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Korisničke konfiguracije</p>
-										</a>
-									</li>
                                                                         <%
                                                                                 }
+
+                                                                                if(korisnik.getUloga().equals("Urednik"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaKorisnika">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                                <%}
+                                                                                if(korisnik.getUloga().equals("Klijent"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                            
+								
+                                                                            <%}%>
+                                                        </ul>
+							</section>
+                                                                        <%
                                                                             }
                                                                         %>
-								</ul>
-							</section>
 
 						<!-- Actions -->
 							<section>
@@ -316,7 +363,6 @@
                                                                     if (document.getElementById('moboID<%= meb %>').checked) {
                                                                         $('#moboIMG<%= meb %>')
                                                                             .attr('src', document.getElementById('moboID<%= meb %>').getAttribute("data-original-title"))
-                                                                            .attr('style', "display:block;box-shadow:2px 2px 15px -1px rgba(46,186,174,1);")
                                                                             .width(150)
                                                                             .height(150);
                                                                     } else if(document.getElementById('moboID<%= meb %>').checked==false){
@@ -904,7 +950,8 @@
                                                                 <%
                                                                     for(int mosub=1;mosub<=maticna.size();mosub++){
                                                                 %>
-                                                                <img id="moboIMG<%= mosub %>" src="#" alt="" style="float:left;">
+                                                                <img id="moboIMG<%= mosub %>" src="#" alt="" style="float:left;-webkit-filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5));
+     filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5));">
                                                                 <%
                                                                     }
                                                                 %>

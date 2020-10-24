@@ -71,14 +71,16 @@
 							</section>
 
 						<!-- Links -->
-							<section>
-								<ul class="links">
-                                                                    <%
+							<%
                                                                         if(korisnik!=null)
-                                                                        {
+                                                                        {%>
+                                                        <section>
+								<ul class="links">
+                                                <%
                                                                             if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
+                                                                    
 									<li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazKorisnika">
                                                                                     <p style="font-size:0.8em;">Korisnici</p>
@@ -109,17 +111,62 @@
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
-                                                                        <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Korisničke konfiguracije</p>
-										</a>
-									</li>
                                                                         <%
                                                                                 }
+
+                                                                                if(korisnik.getUloga().equals("Urednik"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaKorisnika">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                                <%}
+                                                                                if(korisnik.getUloga().equals("Klijent"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                            
+								
+                                                                            <%}%>
+                                                        </ul>
+							</section>
+                                                                        <%
                                                                             }
                                                                         %>
-								</ul>
-							</section>
 
 						<!-- Actions -->
 							<section>
@@ -164,7 +211,7 @@
                                                                 </header>
                                                             <%if((kl.size()>1))
                                                                         {%>
-                                                            <table>
+                                                            <table style="margin-top: 30px;">
                                                                 <thead>
                                                                     <th>Slika</th>
                                                                     <th>Korisnik ID</th>
