@@ -187,13 +187,24 @@
 					</section>
                                                                 
                                                                 <script>
-                                                                function otvoriDeo(deoName) {
+                                                                function otvoriDeo(deoName, slika) {
                                                                   var i;
                                                                   var x = document.getElementsByClassName("deo");
                                                                   for (i = 0; i < x.length; i++) {
                                                                     x[i].style.display = "none";  
                                                                   }
                                                                   document.getElementById(deoName).style.display = "block";  
+                                                                  
+                                                                  if(slika == null)
+                                                                  {
+                                                                    var a  = document.getElementsByClassName("slikedelova");//.style.removeProperty('filter');
+                                                                      for(i = 0; i <a.length;i++)
+                                                                      {
+                                                                          var id = a[i].id;
+                                                                          document.getElementById(id).style.removeProperty('filter');
+                                                                      }
+                                                                      console.log("da");
+                                                                  }
                                                                 }
                                                                 </script>
                                                                 <%
@@ -1115,7 +1126,9 @@
                                                                 <%
                                                                     for(int mosub=1;mosub<=maticna.size();mosub++){
                                                                 %>
-                                                                <img id="moboIMG<%= mosub %>" src="#" alt="" style="float:left;">
+                                                                <a href="#" onclick="moboglow('moboIMG<%= mosub %>')" style="border-bottom: none;">
+                                                                <img id="moboIMG<%= mosub %>" class="slikedelova" src="#" alt="" style="float:left;">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1124,7 +1137,9 @@
                                                                 <%
                                                                     for(int r=1;r<=ram.size();r++){
                                                                 %>
-                                                                <img id="ramIMG<%= r %>" src="#" alt="" style="float:right;">
+                                                                <a href="#" onclick="ramglow('ramIMG<%= r %>')" style="border-bottom: none;">
+                                                                <img id="ramIMG<%= r %>" class="slikedelova" src="#" alt="" style="float:right;">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1135,7 +1150,9 @@
                                                                 <%
                                                                     for(int csub=1;csub<=cpu.size();csub++){
                                                                 %>
-                                                                <img id="cpuIMG<%= csub %>" src="#" alt="">
+                                                                <a href="#" onclick="cpuglow('cpuIMG<%= csub %>')" style="border-bottom: none;">
+                                                                <img id="cpuIMG<%= csub %>" class="slikedelova" src="#" alt="">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1144,7 +1161,9 @@
                                                                 <%
                                                                     for(int kasub=1;kasub<=kuciste.size();kasub++){
                                                                 %>
-                                                                <img id="caseIMG<%= kasub %>" src="#" alt="">
+                                                                <a href="#" onclick="caseglow('caseIMG<%= kasub %>')" style="border-bottom: none;">
+                                                                <img id="caseIMG<%= kasub %>"  class="slikedelova" src="#" alt="">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1153,7 +1172,9 @@
                                                                 <%
                                                                     for(int ksub=1;ksub<=kuler.size();ksub++){
                                                                 %>
-                                                                <img id="coolerIMG<%= ksub %>" src="#" alt="">
+                                                                <a href="#" onclick="coolerglow('coolerIMG<%= ksub %>')" style="border-bottom: none;">
+                                                                <img id="coolerIMG<%= ksub %>" class="slikedelova" src="#" alt="">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1164,7 +1185,9 @@
                                                                 <%
                                                                     for(int psub=1;psub<=psu.size();psub++){
                                                                 %>
-                                                                <img id="psuIMG<%= psub %>" src="#" alt="">
+                                                                <a href="#" onclick="psuglow('psuIMG<%= psub %>')" style="border-bottom: none;">
+                                                                <img id="psuIMG<%= psub %>" class="slikedelova" src="#" alt="">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1173,7 +1196,9 @@
                                                                 <%
                                                                     for(int gsub=1;gsub<=gpu.size();gsub++){
                                                                 %>
-                                                                <img id="gpuIMG<%= gsub %>" src="#" alt="">
+                                                                <a href="#" onclick="gpuglow('gpuIMG<%= gsub %>')" style="border-bottom: none;">
+                                                                <img id="gpuIMG<%= gsub %>" class="slikedelova" src="#" alt="">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1182,7 +1207,9 @@
                                                                 <%
                                                                     for(int msub=1;msub<=memorija.size();msub++){
                                                                 %>
-                                                                <img id="memIMG<%= msub %>" src="#" alt="">
+                                                                <a href="#" onclick="memglow('memIMG<%= msub %>')" style="border-bottom: none;">
+                                                                <img id="memIMG<%= msub %>" class="slikedelova" src="#" alt="">
+                                                                </a>
                                                                 <%
                                                                     }
                                                                 %>
@@ -1222,6 +1249,100 @@
                                                 padding-right: 0;
                                             }
                                             </style>
+                                            
+                                            <script>
+                                                function moboglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('maticna','slika');
+                                                }
+                                                function ramglow(obj){
+                                                    
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('ram','slika');
+                                                }
+                                                function cpuglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('procesori','slika');
+                                                }
+                                                function caseglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:250px;width:250px;";
+                                                    otvoriDeo('kuciste','slika');
+                                                }
+                                                function coolerglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('kuleri','slika');
+                                                }
+                                                function psuglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('psu','slika');
+                                                }
+                                                function gpuglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('gpu','slika');
+                                                }
+                                                
+                                                function memglow(obj){
+                                                    var slike = document.getElementsByClassName("slikedelova");
+                                                    for(i = 0;i<slike.length;i++)
+                                                    {
+                                                        var id = slike[i].id;
+                                                        document.getElementById(id).style.removeProperty('filter');
+                                                    }
+                                                    var x = document.getElementById(obj);
+                                                    x.style = "filter: drop-shadow(4px 5px 11px rgba(46,186,174,1)); height:150px;width:150px;";
+                                                    otvoriDeo('memorija','slika');
+                                                }
+                                            </script>
                                             
                                             <script>
                                                 var vrednosti = [0,0,0,0];
