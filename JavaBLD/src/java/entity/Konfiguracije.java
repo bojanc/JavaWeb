@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
+// Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -24,6 +24,7 @@ public class Konfiguracije  implements java.io.Serializable {
      private String opis;
      private String odobreno;
      private String imgPath;
+     private Set<Igricefps> igricefpses = new HashSet<Igricefps>(0);
      private Set<Komentari> komentaris = new HashSet<Komentari>(0);
 
     public Konfiguracije() {
@@ -43,9 +44,9 @@ public class Konfiguracije  implements java.io.Serializable {
         this.opis = opis;
         this.odobreno = odobreno;
         this.imgPath = imgPath;
-        this.konfiguracijaId =konfiguracijaId;
+        this.konfiguracijaId = konfiguracijaId;
     }
-    public Konfiguracije(Gpu gpu, Korisnici korisnici, Kuciste kuciste, Kuleri kuleri, Maticna maticna, Memorija memorija, Procesori procesori, Psu psu, Ram ram, String opis, String odobreno, String imgPath, Set<Komentari> komentaris) {
+    public Konfiguracije(Gpu gpu, Korisnici korisnici, Kuciste kuciste, Kuleri kuleri, Maticna maticna, Memorija memorija, Procesori procesori, Psu psu, Ram ram, String opis, String odobreno, String imgPath, Set<Igricefps> igricefpses, Set<Komentari> komentaris) {
        this.gpu = gpu;
        this.korisnici = korisnici;
        this.kuciste = kuciste;
@@ -58,6 +59,7 @@ public class Konfiguracije  implements java.io.Serializable {
        this.opis = opis;
        this.odobreno = odobreno;
        this.imgPath = imgPath;
+       this.igricefpses = igricefpses;
        this.komentaris = komentaris;
     }
    
@@ -151,6 +153,13 @@ public class Konfiguracije  implements java.io.Serializable {
     
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+    public Set<Igricefps> getIgricefpses() {
+        return this.igricefpses;
+    }
+    
+    public void setIgricefpses(Set<Igricefps> igricefpses) {
+        this.igricefpses = igricefpses;
     }
     public Set<Komentari> getKomentaris() {
         return this.komentaris;

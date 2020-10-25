@@ -5,20 +5,19 @@
  */
 package servleti;
 
+import entity.Igrice;
 import entity.Gpu;
+import entity.Komentari;
 import entity.Konfiguracije;
 import entity.Korisnici;
 import entity.Kuciste;
 import entity.Kuleri;
 import entity.Maticna;
 import entity.Memorija;
+import entity.Podkomentari;
 import entity.Procesori;
 import entity.Psu;
 import entity.Ram;
-import entity.Komentari;
-import entity.Podkomentari;
-import entity.Porukekorisnika;
-import entity.Porukeurednika;
 import java.io.File;
 import java.sql.*;
 import javax.servlet.http.*;
@@ -51,7 +50,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletPrikazPorukaUrednika extends HttpServlet {
+public class ServletAdminPrikazIgrica extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -79,53 +78,58 @@ public class ServletPrikazPorukaUrednika extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Porukekorisnika> poruke = new ArrayList<Porukekorisnika>();
-        ArrayList<Porukeurednika> porukeU = new ArrayList<Porukeurednika>();
+        ArrayList<Igrice> igrice = new ArrayList<Igrice>();
         
-        int id = Integer.parseInt(request.getParameter("id"));
+        String poruka = "";
+        String porukaI = "";
+        
+        if(request.getParameter("obrisano")!=null)
+        {
+            poruka = (String)request.getParameter("obrisano");
+        }
+        
+        if(request.getParameter("izmenjeno")!=null)
+        {
+            porukaI = (String)request.getParameter("izmenjeno");
+        }
         
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
             Session s = sf.openSession();
-            
             Transaction tr = s.beginTransaction();
-            
-            
-            List<Porukekorisnika> rows = s.createSQLQuery("select {poruke.*}, {k.*} from PorukeKorisnika poruke, Korisnici k where poruke.poruke_korisnikID = "+id+"")
-                    .addEntity("poruke",Porukekorisnika.class)
-                    .addJoin("k", "poruke.korisnici")
-                    .addEntity("k",Korisnici.class)
-                    .addEntity("poruke",Porukekorisnika.class)
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                    .list();
-            
-            List<Porukeurednika> rowsU = s.createSQLQuery("select {porukeu.*}, {k.*}, {kor.*} from Porukeurednika porukeu, Porukekorisnika k, Korisnici kor where porukeu.porukaKorisnikaID = k.porukaKorisnikaID and porukeu.pu_korisnikID = kor.korisnikID and k.poruke_KorisnikID = "+id+"")
-                    .addEntity("porukeu",Porukeurednika.class)
-                    .addJoin("k", "porukeu.porukekorisnika")
-                    .addEntity("k",Porukekorisnika.class)
-                    .addJoin("kor", "porukeu.korisnici")
-                    .addEntity("kor", Korisnici.class)
-                    .addEntity("porukeu",Porukeurednika.class)
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                    .list();
-            
-            
-            for(Porukekorisnika row:rows)
+           
+           List<Igrice> rows = s.createSQLQuery(
+            "select {i.*}, {cpu.*}, {gpu.*},{ram.*} from Igrice i,Procesori cpu, Gpu gpu, Ram ram where i.cpuPreID = cpu.procesorID and i.gpuPreID = gpu.gpuID and i.ramPreID = ram.ramID")
+              .addEntity("i", Igrice.class)
+              .addJoin("cpu", "i.procesori")
+              .addEntity("cpu", Procesori.class)
+                   .addJoin("gpu", "i.gpu")
+              .addEntity("gpu", Gpu.class)
+                   .addJoin("ram", "i.ram")
+              .addEntity("ram", Ram.class)
+              .addEntity("i", Igrice.class)
+              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+              .list();
+           
+           
+           for(Igrice row:rows)
             {
-                poruke.add(new Porukekorisnika(row.getPorukaKorisnikaId(),row.getKorisnici(),row.getVreme(),row.getTekst(),row.getOdgovoreno()));
+                igrice.add(new Igrice(row.getIgricaId(), row.getGpu(), row.getProcesori(),row.getRam(),row.getIgricaNaziv(),row.getImgPath()));
             }
             
-            for(Porukeurednika row:rowsU)
+            if(!poruka.equals(""))
             {
-                porukeU.add(new Porukeurednika(row.getPorukaUrednikId(),row.getKorisnici(),row.getPorukekorisnika(),row.getVreme(),row.getTekst()));
+                request.setAttribute("obrisano", "da");
             }
             
+            if(!porukaI.equals(""))
+            {
+                request.setAttribute("izmenjeno", "da");
+            }
+            request.setAttribute("igrice", igrice);
             s.close();
-            request.setAttribute("poruke", poruke);
-            request.setAttribute("porukeU", porukeU);
-            request.getRequestDispatcher("PorukeUrednika.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("AdminPrikazIgrica.jsp").forward(request, response);
         }
         catch(HibernateException ex)
         {
@@ -133,6 +137,8 @@ public class ServletPrikazPorukaUrednika extends HttpServlet {
             request.setAttribute("errormsg", errormsg);
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
+        
+        
     }
 
     /**

@@ -140,6 +140,22 @@
         <servlet-name>ServletPrikazPorukaUrednika</servlet-name>
         <servlet-class>servleti.ServletPrikazPorukaUrednika</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAdminPrikazIgrica</servlet-name>
+        <servlet-class>servleti.ServletAdminPrikazIgrica</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajIgricu</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajIgricu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminObrisiIgricu</servlet-name>
+        <servlet-class>servleti.ServletAdminObrisiIgricu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAdminIzmenaIgrice</servlet-name>
+        <servlet-class>servleti.ServletAdminIzmenaIgrice</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -279,6 +295,22 @@
     <servlet-mapping>
         <servlet-name>ServletPrikazPorukaUrednika</servlet-name>
         <url-pattern>/ServletPrikazPorukaUrednika</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminPrikazIgrica</servlet-name>
+        <url-pattern>/ServletAdminPrikazIgrica</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajIgricu</servlet-name>
+        <url-pattern>/ServletAdminDodajIgricu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminObrisiIgricu</servlet-name>
+        <url-pattern>/ServletAdminObrisiIgricu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminIzmenaIgrice</servlet-name>
+        <url-pattern>/ServletAdminIzmenaIgrice</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

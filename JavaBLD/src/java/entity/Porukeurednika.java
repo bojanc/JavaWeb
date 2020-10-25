@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
+// Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1
 
 
 
@@ -10,20 +10,20 @@ public class Porukeurednika  implements java.io.Serializable {
 
 
      private Integer porukaUrednikId;
-     private Porukekorisnika porukekorisnika;
      private Korisnici korisnici;
+     private Porukekorisnika porukekorisnika;
      private String vreme;
      private String tekst;
 
     public Porukeurednika() {
     }
 
-    public Porukeurednika(Integer porukaUrednikId, Porukekorisnika porukekorisnika,Korisnici korisnici, String vreme, String tekst) {
-       this.porukaUrednikId = porukaUrednikId;
+    public Porukeurednika(Integer porukaUrednikId,Korisnici korisnici, Porukekorisnika porukekorisnika, String vreme, String tekst) {
+       this.korisnici = korisnici;
        this.porukekorisnika = porukekorisnika;
        this.vreme = vreme;
        this.tekst = tekst;
-       this.korisnici = korisnici;
+       this.porukaUrednikId = porukaUrednikId;
     }
    
     public Integer getPorukaUrednikId() {
@@ -32,6 +32,13 @@ public class Porukeurednika  implements java.io.Serializable {
     
     public void setPorukaUrednikId(Integer porukaUrednikId) {
         this.porukaUrednikId = porukaUrednikId;
+    }
+    public Korisnici getKorisnici() {
+        return this.korisnici;
+    }
+    
+    public void setKorisnici(Korisnici korisnici) {
+        this.korisnici = korisnici;
     }
     public Porukekorisnika getPorukekorisnika() {
         return this.porukekorisnika;
@@ -47,15 +54,6 @@ public class Porukeurednika  implements java.io.Serializable {
     public void setVreme(String vreme) {
         this.vreme = vreme;
     }
-    
-    public Korisnici getKorisnici() {
-        return this.korisnici;
-    }
-    
-    public void setKorisnici(Korisnici korisnici) {
-        this.korisnici = korisnici;
-    }
-    
     public String getTekst() {
         return this.tekst;
     }

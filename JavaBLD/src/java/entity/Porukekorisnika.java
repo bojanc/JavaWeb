@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
+// Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -22,15 +22,14 @@ public class Porukekorisnika  implements java.io.Serializable {
     }
 
 	
-    public Porukekorisnika(Integer porukaKorisnikaId, Korisnici korisnici, String vreme, String tekst,String odgovoreno) {
-        this.porukaKorisnikaId = porukaKorisnikaId;
+    public Porukekorisnika(Integer porukaKorisnikaId,Korisnici korisnici, String vreme, String tekst, String odgovoreno) {
         this.korisnici = korisnici;
         this.vreme = vreme;
         this.tekst = tekst;
         this.odgovoreno = odgovoreno;
+        this.porukaKorisnikaId = porukaKorisnikaId;
     }
-    public Porukekorisnika(Integer porukaKorisnikaId, Korisnici korisnici, String vreme, String tekst,String odgovoreno, Set<Porukeurednika> porukeurednikas) {
-       this.porukaKorisnikaId = porukaKorisnikaId;
+    public Porukekorisnika(Korisnici korisnici, String vreme, String tekst, String odgovoreno, Set<Porukeurednika> porukeurednikas) {
        this.korisnici = korisnici;
        this.vreme = vreme;
        this.tekst = tekst;
@@ -66,7 +65,6 @@ public class Porukekorisnika  implements java.io.Serializable {
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
-    
     public String getOdgovoreno() {
         return this.odgovoreno;
     }

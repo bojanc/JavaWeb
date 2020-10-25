@@ -5,20 +5,7 @@
  */
 package servleti;
 
-import entity.Gpu;
-import entity.Konfiguracije;
 import entity.Korisnici;
-import entity.Kuciste;
-import entity.Kuleri;
-import entity.Maticna;
-import entity.Memorija;
-import entity.Procesori;
-import entity.Psu;
-import entity.Ram;
-import entity.Komentari;
-import entity.Podkomentari;
-import entity.Porukekorisnika;
-import entity.Porukeurednika;
 import java.io.File;
 import java.sql.*;
 import javax.servlet.http.*;
@@ -41,7 +28,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import net.sf.ehcache.hibernate.HibernateUtil;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.HibernateException;
@@ -51,7 +37,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletPrikazPorukaUrednika extends HttpServlet {
+public class ServletAdminObrisiIgricu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,6 +50,7 @@ public class ServletPrikazPorukaUrednika extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,53 +66,23 @@ public class ServletPrikazPorukaUrednika extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Porukekorisnika> poruke = new ArrayList<Porukekorisnika>();
-        ArrayList<Porukeurednika> porukeU = new ArrayList<Porukeurednika>();
-        
-        int id = Integer.parseInt(request.getParameter("id"));
+         int id=0;
+        id = Integer.parseInt(request.getParameter("id"));
         
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
             Session s = sf.openSession();
-            
             Transaction tr = s.beginTransaction();
-            
-            
-            List<Porukekorisnika> rows = s.createSQLQuery("select {poruke.*}, {k.*} from PorukeKorisnika poruke, Korisnici k where poruke.poruke_korisnikID = "+id+"")
-                    .addEntity("poruke",Porukekorisnika.class)
-                    .addJoin("k", "poruke.korisnici")
-                    .addEntity("k",Korisnici.class)
-                    .addEntity("poruke",Porukekorisnika.class)
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                    .list();
-            
-            List<Porukeurednika> rowsU = s.createSQLQuery("select {porukeu.*}, {k.*}, {kor.*} from Porukeurednika porukeu, Porukekorisnika k, Korisnici kor where porukeu.porukaKorisnikaID = k.porukaKorisnikaID and porukeu.pu_korisnikID = kor.korisnikID and k.poruke_KorisnikID = "+id+"")
-                    .addEntity("porukeu",Porukeurednika.class)
-                    .addJoin("k", "porukeu.porukekorisnika")
-                    .addEntity("k",Porukekorisnika.class)
-                    .addJoin("kor", "porukeu.korisnici")
-                    .addEntity("kor", Korisnici.class)
-                    .addEntity("porukeu",Porukeurednika.class)
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                    .list();
-            
-            
-            for(Porukekorisnika row:rows)
-            {
-                poruke.add(new Porukekorisnika(row.getPorukaKorisnikaId(),row.getKorisnici(),row.getVreme(),row.getTekst(),row.getOdgovoreno()));
-            }
-            
-            for(Porukeurednika row:rowsU)
-            {
-                porukeU.add(new Porukeurednika(row.getPorukaUrednikId(),row.getKorisnici(),row.getPorukekorisnika(),row.getVreme(),row.getTekst()));
-            }
-            
+
+            SQLQuery q=s.createSQLQuery("delete from igrice where igricaID = '"+id+"'");
+
+            q.executeUpdate();
+            tr.commit();
             s.close();
-            request.setAttribute("poruke", poruke);
-            request.setAttribute("porukeU", porukeU);
-            request.getRequestDispatcher("PorukeUrednika.jsp").forward(request, response);
-            
+
+            response.sendRedirect("ServletAdminPrikazIgrica?obrisano=da");
+            return;
         }
         catch(HibernateException ex)
         {
@@ -133,6 +90,7 @@ public class ServletPrikazPorukaUrednika extends HttpServlet {
             request.setAttribute("errormsg", errormsg);
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
+        
     }
 
     /**

@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Porukeurednika" table="porukeurednika" catalog="bld" optimistic-lock="version">
         <id name="porukaUrednikId" type="java.lang.Integer">
             <column name="porukaUrednikID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="korisnici" class="entity.Korisnici" fetch="select">
+            <column name="pu_korisnikID" not-null="true" />
+        </many-to-one>
         <many-to-one name="porukekorisnika" class="entity.Porukekorisnika" fetch="select">
             <column name="porukaKorisnikaID" not-null="true" />
         </many-to-one>
@@ -17,8 +20,5 @@
         <property name="tekst" type="string">
             <column name="tekst" length="65535" not-null="true" />
         </property>
-        <many-to-one name="korisnici" class="entity.Korisnici" fetch="select">
-            <column name="pu_korisnikID" not-null="true" />
-        </many-to-one>
     </class>
 </hibernate-mapping>

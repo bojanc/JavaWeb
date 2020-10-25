@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
+// Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class Procesori  implements java.io.Serializable {
      private String naziv;
      private String socket;
      private String imgPath;
+     private Set<Igrice> igrices = new HashSet<Igrice>(0);
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
 
     public Procesori() {
@@ -37,7 +38,7 @@ public class Procesori  implements java.io.Serializable {
         this.imgPath = imgPath;
         this.procesorId = procesorId;
     }
-    public Procesori(int brojJezgara, String frekvencija, String boost, int tdp, String igpu, String naziv, String socket, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Procesori(int brojJezgara, String frekvencija, String boost, int tdp, String igpu, String naziv, String socket, String imgPath, Set<Igrice> igrices, Set<Konfiguracije> konfiguracijes) {
        this.brojJezgara = brojJezgara;
        this.frekvencija = frekvencija;
        this.boost = boost;
@@ -46,6 +47,7 @@ public class Procesori  implements java.io.Serializable {
        this.naziv = naziv;
        this.socket = socket;
        this.imgPath = imgPath;
+       this.igrices = igrices;
        this.konfiguracijes = konfiguracijes;
     }
    
@@ -111,6 +113,13 @@ public class Procesori  implements java.io.Serializable {
     
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+    public Set<Igrice> getIgrices() {
+        return this.igrices;
+    }
+    
+    public void setIgrices(Set<Igrice> igrices) {
+        this.igrices = igrices;
     }
     public Set<Konfiguracije> getKonfiguracijes() {
         return this.konfiguracijes;

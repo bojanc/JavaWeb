@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
+// Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Ram  implements java.io.Serializable {
      private int tdp;
      private String imgPath;
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
+     private Set<Igrice> igrices = new HashSet<Igrice>(0);
 
     public Ram() {
     }
@@ -31,13 +32,14 @@ public class Ram  implements java.io.Serializable {
         this.imgPath = imgPath;
         this.ramId = ramId;
     }
-    public Ram(String naziv, String brzina, int casLat, int tdp, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Ram(String naziv, String brzina, int casLat, int tdp, String imgPath, Set<Konfiguracije> konfiguracijes, Set<Igrice> igrices) {
        this.naziv = naziv;
        this.brzina = brzina;
        this.casLat = casLat;
        this.tdp = tdp;
        this.imgPath = imgPath;
        this.konfiguracijes = konfiguracijes;
+       this.igrices = igrices;
     }
    
     public Integer getRamId() {
@@ -88,6 +90,13 @@ public class Ram  implements java.io.Serializable {
     
     public void setKonfiguracijes(Set<Konfiguracije> konfiguracijes) {
         this.konfiguracijes = konfiguracijes;
+    }
+    public Set<Igrice> getIgrices() {
+        return this.igrices;
+    }
+    
+    public void setIgrices(Set<Igrice> igrices) {
+        this.igrices = igrices;
     }
 
 

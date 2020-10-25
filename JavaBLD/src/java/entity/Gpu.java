@@ -1,5 +1,5 @@
 package entity;
-// Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1
+// Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Gpu  implements java.io.Serializable {
      private String boostCl;
      private int tdp;
      private String imgPath;
+     private Set<Igrice> igrices = new HashSet<Igrice>(0);
      private Set<Konfiguracije> konfiguracijes = new HashSet<Konfiguracije>(0);
 
     public Gpu() {
@@ -33,13 +34,14 @@ public class Gpu  implements java.io.Serializable {
         this.imgPath = imgPath;
         this.gpuId = gpuId;
     }
-    public Gpu(String naziv, String memorija, String coreCl, String boostCl, int tdp, String imgPath, Set<Konfiguracije> konfiguracijes) {
+    public Gpu(String naziv, String memorija, String coreCl, String boostCl, int tdp, String imgPath, Set<Igrice> igrices, Set<Konfiguracije> konfiguracijes) {
        this.naziv = naziv;
        this.memorija = memorija;
        this.coreCl = coreCl;
        this.boostCl = boostCl;
        this.tdp = tdp;
        this.imgPath = imgPath;
+       this.igrices = igrices;
        this.konfiguracijes = konfiguracijes;
     }
    
@@ -91,6 +93,13 @@ public class Gpu  implements java.io.Serializable {
     
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+    public Set<Igrice> getIgrices() {
+        return this.igrices;
+    }
+    
+    public void setIgrices(Set<Igrice> igrices) {
+        this.igrices = igrices;
     }
     public Set<Konfiguracije> getKonfiguracijes() {
         return this.konfiguracijes;

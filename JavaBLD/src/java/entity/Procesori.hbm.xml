@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Oct 22, 2020 6:02:38 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Oct 25, 2020 3:28:51 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Procesori" table="procesori" catalog="bld" optimistic-lock="version">
         <id name="procesorId" type="java.lang.Integer">
@@ -32,6 +32,12 @@
         <property name="imgPath" type="string">
             <column name="imgPath" length="200" not-null="true" />
         </property>
+        <set name="igrices" table="igrice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cpuPreID" not-null="true" />
+            </key>
+            <one-to-many class="entity.Igrice" />
+        </set>
         <set name="konfiguracijes" table="konfiguracije" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="procesorID" not-null="true" />
