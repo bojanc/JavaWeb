@@ -156,6 +156,22 @@
         <servlet-name>ServletAdminIzmenaIgrice</servlet-name>
         <servlet-class>servleti.ServletAdminIzmenaIgrice</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAdminDodajFPS</servlet-name>
+        <servlet-class>servleti.ServletAdminDodajFPS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletIzracunajFPS</servlet-name>
+        <servlet-class>servleti.ServletIzracunajFPS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletUnesiFPS</servlet-name>
+        <servlet-class>servleti.ServletUnesiFPS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletObrisiFPS</servlet-name>
+        <servlet-class>servleti.ServletObrisiFPS</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -311,6 +327,22 @@
     <servlet-mapping>
         <servlet-name>ServletAdminIzmenaIgrice</servlet-name>
         <url-pattern>/ServletAdminIzmenaIgrice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAdminDodajFPS</servlet-name>
+        <url-pattern>/ServletAdminDodajFPS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletIzracunajFPS</servlet-name>
+        <url-pattern>/ServletIzracunajFPS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUnesiFPS</servlet-name>
+        <url-pattern>/ServletUnesiFPS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletObrisiFPS</servlet-name>
+        <url-pattern>/ServletObrisiFPS</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

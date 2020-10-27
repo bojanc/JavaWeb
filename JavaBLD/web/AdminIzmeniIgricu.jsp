@@ -262,11 +262,11 @@
 
 				<!-- Main -->
 					<div id="main">
-                                                <form method="post" action="ServletAdminIzmenaIgrice" class="post" style="width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
+                                                <form method="post" action="ServletAdminIzmenaIgrice" class="post" style="width:65%;height: 120%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Slika igrice</label>
                                                         <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="<%= igrica.getImgPath() %>" alt="" height="250" width="250" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
+                                                        <img id="pic" src="<%= igrica.getImgPath() %>" alt="" height="270" width="250" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                                     </div>
                                                     <div>
                                                          

@@ -641,7 +641,7 @@
 
                                                 %>
                                                 <h2><%= gpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brža od <%= gpu.get(1).getNaziv() %></h2>
-                                                    <div class="progress">
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
                                                     <style>
@@ -656,7 +656,7 @@
                                                     float razlika = ((float)gpu2int/gpu1int)*10;
                                                 %>
                                                 <h2><%= gpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brža od <%= gpu.get(0).getNaziv() %></h2>
-                                                    <div class="progress">
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
                                                     
@@ -906,7 +906,7 @@
 
                                                 %>
                                                 <h2><%= cpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= cpu.get(1).getNaziv() %></h2>
-                                                    <div class="progress">
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
                                                     <style>
@@ -921,7 +921,7 @@
                                                     float razlika = (cpu2int/cpu1int)*10;
                                                 %>
                                                 <h2><%= cpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= cpu.get(0).getNaziv() %></h2>
-                                                    <div class="progress">
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
                                                     
@@ -1074,7 +1074,7 @@
 
                                                 %>
                                                 <h2><%= ram.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= ram.get(1).getNaziv() %></h2>
-                                                    <div class="progress">
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
                                                     <style>
@@ -1089,7 +1089,7 @@
                                                     float razlika = ((float)ram2int/ram1int)*10;
                                                 %>
                                                 <h2><%= ram.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brži od <%= ram.get(0).getNaziv() %></h2>
-                                                    <div class="progress">
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
                                                     

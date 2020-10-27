@@ -7,7 +7,6 @@ package servleti;
 
 import entity.Igrice;
 import entity.Gpu;
-import entity.Igricefps;
 import entity.Komentari;
 import entity.Konfiguracije;
 import entity.Korisnici;
@@ -41,6 +40,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import net.sf.ehcache.hibernate.HibernateUtil;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -51,7 +55,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletAdminPrikazIgrica extends HttpServlet {
+public class ServletAdminDodajFPS extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -79,47 +83,43 @@ public class ServletAdminPrikazIgrica extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Igrice> igrice = new ArrayList<Igrice>();
+        int id = Integer.parseInt(request.getParameter("id"));
+        int konfigID = 0;
+        int fps = 0;
+        String vecpostoji = "";
+        int fpsid = 0;
         
-        String poruka = "";
-        String porukaI = "";
-        String porukaFPS = "";
-        String naziv = "";
-        String obrisanFPS = "";
-        
-        if(request.getParameter("obrisano")!=null)
+        if(request.getParameter("fps")!=null)
         {
-            poruka = (String)request.getParameter("obrisano");
+            fps = Integer.parseInt(request.getParameter("fps"));
         }
         
-        if(request.getParameter("izmenjeno")!=null)
+        if(request.getParameter("konfigID")!=null)
         {
-            porukaI = (String)request.getParameter("izmenjeno");
+            konfigID = Integer.parseInt(request.getParameter("konfigID"));
         }
         
-        if(request.getParameter("fpsok")!=null)
+        if(request.getParameter("vecpostoji")!=null)
         {
-            porukaFPS = (String)request.getParameter("fpsok");
+            vecpostoji = request.getParameter("vecpostoji");
         }
         
-        if(request.getParameter("name")!=null)
+        if(request.getParameter("fpsid")!=null)
         {
-            naziv = (String)request.getParameter("name");
+            fpsid = Integer.parseInt(request.getParameter("fpsid").toString());
         }
         
-        if(request.getParameter("obrisanFPS")!=null)
-        {
-            obrisanFPS = (String)request.getParameter("obrisanFPS");
-        }
+        Igrice igrica = new Igrice();
+        ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
         
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
             Session s = sf.openSession();
             Transaction tr = s.beginTransaction();
-           
-           List<Igrice> rows = s.createSQLQuery(
-            "select {i.*}, {cpu.*}, {gpu.*},{ram.*} from Igrice i,Procesori cpu, Gpu gpu, Ram ram where i.cpuPreID = cpu.procesorID and i.gpuPreID = gpu.gpuID and i.ramPreID = ram.ramID")
+            
+            List<Igrice> rows0 = s.createSQLQuery(
+            "select {i.*}, {cpu.*}, {gpu.*},{ram.*} from Igrice i,Procesori cpu, Gpu gpu, Ram ram where i.cpuPreID = cpu.procesorID and i.gpuPreID = gpu.gpuID and i.ramPreID = ram.ramID and i.igricaID = '"+id+"'")
               .addEntity("i", Igrice.class)
               .addJoin("cpu", "i.procesori")
               .addEntity("cpu", Procesori.class)
@@ -130,41 +130,66 @@ public class ServletAdminPrikazIgrica extends HttpServlet {
               .addEntity("i", Igrice.class)
               .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
               .list();
+            
+             List<Konfiguracije> rows = s.createSQLQuery(
+            "select {k.*}, {g.*}, {kuc.*},{kul.*}, {mat.*}, {mem.*}, {pro.*}, {ps.*}, {ram.*}, {kor.*} from Konfiguracije k,Gpu g, Kuciste kuc,Kuleri kul, Maticna mat, Memorija mem, Procesori pro, Psu ps, Ram ram, Korisnici kor where k.gpuID = g.gpuID and k.kucisteID = kuc.kucisteID and k.kulerID = kul.kulerID  and k.maticnaID = mat.maticnaID and k.memorijaID = mem.memorijaID and k.procesorID = pro.procesorID and k.psuID = ps.psuID and k.ramID = ram.ramID and k.korisnikID = kor.korisnikID and k.odobreno = 'da'")
+              .addEntity("k", Konfiguracije.class)
+              .addJoin("g", "k.gpu")
+              .addEntity("g", Gpu.class)
+              .addJoin("kuc", "k.kuciste")
+              .addEntity("kuc", Kuciste.class)
+                   .addJoin("kul", "k.kuleri")
+              .addEntity("kul", Kuleri.class)
+                   .addJoin("mat", "k.maticna")
+              .addEntity("mat", Maticna.class)
+                   .addJoin("mem", "k.memorija")
+              .addEntity("mem", Memorija.class)
+                   .addJoin("pro", "k.procesori")
+              .addEntity("pro", Procesori.class)
+                   .addJoin("ps", "k.psu")
+              .addEntity("ps", Psu.class)
+                   .addJoin("ram", "k.ram")
+              .addEntity("ram", Ram.class)
+                   .addJoin("kor", "k.korisnici")
+              .addEntity("kor", Korisnici.class)
+              .addEntity("k", Konfiguracije.class)
+              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+              .list();
            
-           
-            for(Igrice row:rows)
+            for(Igrice row:rows0)
             {
-                igrice.add(new Igrice(row.getIgricaId(), row.getGpu(), row.getProcesori(),row.getRam(),row.getIgricaNaziv(),row.getImgPath()));
+                igrica = new Igrice(row.getIgricaId(),row.getGpu(),row.getProcesori(),row.getRam(),row.getIgricaNaziv(),row.getImgPath());
             }
             
-            if(!poruka.equals(""))
+            for(Konfiguracije row:rows)
             {
-                request.setAttribute("obrisano", "da");
+                konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getOdobreno(),row.getImgPath()));
             }
             
-            if(!porukaI.equals(""))
+            request.setAttribute("konfig", konfig);
+            request.setAttribute("igrica", igrica);
+            if(fps!=0)
             {
-                request.setAttribute("izmenjeno", "da");
+                request.setAttribute("fps", fps);
             }
             
-            if(!porukaFPS.equals(""))
+            if(konfigID!=0)
             {
-                request.setAttribute("fpsOK", "da");
+                request.setAttribute("konfigID", konfigID);
             }
             
-            if(!naziv.equals(""))
+            if(!vecpostoji.equals(""))
             {
-                request.setAttribute("nazivFPS", naziv);
+                request.setAttribute("vecpostoji", "da");
             }
             
-            if(!obrisanFPS.equals(""))
+            if(fpsid!=0)
             {
-                request.setAttribute("obrisanFPS", "da");
+                request.setAttribute("fpsid", fpsid);
             }
             
-            request.setAttribute("igrice", igrice);
             s.close();
-            request.getRequestDispatcher("AdminPrikazIgrica.jsp").forward(request, response);
+            request.getRequestDispatcher("AdminDodajFPS.jsp").forward(request, response);
         }
         catch(HibernateException ex)
         {

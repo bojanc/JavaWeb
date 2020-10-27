@@ -1,3 +1,4 @@
+<%@page import="entity.Igricefps"%>
 <%@page import="entity.Igrice"%>
 <%@page import="entity.Podkomentari"%>
 <%@page import="entity.Komentari"%>
@@ -309,9 +310,43 @@
 
                                 </div>
                                 
+                                <div id="myModalFpsObrisan" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeFpsObrisan">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>FPS uspešno obrisan!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <div id="myModalFPS" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeFPS">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>FPS za 
+                                            <%
+                                                String naziv ="";
+                                                if(request.getAttribute("fpsOK")!=null)
+                                            {
+                                                naziv = request.getAttribute("nazivFPS").toString();
+                                            %>
+                                            <%= naziv %>
+                                            <%}%>
+                                     je uspešno dodat!</b></p>
+                                  </div>
+
+                                </div>
+                                
                                 <script>
                                     var modalP = document.getElementById("myModalP");
                                     var spanP = document.getElementById("closeP");
+                                    var modalFPS = document.getElementById("myModalFPS");
+                                    var spanFPS = document.getElementById("closeFPS");
+                                    
+                                    var modalFPSO = document.getElementById("myModalFpsObrisan");
+                                    var spanFPSO = document.getElementById("closeFpsObrisan");
                                     
                                     var modalI = document.getElementById("myModalI");
                                     var spanI = document.getElementById("closeI");
@@ -336,6 +371,28 @@
                                     <%
                                     }
                                     %>
+                                        
+                                          <%
+                                    if(request.getAttribute("fpsOK")!=null)
+                                    {
+                                %>
+                                    $(document).ready(function(){
+                                        modalFPS.style.display = "block";
+                                    })
+                                    <%
+                                    }
+                                    %>
+                                        
+                                        <%
+                                    if(request.getAttribute("obrisanFPS")!=null)
+                                    {
+                                %>
+                                    $(document).ready(function(){
+                                        modalFPSO.style.display = "block";
+                                    })
+                                    <%
+                                    }
+                                    %>
                                         spanP.onclick = function() {
                                   modalP.style.display = "none";
                                 }
@@ -344,10 +401,20 @@
                                   modalI.style.display = "none";
                                 }
                                 
+                                spanFPS.onclick = function() {
+                                  modalFPS.style.display = "none";
+                                }
+                                
+                                spanFPSO.onclick = function() {
+                                  modalFPSO.style.display = "none";
+                                }
+                                
                                 window.onclick = function(event) {
-                                  if (event.target == modalP || event.target == modalI) {
+                                  if (event.target == modalP || event.target == modalI || event.target == modalFPS || event.target == modalFPSO) {
                                     modalP.style.display = "none";
                                     modalI.style.display = "none";
+                                    modalFPS.style.display = "none";
+                                    modalFPSO.style.display = "none";
                                   }
                                 }
                                 </script>
@@ -410,29 +477,32 @@
                                                     {
                                                     for(Igrice pom:igrice)
                                                     {a++;%>
-							<article class="post" style="width: 18%;margin: 10px;height: 100%; padding-left: 0; padding-right: 0; padding-bottom: 0;display: block;float:left;">
+							<article class="post" style="width: 18%;margin: 10px;height: 85%; padding-left: 0; padding-right: 0; padding-bottom: 0;display: block;float:left;box-shadow: 7px 7px 10px -4px rgba(0,0,0,0.75);">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;text-align: center;width: 100%;margin-left: 56px;">
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;width: 100%;text-align: center;">
                                                                             <h4 style="color:white;padding-top: 5px;"><%= pom.getIgricaNaziv() %></h4>
 									</div>
                                                                         <%
+                                                                            String imaFPS = "ne";
                                                                             if(korisnik!=null){
                                                                             if(korisnik.getUloga().equals("Admin")){
                                                                         %>
                                                                         <div class="dropdown">
-                                                                            <div id="myDropdown<%= a %>" class="dropdown-content"  style='margin-left:-47px;'>
+                                                                            <div id="myDropdown<%= a %>" class="dropdown-content"  style='margin-left:-47px;white-space: nowrap;overflow: hidden;'>
+                                                                              <a href="ServletAdminDodajFPS?id=<%= pom.getIgricaId() %>" style="border:none;">Dodaj FPS za konfiguraciju</a>
                                                                               <a href="ServletAdminIzmenaIgrice?id=<%= pom.getIgricaId() %>" style="border:none;">Izmeni</a>
                                                                               <a href="ServletAdminObrisiIgricu?id=<%= pom.getIgricaId() %>" style="border:none;">Obriši</a>
                                                                             </div>
                                                                           </div>
                                                                             <%
+                                                                                        
                                                                                 }}
                                                                             %>
 								</header>
                                                                         
                                                                         
                                                             
-                                                                            <a href='#' class='dropbtn' onclick="myFunction('myDropdown<%= a %>')"><img src="<%= pom.getImgPath() %>" alt=""  style="width:100%;height:93.3%;margin-top: -56px;"/></a>
+                                                                            <a href='#' class='dropbtn' onclick="myFunction('myDropdown<%= a %>')"><img src="<%= pom.getImgPath() %>" alt=""  style="width:100%;height:96.3%;margin-top: -56px;"/></a>
                                                         </article>
                                                         <%
                                                             }

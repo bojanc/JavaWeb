@@ -5,20 +5,7 @@
  */
 package servleti;
 
-import entity.Igrice;
-import entity.Gpu;
-import entity.Igricefps;
-import entity.Komentari;
-import entity.Konfiguracije;
 import entity.Korisnici;
-import entity.Kuciste;
-import entity.Kuleri;
-import entity.Maticna;
-import entity.Memorija;
-import entity.Podkomentari;
-import entity.Procesori;
-import entity.Psu;
-import entity.Ram;
 import java.io.File;
 import java.sql.*;
 import javax.servlet.http.*;
@@ -41,7 +28,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import net.sf.ehcache.hibernate.HibernateUtil;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.HibernateException;
@@ -51,7 +37,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletAdminPrikazIgrica extends HttpServlet {
+public class ServletObrisiFPS extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -79,92 +65,22 @@ public class ServletAdminPrikazIgrica extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Igrice> igrice = new ArrayList<Igrice>();
-        
-        String poruka = "";
-        String porukaI = "";
-        String porukaFPS = "";
-        String naziv = "";
-        String obrisanFPS = "";
-        
-        if(request.getParameter("obrisano")!=null)
-        {
-            poruka = (String)request.getParameter("obrisano");
-        }
-        
-        if(request.getParameter("izmenjeno")!=null)
-        {
-            porukaI = (String)request.getParameter("izmenjeno");
-        }
-        
-        if(request.getParameter("fpsok")!=null)
-        {
-            porukaFPS = (String)request.getParameter("fpsok");
-        }
-        
-        if(request.getParameter("name")!=null)
-        {
-            naziv = (String)request.getParameter("name");
-        }
-        
-        if(request.getParameter("obrisanFPS")!=null)
-        {
-            obrisanFPS = (String)request.getParameter("obrisanFPS");
-        }
+        int fpsid = Integer.parseInt(request.getParameter("fpsid").toString());
         
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
             Session s = sf.openSession();
             Transaction tr = s.beginTransaction();
-           
-           List<Igrice> rows = s.createSQLQuery(
-            "select {i.*}, {cpu.*}, {gpu.*},{ram.*} from Igrice i,Procesori cpu, Gpu gpu, Ram ram where i.cpuPreID = cpu.procesorID and i.gpuPreID = gpu.gpuID and i.ramPreID = ram.ramID")
-              .addEntity("i", Igrice.class)
-              .addJoin("cpu", "i.procesori")
-              .addEntity("cpu", Procesori.class)
-                   .addJoin("gpu", "i.gpu")
-              .addEntity("gpu", Gpu.class)
-                   .addJoin("ram", "i.ram")
-              .addEntity("ram", Ram.class)
-              .addEntity("i", Igrice.class)
-              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-              .list();
-           
-           
-            for(Igrice row:rows)
-            {
-                igrice.add(new Igrice(row.getIgricaId(), row.getGpu(), row.getProcesori(),row.getRam(),row.getIgricaNaziv(),row.getImgPath()));
-            }
-            
-            if(!poruka.equals(""))
-            {
-                request.setAttribute("obrisano", "da");
-            }
-            
-            if(!porukaI.equals(""))
-            {
-                request.setAttribute("izmenjeno", "da");
-            }
-            
-            if(!porukaFPS.equals(""))
-            {
-                request.setAttribute("fpsOK", "da");
-            }
-            
-            if(!naziv.equals(""))
-            {
-                request.setAttribute("nazivFPS", naziv);
-            }
-            
-            if(!obrisanFPS.equals(""))
-            {
-                request.setAttribute("obrisanFPS", "da");
-            }
-            
-            request.setAttribute("igrice", igrice);
+
+            SQLQuery q=s.createSQLQuery("delete from igricefps where igricaFPSID = '"+fpsid+"'");
+
+            q.executeUpdate();
+            tr.commit();
             s.close();
-            request.getRequestDispatcher("AdminPrikazIgrica.jsp").forward(request, response);
+
+            response.sendRedirect("ServletAdminPrikazIgrica?obrisanFPS=da");
+            return;
         }
         catch(HibernateException ex)
         {
@@ -172,8 +88,6 @@ public class ServletAdminPrikazIgrica extends HttpServlet {
             request.setAttribute("errormsg", errormsg);
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-        
-        
     }
 
     /**
