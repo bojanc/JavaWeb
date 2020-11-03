@@ -1,3 +1,4 @@
+<%@page import="entity.Korisnici"%>
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -18,20 +19,55 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-                                                            <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
-								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+                                                            <%
+                                                                    HttpSession sesija = request.getSession();
+                                                                    Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                    if(korisnik!=null)
+                                                                    {
+                                                                    if(!korisnik.getUloga().equals("Admin"))
+                                                                    {
+                                                            %>
+								<li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <% }}else{
+                                                                %>
+                                                                <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%}%>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+                                                                
+                                                                
+                                                                    <%
+                                                                        
+                                                                        if(korisnik!=null)
+                                                                        {
+                                                                            %> 
+                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li style="color: #d4d4d6;">
+                                                                            Dobro došli <%= korisnik.getUsername()%>
+                                                                            
+                                                                            <img src="<%= korisnik.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
+
+                                                                    <%
+                                                                    }
+
+                                                                    %>
+                                                                </li>
 							</ul>
+                                                    
 						</nav>
 						<nav class="main">
 							<ul>
 								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
+									<a class="fa-search" href="#search">Pretraga</a>
 									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
+										<input type="text" name="query" placeholder="Pretraga" />
 									</form>
 								</li>
 								<li class="menu">
@@ -47,45 +83,130 @@
 						<!-- Search -->
 							<section>
 								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
+									<input type="text" name="query" placeholder="Pretraga" />
 								</form>
 							</section>
-
-						<!-- Links -->
-							<section>
+                                                                    <%
+                                                                        if(korisnik!=null)
+                                                                        {%>
+                                                        <section>
 								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
+                                                <%
+                                                                            if(korisnik.getUloga().equals("Admin"))
+                                                                            {
+                                                                    %>
+						<!-- Links -->
+							
+                                                                    
+									<li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKorisnika">
+                                                                                    <p style="font-size:0.8em;">Korisnici</p>
 										</a>
 									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Vaš profil</p>
 										</a>
 									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="AdminPrikazDelova.jsp">
+                                                                                    <p style="font-size:0.8em;">Računarski delovi</p>
 										</a>
 									</li>
-									<li>
+                                                                        <li style="color: #d4d4d6;">
 										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
+                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
 										</a>
 									</li>
-								</ul>
-							</section>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <%
+                                                                                }
 
-						<!-- Actions -->
-							<section>
+                                                                                if(korisnik.getUloga().equals("Urednik"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaKorisnika">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                                <%}
+                                                                                if(korisnik.getUloga().equals("Klijent"))
+                                                                                {%>
+                                                                        <li style="color: #d4d4d6;">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                                <p style="font-size:0.8em;">Vaš profil</p>
+                                                                            </a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+                                                                                    <p style="font-size:0.8em;">Poruke</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazKonfiguracija">
+                                                                                    <p style="font-size:0.8em;">Konfiguracije</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletAdminPrikazDelovaKonfig">
+                                                                                    <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                            
+								
+                                                                            <%}%>
+                                                        </ul>
+							</section>
+                                                                        <%
+                                                                            }
+                                                                        %>
+                                                                        <section>
+                                                            <%
+                                                            if(korisnik==null){
+                                                            %>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Prijava</a></li>
+									<li><a href="prijava.jsp" class="button large fit"style="color:#fff;">Prijava</a></li>
 								</ul>
+                                                            
+                                                                <ul class="actions stacked">
+									<li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                if(korisnik!=null){
+                                                                %>
+                                                                <ul class="actions stacked">
+									<li><a href="ServletOdjava" class="button large fit"style="color:#fff;">Odjava</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
 							</section>
 
 					</section>

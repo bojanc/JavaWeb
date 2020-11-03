@@ -22,19 +22,38 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-                                                            <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
-								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+                                                            <%
+                                                                    HttpSession sesija = request.getSession();
+                                                                    Korisnici kor = (Korisnici)sesija.getAttribute("korisnik");
+                                                                    if(kor!=null)
+                                                                    {
+                                                                    if(!kor.getUloga().equals("Admin"))
+                                                                    {
+                                                            %>
+								<li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <% }}else{
+                                                                %>
+                                                                <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%}%>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
-                                                                <li style="color: #d4d4d6;">
+                                                                
+                                                                
                                                                     <%
-                                                                        HttpSession sesija = request.getSession();
-                                                                        Korisnici kor = (Korisnici)sesija.getAttribute("korisnik");
+                                                                        
                                                                         if(kor!=null)
                                                                         {
-                                                                            %> Dobro došli <%= kor.getUsername()%>
+                                                                            %> 
+                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= kor.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li style="color: #d4d4d6;">
+                                                                            Dobro došli <%= kor.getUsername()%>
                                                                             
                                                                             <img src="<%= kor.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
 
@@ -170,9 +189,28 @@
 
 						<!-- Actions -->
 							<section>
+                                                            <%
+                                                            if(kor==null){
+                                                            %>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit" style="color:#fff;">Prijava</a></li>
+									<li><a href="prijava.jsp" class="button large fit"style="color:#fff;">Prijava</a></li>
 								</ul>
+                                                            
+                                                                <ul class="actions stacked">
+									<li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                if(kor!=null){
+                                                                %>
+                                                                <ul class="actions stacked">
+									<li><a href="ServletOdjava" class="button large fit"style="color:#fff;">Odjava</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
 							</section>
 
 					</section>

@@ -172,6 +172,14 @@
         <servlet-name>ServletObrisiFPS</servlet-name>
         <servlet-class>servleti.ServletObrisiFPS</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletIndex</servlet-name>
+        <servlet-class>servleti.ServletIndex</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletKonfigDetalji</servlet-name>
+        <servlet-class>servleti.ServletKonfigDetalji</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -344,12 +352,20 @@
         <servlet-name>ServletObrisiFPS</servlet-name>
         <url-pattern>/ServletObrisiFPS</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletIndex</servlet-name>
+        <url-pattern>/ServletIndex</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletKonfigDetalji</servlet-name>
+        <url-pattern>/ServletKonfigDetalji</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>ServletIndex</welcome-file>
     </welcome-file-list>
 </web-app>

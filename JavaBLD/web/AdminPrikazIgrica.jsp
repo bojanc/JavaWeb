@@ -28,19 +28,38 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
-								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+                                                            <%
+                                                                    HttpSession sesija = request.getSession();
+                                                                    Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                    if(korisnik!=null)
+                                                                    {
+                                                                    if(!korisnik.getUloga().equals("Admin"))
+                                                                    {
+                                                            %>
+								<li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <% }}else{
+                                                                %>
+                                                                <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%}%>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
-                                                                <li style="color: #d4d4d6;">
+                                                                
+                                                                
                                                                     <%
-                                                                        HttpSession sesija = request.getSession();
-                                                                        Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                        
                                                                         if(korisnik!=null)
                                                                         {
-                                                                            %> Dobro došli <%= korisnik.getUsername()%>
+                                                                            %> 
+                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li style="color: #d4d4d6;">
+                                                                            Dobro došli <%= korisnik.getUsername()%>
                                                                             
                                                                             <img src="<%= korisnik.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
 
@@ -477,7 +496,7 @@
                                                     {
                                                     for(Igrice pom:igrice)
                                                     {a++;%>
-							<article class="post" style="width: 18%;margin: 10px;height: 85%; padding-left: 0; padding-right: 0; padding-bottom: 0;display: block;float:left;box-shadow: 7px 7px 10px -4px rgba(0,0,0,0.75);">
+							<article class="post" style="width: 18%;margin: 10px;height: 85%; padding-left: 0; padding-right: 0; padding-bottom: 0;border: none;display: block;float:left;box-shadow: 7px 7px 10px -4px rgba(0,0,0,0.75);">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;text-align: center;width: 100%;margin-left: 56px;">
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;width: 100%;text-align: center;">
                                                                             <h4 style="color:white;padding-top: 5px;"><%= pom.getIgricaNaziv() %></h4>

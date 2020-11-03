@@ -22,21 +22,40 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-                                                            <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
-								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+                                                            <%
+                                                                    HttpSession sesija = request.getSession();
+                                                                    Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                    if(korisnik!=null)
+                                                                    {
+                                                                    if(!korisnik.getUloga().equals("Admin"))
+                                                                    {
+                                                            %>
+								<li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <% }}else{
+                                                                %>
+                                                                <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%}%>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
-                                                                <li style="color: #d4d4d6;">
+                                                                
+                                                                
                                                                     <%
-                                                                        HttpSession sesija = request.getSession();
-                                                                        Korisnici kor = (Korisnici)sesija.getAttribute("korisnik");
-                                                                        if(kor!=null)
+                                                                        
+                                                                        if(korisnik!=null)
                                                                         {
-                                                                            %> Dobro došli <%= kor.getUsername()%>
+                                                                            %> 
+                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li style="color: #d4d4d6;">
+                                                                            Dobro došli <%= korisnik.getUsername()%>
                                                                             
-                                                                            <img src="<%= kor.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
+                                                                            <img src="<%= korisnik.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
 
                                                                     <%
                                                                     }
@@ -72,12 +91,12 @@
 
 						<!-- Links -->
 							<%
-                                                                        if(kor!=null)
+                                                                        if(korisnik!=null)
                                                                         {%>
                                                         <section>
 								<ul class="links">
                                                 <%
-                                                                            if(kor.getUloga().equals("Admin"))
+                                                                            if(korisnik.getUloga().equals("Admin"))
                                                                             {
                                                                     %>
                                                                     
@@ -87,7 +106,7 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= kor.getKorisnikId() %>">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Vaš profil</p>
 										</a>
 									</li>
@@ -114,10 +133,10 @@
                                                                         <%
                                                                                 }
 
-                                                                                if(kor.getUloga().equals("Urednik"))
+                                                                                if(korisnik.getUloga().equals("Urednik"))
                                                                                 {%>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= kor.getKorisnikId() %>">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                 <p style="font-size:0.8em;">Vaš profil</p>
                                                                             </a>
 									</li>
@@ -137,15 +156,15 @@
 										</a>
 									</li>
                                                                                 <%}
-                                                                                if(kor.getUloga().equals("Klijent"))
+                                                                                if(korisnik.getUloga().equals("Klijent"))
                                                                                 {%>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= kor.getKorisnikId() %>">
+                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                 <p style="font-size:0.8em;">Vaš profil</p>
                                                                             </a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletPrikazPorukaUrednika?id=<%= kor.getKorisnikId() %>">
+										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Poruke</p>
 										</a>
 									</li>
@@ -170,9 +189,28 @@
 
 						<!-- Actions -->
 							<section>
+                                                            <%
+                                                            if(korisnik==null){
+                                                            %>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit" style="color:#fff;">Prijava</a></li>
+									<li><a href="prijava.jsp" class="button large fit"style="color:#fff;">Prijava</a></li>
 								</ul>
+                                                            
+                                                                <ul class="actions stacked">
+									<li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                if(korisnik!=null){
+                                                                %>
+                                                                <ul class="actions stacked">
+									<li><a href="ServletOdjava" class="button large fit"style="color:#fff;">Odjava</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
 							</section>
 
 					</section>
@@ -291,7 +329,7 @@
                                                 }
                                 </script>
                                                         <%
-                                                            Korisnici korisnik = (Korisnici)request.getAttribute("korisnik");
+                                                            Korisnici kor = (Korisnici)request.getAttribute("korisnik");
                                                         %>
                                
 
@@ -301,7 +339,7 @@
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Korisnička slika</label>
                                                         <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="<%= korisnik.getImgPath() %>" height="250" width="250" alt="" style="border-radius: 50%;-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
+                                                        <img id="pic" src="<%= kor.getImgPath() %>" height="250" width="250" alt="" style="border-radius: 50%;-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
                                                     </div>
                                                     <div>
                                                          
@@ -331,13 +369,13 @@
                                                             <%= poruka2%>
                                                                </h3><%}
                                                             %>
-                                                        <input type="text" name="ime" placeholder="Ime" id="imekor" style="width: 40%; margin:0 !important;" value="<%= korisnik.getIme() %>" onchange="return imekorcheck()">
+                                                        <input type="text" name="ime" placeholder="Ime" id="imekor" style="width: 40%; margin:0 !important;" value="<%= kor.getIme() %>" onchange="return imekorcheck()">
                                                         <span class="help-block" id="errorimekor" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="prezime" id="prekor" placeholder="Prezime" style="width: 40%;" value="<%= korisnik.getPrezime() %>" onchange="return prekorcheck()">
+                                                        <input type="text" name="prezime" id="prekor" placeholder="Prezime" style="width: 40%;" value="<%= kor.getPrezime() %>" onchange="return prekorcheck()">
                                                         <span class="help-block" id="errorprekor" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 40%;" onchange="return user()" value="<%= korisnik.getUsername()%>">
+                                                        <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 40%;" onchange="return user()" value="<%= kor.getUsername()%>">
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
                                                         
                                                         <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 40%;" onchange="return pass()">
@@ -346,9 +384,9 @@
                                                         <select name="uloga" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Uloga</option>
-                                                                <option value="Admin" <% if(korisnik.getUloga().equals("Admin")){ %> selected<% } %>>Admin</option>
-                                                                <option value="Klijent"  <% if(korisnik.getUloga().equals("Klijent")){ %> selected<% } %>>Klijent</option>
-                                                                <option value="Urednik"  <% if(korisnik.getUloga().equals("Urednik")){ %> selected<% } %>>Urednik</option>
+                                                                <option value="Admin" <% if(kor.getUloga().equals("Admin")){ %> selected<% } %>>Admin</option>
+                                                                <option value="Klijent"  <% if(kor.getUloga().equals("Klijent")){ %> selected<% } %>>Klijent</option>
+                                                                <option value="Urednik"  <% if(kor.getUloga().equals("Urednik")){ %> selected<% } %>>Urednik</option>
                                                             </optgroup>
                                                         </select><br>
                                                         

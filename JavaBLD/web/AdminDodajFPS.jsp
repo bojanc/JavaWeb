@@ -29,19 +29,38 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
-								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
+                                                            <%
+                                                                    HttpSession sesija = request.getSession();
+                                                                    Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                    if(korisnik!=null)
+                                                                    {
+                                                                    if(!korisnik.getUloga().equals("Admin"))
+                                                                    {
+                                                            %>
+								<li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%
+                                                                }else{
+                                                                %>
+                                                                <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <% }}else{
+                                                                %>
+                                                                <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
+                                                                <%}%>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
-                                                                <li style="color: #d4d4d6;">
+                                                                
+                                                                
                                                                     <%
-                                                                        HttpSession sesija = request.getSession();
-                                                                        Korisnici korisnik = (Korisnici)sesija.getAttribute("korisnik");
+                                                                        
                                                                         if(korisnik!=null)
                                                                         {
-                                                                            %> Dobro došli <%= korisnik.getUsername()%>
+                                                                            %> 
+                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li style="color: #d4d4d6;">
+                                                                            Dobro došli <%= korisnik.getUsername()%>
                                                                             
                                                                             <img src="<%= korisnik.getImgPath()  %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;">
 
@@ -391,6 +410,7 @@
                                                                             {
                                                                         %>
                                                                         <a href='ServletUnesiFPS?fps=<%= fps %>&igricaID=<%= igrica.getIgricaId() %>&konfigID=<%= konfigID %>&name=<%= igrica.getIgricaNaziv() %>' class='button'style='display:inline-block;'>Unesi FPS</a>
+                                                                        <a href='ServletAdminDodajFPS?id=<%= igrica.getIgricaId() %>' class='button'style='display:inline-block;'>Resetuj</a>
                                                                         <%
                                                                             }
                                                                         %>
@@ -419,6 +439,8 @@
                                                                         <input type="text" value="<%= igrica.getRam().getNaziv() %>" readonly>
                                                                     </td>
                                                                 </tr>
+                                                                
+                                                                
                                                                 
                                                                 <tr style="background-color:transparent;border: none;">
                                                                     <td>
@@ -468,6 +490,18 @@
                                                                     </td>
                                                                 </tr>
                                                             </table>
+                                                                        <%
+                                                                    if(fps!=0)
+                                                                    {
+                                                                %>
+                                                                <script>
+                                                                    
+                                                                       document.getElementById("sel").disabled = true;  
+                                                                       
+                                                                </script>
+                                                                <%
+                                                                    }
+                                                                %>
                                                                         
                                                     <table style="display:inline-block;width:40%;float:right;">
                                                         <tr style="background-color:transparent;border:none;"> 
@@ -589,7 +623,10 @@
                                                                     <%
                                                                         }
                                                                     %>
+                                                                            
                                                                     
+                                                                            
+                                                                          
                                                                     var modalP2 = document.getElementById("myModalP");
                                                                     var spanP2 = document.getElementById("closeP");
                                                                     var x = document.getElementById(obj);
@@ -655,6 +692,7 @@
                                                                     {
                                                                         modalP2.style.display = "block";
                                                                         document.getElementById("sb").setAttribute("onclick", "");
+                                                                        console.log("nije dobro");
                                                                     }
                                                                     
                                                                     spanP2.onclick = function() {

@@ -20,7 +20,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.jsp" style="color:white;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;">BLD</a></h1>
 						<nav class="links">
 							<ul>
                                                             <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>

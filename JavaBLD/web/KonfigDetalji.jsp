@@ -1,3 +1,6 @@
+<%@page import="entity.Podkomentari"%>
+<%@page import="entity.Komentari"%>
+<%@page import="entity.Konfiguracije"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE HTML>
 <!--
@@ -10,12 +13,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 	<head>
-		<title>Single - Future Imperfect by HTML5 UP</title>
+		<title>Future Imperfect by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
-	<body class="single is-preload">
+	<body class="is-preload">
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -63,6 +67,7 @@
                                                                     %>
                                                                 </li>
 							</ul>
+                                                    
 						</nav>
 						<nav class="main">
 							<ul>
@@ -186,6 +191,9 @@
                                                                         <%
                                                                             }
                                                                         %>
+                                                                <%
+                                                                    Konfiguracije konfig = (Konfiguracije)request.getAttribute("konfig");
+                                                                %>
 
 						<!-- Actions -->
 							<section>
@@ -215,77 +223,155 @@
 
 					</section>
                                                         
-                                                        <%
-                                                            ArrayList<Korisnici> kl = (ArrayList<Korisnici>)request.getAttribute("korisnici");
-                                                        %>
+                                                        <style>
+                                    .modal {
+                                        display: none; 
+                                        position: fixed; 
+                                        z-index: 1; 
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%; 
+                                        height: 100%; 
+                                        overflow: auto; 
+                                        background-color: rgb(0,0,0); 
+                                        background-color: rgba(0,0,0,0.4); 
+                                      }
+
+                                      
+                                      .modal-content {
+                                        background-color: #fefefe;
+                                        margin: 15% auto; 
+                                        padding: 30px;
+                                        border: 2px solid #2ebaae;
+                                        width: 17.5%; 
+                                        text-align: center;
+                                      }
+
+                                      
+                                      .close {
+                                        text-align: center;
+                                        color: #aaa;
+                                        font-size: 32px;
+                                        font-weight: bold;
+                                        float:right;
+                                      }
+
+                                      .close:hover,
+                                      .close:focus {
+                                        color: black;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                      }
+                                </style>
+
+                                
+                                <div id="myModalP" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeP">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
+                                  </div>
+
+                                </div>
+                                
+                                <script>
+                                    var modalP = document.getElementById("myModalP");
+                                    var spanP = document.getElementById("closeP");
+                                    <%
+                                        if(request.getAttribute("uspesno")!=null)
+                                        {
+                                    %>
+                                    $(document).ready(function(){
+                                        modalP.style.display = "block";
+                                    })
+                                    <%
+                                        }
+                                    %>
+                                        spanP.onclick = function() {
+                                  modalP.style.display = "none";
+                                }
+                                </script>
 
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Post -->
-							<article class="post">
-								<header style="margin: auto; text-align: center; padding-left: 60px;">
-                                                                        <h2>Spisak korisnika</h2>
-                                                                        <a href="AdminDodajKorisnika.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;">DODAJ</a>
-                                                                </header>
-                                                            <%if((kl.size()>1))
-                                                                        {%>
-                                                            <table style="margin-top: 30px;">
-                                                                <thead>
-                                                                    <th>Slika</th>
-                                                                    <th>Korisnik ID</th>
-                                                                    <th>Ime</th>
-                                                                    <th>Prezime</th>
-                                                                    <th>Korisničko ime</th>
-                                                                    <th>Uloga</th>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <%
+							<article class="post" style="height:100%;">
+								<header>
+									<div class="title">
+										<h2>
+                                                                                    <%= konfig.getKorisnici().getIme() %> <%= konfig.getKorisnici().getPrezime()%> 
+                                                                                    <img src="<%= konfig.getKorisnici().getImgPath() %>" height="60" width="60" style="border-radius: 50%;vertical-align: middle;"/>
+                                                                                </h2>
+										<p><%= konfig.getOpis() %></p>
+									</div>
+									<div class="meta">
+										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 85%;"/>
+									</div>
+								</header>
                                                                         
-                                                                        for(Korisnici pom:kl){
-                                                                            if((pom.getKorisnikId()!=korisnik.getKorisnikId()))
-                                                                            {
-                                                                    %>
-                                                                    <tr style="background-color:transparent;">
-                                                                        <td><img src="<%= pom.getImgPath() %>"height="40" width="40" style="border-radius: 50%;vertical-align: middle;"</td>
-                                                                        <td><%= pom.getKorisnikId()%></td>
-                                                                        <td><%= pom.getIme() %></td>
-                                                                        <td><%= pom.getPrezime() %></td>
-                                                                        <td><%= pom.getUsername() %></td>
-                                                                        <td><%= pom.getUloga() %></td>
-                                                                        <td>
-                                                                            <a href="ServletAdminIzmenaKorisnika?id=<%= pom.getKorisnikId() %>" class="button">IZMENI</a>
-                                                                            <a href="ServletKorisnikObrisi?id=<%= pom.getKorisnikId() %>" class="button">OBRIŠI</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <%
-                                                                        }
-                                                                        }
-                                                                    %>
-                                                                </tbody>
-                                                            </table>
-                                                                <%
-                                                                    }else{
-                                                                %>
-                                                                <h2 style="width:600px !important;color: red;">Trenutno nema korisnika.</h2>
-                                                                    <%
-                                                                        }
-                                                                    %>
+                                                                        <style>
+                                                                                    #buttonobrisi:hover {
+                                                                                        box-shadow: inset 0 0 0 1px red;
+                                                                                        color: red !important;
+                                                                                    }
+                                                                        </style>
+                                                                        <h3 style="width:25%;">Detalji o konfiguraciji</h3>
+                                                                        <table style="width:40%;display: inline-block;float: left;">
+                                                                            <tr style="background-color:transparent;border:none;">
+                                                                                <td>
+                                                                                    <p style="margin-bottom:0;">Grafička kartica: &nbsp; <%= konfig.getGpu().getNaziv() %></p>
+                                                                                    <p style="margin-bottom:0;">Procesor: &nbsp; <%= konfig.getProcesori().getNaziv() %></p>
+                                                                                    <p style="margin-bottom:0;">RAM: &nbsp; <%= konfig.getRam().getNaziv() %></p>
+                                                                                    <p style="margin-bottom:0;">Matična ploča: &nbsp; <%= konfig.getMaticna().getNaziv() %></p>
+                                                                                    <p style="margin-bottom:0;">Napajanje: &nbsp; <%= konfig.getPsu().getNaziv() %></p>
+                                                                                    <p style="margin-bottom:0;">Kučište: &nbsp; <%= konfig.getKuciste().getNaziv() %></p>
+                                                                                    <p style="margin-bottom:0;">Kuler: &nbsp; <%= konfig.getKuleri().getNaziv() %></p>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                                
+                                                                        <table style="width:40%;display: inline-block;float: right;margin-right: 100px;">
+                                                                            <tr style="background-color:transparent;border:none;"> 
+                                                                                <td>
+
+                                                                                </td>
+                                                                                <td style="width:20%;">
+                                                                                    <img class="slikedelova" src="<%= konfig.getMaticna().getImgPath() %>" alt="" style="float:left;" width="150" height="150">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img  class="slikedelova" src="<%= konfig.getRam().getImgPath() %>" alt="" style="float:right;" width="150" height="150">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr style="background-color:transparent;border:none;"> 
+                                                                                <td style="width:20%;">
+                                                                                    <img class="slikedelova" src="<%= konfig.getProcesori().getImgPath() %>" alt="" width="150" height="150">
+                                                                                </td>
+                                                                                <td style="padding:0;">
+                                                                                    <img  class="slikedelova" src="<%= konfig.getKuciste().getImgPath() %>" alt="" width="250" height="250">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img class="slikedelova" src="<%= konfig.getKuleri().getImgPath() %>" alt="" width="150" height="150">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr style="background-color:transparent;border:none;"> 
+                                                                                <td>
+                                                                                    <img  class="slikedelova" src="<%= konfig.getPsu().getImgPath() %>" alt="" width="150" height="150">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img  class="slikedelova" src="<%= konfig.getGpu().getImgPath() %>" alt="" width="150" height="150">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img  class="slikedelova" src="<%= konfig.getMemorija().getImgPath() %>" alt="" width="150" height="150">
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        </table>
+								
 							</article>
 
 					</div>
-
-				<!-- Footer -->
-					<section id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</section>
 
 			</div>
 

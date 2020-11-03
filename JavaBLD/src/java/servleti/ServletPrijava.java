@@ -127,7 +127,7 @@ public class ServletPrijava extends HttpServlet {
                             s.close();
                             
                             sesija.setAttribute("korisnik", korisnik);
-                            response.sendRedirect("index.jsp");
+                            response.sendRedirect("ServletIndex");
                         }
 
                         return;
