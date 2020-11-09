@@ -65,31 +65,51 @@ public class ServletAdminPrikazKorisnika extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Korisnici> korisnici = new ArrayList<Korisnici>();
-        
-        try
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-
-            SQLQuery q=s.createSQLQuery("select * from korisnici").addEntity("korisnici",Korisnici.class);
-
-            List<Korisnici> rows = q.list();
-            for(Korisnici row:rows)
-            {
-                korisnici.add(new Korisnici(row.getKorisnikId(),row.getImgPath(),row.getIme(),row.getPrezime(),row.getUsername(), row.getPassword(), row.getUloga()));
-            }
-            
-            request.setAttribute("korisnici", korisnici);
-            s.close();
-            request.getRequestDispatcher("AdminPrikazKorisnika.jsp").forward(request, response);
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        catch(HibernateException ex)
+        else
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
+        }
+        if(korisnik.getUloga().equals("Admin"))
+        {
+        
+            ArrayList<Korisnici> korisnici = new ArrayList<Korisnici>();
+
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                SQLQuery q=s.createSQLQuery("select * from korisnici").addEntity("korisnici",Korisnici.class);
+
+                List<Korisnici> rows = q.list();
+                for(Korisnici row:rows)
+                {
+                    korisnici.add(new Korisnici(row.getKorisnikId(),row.getImgPath(),row.getIme(),row.getPrezime(),row.getUsername(), row.getPassword(), row.getUloga()));
+                }
+
+                request.setAttribute("korisnici", korisnici);
+                s.close();
+                request.getRequestDispatcher("AdminPrikazKorisnika.jsp").forward(request, response);
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
         }
         
         

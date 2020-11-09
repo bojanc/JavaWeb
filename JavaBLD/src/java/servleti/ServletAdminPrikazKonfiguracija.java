@@ -82,10 +82,16 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
         ArrayList<Podkomentari> podkom = new ArrayList<Podkomentari>();
         
         String poruka = "";
+        String korisnikKonfig = "";
         
         if(request.getParameter("poruka")!=null)
         {
             poruka = (String)request.getParameter("poruka");
+        }
+        
+        if(request.getParameter("korisnikKonfig")!=null)
+        {
+            korisnikKonfig = (String)request.getParameter("korisnikKonfig");
         }
         
         try
@@ -176,9 +182,15 @@ public class ServletAdminPrikazKonfiguracija extends HttpServlet {
                 request.setAttribute("obrisano", "da");
             }
             
+            if(!korisnikKonfig.equals(""))
+            {
+                request.setAttribute("korisnikKonfig", korisnikKonfig);
+            }
+            
             request.setAttribute("konfig", konfig);
             request.setAttribute("komentar", komentar);
             request.setAttribute("podkom", podkom);
+            
             s.close();
             request.getRequestDispatcher("AdminPrikazKonfiguracija.jsp").forward(request, response);
         }

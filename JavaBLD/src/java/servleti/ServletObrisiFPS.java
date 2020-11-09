@@ -65,28 +65,48 @@ public class ServletObrisiFPS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int fpsid = Integer.parseInt(request.getParameter("fpsid").toString());
-        
-        try
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-
-            SQLQuery q=s.createSQLQuery("delete from igricefps where igricaFPSID = '"+fpsid+"'");
-
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-
-            response.sendRedirect("ServletAdminPrikazIgrica?obrisanFPS=da");
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
             return;
         }
-        catch(HibernateException ex)
+        if(korisnik.getUloga().equals("Admin"))
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+        
+            int fpsid = Integer.parseInt(request.getParameter("fpsid").toString());
+
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                SQLQuery q=s.createSQLQuery("delete from igricefps where igricaFPSID = '"+fpsid+"'");
+
+                q.executeUpdate();
+                tr.commit();
+                s.close();
+
+                response.sendRedirect("ServletAdminPrikazIgrica?obrisanFPS=da");
+                return;
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
         }
     }
 

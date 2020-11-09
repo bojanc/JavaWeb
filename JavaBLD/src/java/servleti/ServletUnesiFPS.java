@@ -84,50 +84,70 @@ public class ServletUnesiFPS extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int fps = Integer.parseInt(request.getParameter("fps"));
-        int igricaID = Integer.parseInt(request.getParameter("igricaID"));
-        int konfigID = Integer.parseInt(request.getParameter("konfigID"));
-        String naziv = request.getParameter("name");
-        
-        try
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-            
-            List<Igricefps> rowsfps = s.createSQLQuery(
-            "select {ifps.*}, {i.*}, {konfig.*} from Igricefps ifps,Igrice i, Konfiguracije konfig where ifps.igricaID = i.igricaID and ifps.konfiguracijaID = konfig.konfiguracijaID and ifps.igricaID = "+igricaID+" and ifps.konfiguracijaID ="+konfigID+"")
-              .addEntity("ifps", Igricefps.class)
-              .addJoin("i", "ifps.igrice")
-              .addEntity("i", Igrice.class)
-                   .addJoin("konfig", "ifps.konfiguracije")
-              .addEntity("konfig", Konfiguracije.class)
-              .addEntity("ifps", Igricefps.class)
-              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-              .list();
-            
-            if(rowsfps.size()>0)
-            {
-                int fpsid = rowsfps.get(0).getIgricaFpsid();
-                response.sendRedirect("ServletAdminDodajFPS?id="+igricaID+"&vecpostoji=da&fpsid="+fpsid+"");
-                return;
-            }
-            
-            SQLQuery q = s.createSQLQuery("insert into igricefps(konfiguracijaID,igricaID,fps) values ('"+konfigID+"','"+igricaID+"','"+fps+"')");
-            
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-            
-            response.sendRedirect("ServletAdminPrikazIgrica?fpsok=ok&name="+naziv+"");
-            
-            
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        catch(HibernateException ex)
+        else
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
+        }
+        if(korisnik.getUloga().equals("Urednik") || korisnik.getUloga().equals("Admin"))
+        {
+        
+            int fps = Integer.parseInt(request.getParameter("fps"));
+            int igricaID = Integer.parseInt(request.getParameter("igricaID"));
+            int konfigID = Integer.parseInt(request.getParameter("konfigID"));
+            String naziv = request.getParameter("name");
+
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                List<Igricefps> rowsfps = s.createSQLQuery(
+                "select {ifps.*}, {i.*}, {konfig.*} from Igricefps ifps,Igrice i, Konfiguracije konfig where ifps.igricaID = i.igricaID and ifps.konfiguracijaID = konfig.konfiguracijaID and ifps.igricaID = "+igricaID+" and ifps.konfiguracijaID ="+konfigID+"")
+                  .addEntity("ifps", Igricefps.class)
+                  .addJoin("i", "ifps.igrice")
+                  .addEntity("i", Igrice.class)
+                       .addJoin("konfig", "ifps.konfiguracije")
+                  .addEntity("konfig", Konfiguracije.class)
+                  .addEntity("ifps", Igricefps.class)
+                  .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                  .list();
+
+                if(rowsfps.size()>0)
+                {
+                    int fpsid = rowsfps.get(0).getIgricaFpsid();
+                    response.sendRedirect("ServletAdminDodajFPS?id="+igricaID+"&vecpostoji=da&fpsid="+fpsid+"");
+                    return;
+                }
+
+                SQLQuery q = s.createSQLQuery("insert into igricefps(konfiguracijaID,igricaID,fps) values ('"+konfigID+"','"+igricaID+"','"+fps+"')");
+
+                q.executeUpdate();
+                tr.commit();
+                s.close();
+
+                response.sendRedirect("ServletAdminPrikazIgrica?fpsok=ok&name="+naziv+"");
+
+
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
         }
         
     }

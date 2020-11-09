@@ -78,56 +78,75 @@ public class ServletPrikazPorukaKorisnika extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Porukekorisnika> poruke = new ArrayList<Porukekorisnika>();
-        
-        String poruka = "";
-        if(request.getParameter("poslata")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            poruka = (String)request.getParameter("poslata");
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        
-        try
+        else
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            
-            Transaction tr = s.beginTransaction();
-            
-            
-            List<Porukekorisnika> rows = s.createSQLQuery("select {poruke.*}, {k.*} from PorukeKorisnika poruke, Korisnici k where poruke.poruke_korisnikID = k.korisnikID and poruke.odgovoreno = 'ne'")
-                    .addEntity("poruke",Porukekorisnika.class)
-                    .addJoin("k", "poruke.korisnici")
-                    .addEntity("k",Korisnici.class)
-                    .addEntity("poruke",Porukekorisnika.class)
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                    .list();
-            
-            
-            for(Porukekorisnika row:rows)
+            response.sendRedirect("ServletIndex");
+            return;
+        }
+        if(korisnik.getUloga().equals("Urednik"))
+        {
+        
+            ArrayList<Porukekorisnika> poruke = new ArrayList<Porukekorisnika>();
+
+            String poruka = "";
+            if(request.getParameter("poslata")!=null)
             {
-                poruke.add(new Porukekorisnika(row.getPorukaKorisnikaId(),row.getKorisnici(),row.getVreme(),row.getTekst(),row.getOdgovoreno()));
+                poruka = (String)request.getParameter("poslata");
             }
-            
-            
-            if(!poruka.equals(""))
+
+            try
             {
-                request.setAttribute("poslato", "da");
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+
+                Transaction tr = s.beginTransaction();
+
+
+                List<Porukekorisnika> rows = s.createSQLQuery("select {poruke.*}, {k.*} from PorukeKorisnika poruke, Korisnici k where poruke.poruke_korisnikID = k.korisnikID and poruke.odgovoreno = 'ne'")
+                        .addEntity("poruke",Porukekorisnika.class)
+                        .addJoin("k", "poruke.korisnici")
+                        .addEntity("k",Korisnici.class)
+                        .addEntity("poruke",Porukekorisnika.class)
+                        .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                        .list();
+
+
+                for(Porukekorisnika row:rows)
+                {
+                    poruke.add(new Porukekorisnika(row.getPorukaKorisnikaId(),row.getKorisnici(),row.getVreme(),row.getTekst(),row.getOdgovoreno()));
+                }
+
+
+                if(!poruka.equals(""))
+                {
+                    request.setAttribute("poslato", "da");
+                }
+
+                s.close();
+                request.setAttribute("poruke", poruke);
+                request.getRequestDispatcher("PorukeKorisnika.jsp").forward(request, response);
+
+
+
             }
-            
-            s.close();
-            request.setAttribute("poruke", poruke);
-            request.getRequestDispatcher("PorukeKorisnika.jsp").forward(request, response);
-        
-        
-        
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
-        catch(HibernateException ex)
+        else
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
         
     }
 

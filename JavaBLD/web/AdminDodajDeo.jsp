@@ -41,7 +41,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -115,8 +115,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -152,6 +152,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -875,13 +880,31 @@
                                                         <input type="text" name="boostclock" id="checkboostcl" placeholder="Boost clock" style="width: 40%;" onchange="return boostcheck()">
                                                         <span class="help-block" id="errorboost" style="color:#f56a6a;"></span><br>
                                                         
-                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;"><br><br>
+                                                        <input type="number" name="tdp" placeholder="TDP" min="5" max="1000" step="5" style="width: 40%;">
+                                                        <input type="text" id="subdomaintwo" value="W" disabled/><br><br>
+                                                        
+                                                        <style>
+                                                            input[type="text"]#subdomaintwo{
+                                                            -webkit-appearance:none!important;
+                                                            color:black;
+                                                            text-align:right;
+                                                            width:65px;;
+                                                            border: none;
+                                                            margin:0 0 0 -87px;
+                                                            background:white;
+                                                            display:inline-block;
+                                                            padding-left: 0;
+                                                            height:32px;
+                                                        }
+                                                        </style>
                                                         
                                                         <select name="memorija" style="width: 40%;">
                                                             <optgroup>
                                                                 <option value="" disabled selected>Memorija</option>
                                                                 <option value="4GB">4 GB</option>
+                                                                <option value="6GB">6 GB</option>
                                                                 <option value="8GB">8 GB</option>
+                                                                <option value="10GB">10 GB</option>
                                                                 <option value="11GB">11 GB</option>
                                                             </optgroup>
                                                         </select><br>
@@ -891,7 +914,7 @@
                                                     <input type="submit" id="submit" value="Dodaj">
                                                 </form>
                                                           
-                                                <form method="post" action="ServletAdminDodajKuciste" id="kuciste" class="post" style="<% if(kucistepok!=null){if(kucistepok.equals("da")){ %> display:block;<%}else{%> display: none;<%}}%> width:65%;height: 100%; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
+                                                <form method="post" action="ServletAdminDodajKuciste" id="kuciste" class="post" style="<% if(kucistepok!=null){if(kucistepok.equals("da")){ %> display:block;<%}else{%> display: none;<%}}%> width:65%;height: 400px; margin: auto;-webkit-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); -moz-box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54); box-shadow: 3px 3px 7px -1px rgba(18,19,30,0.54);" enctype="multipart/form-data">
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Slika kućišta</label>
                                                         <input type="file" name="file" onChange="readURL2(this)"><br><br>

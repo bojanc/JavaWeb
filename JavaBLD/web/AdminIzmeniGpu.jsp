@@ -42,7 +42,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -116,8 +116,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -153,6 +153,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -301,7 +306,7 @@
                                                     <div style="float:right;">
                                                         <label style="color:#aab0c1;">Slika grafičke kartice</label>
                                                         <input type="file" name="file" onChange="readURL(this)"><br><br>
-                                                        <img id="pic" src="<%= gpu.getImgPath() %>" alt=""/>
+                                                        <img id="pic" src="<%= gpu.getImgPath() %>" alt="" height="250"/>
                                                     </div>
                                                     <div>
                                                          
@@ -354,7 +359,9 @@
                                                             <optgroup>
                                                                 <option value="" disabled selected>Memorija</option>
                                                                 <option value="4GB" <% if(gpu.getMemorija().equals("4GB")){ %> selected<%}%>>4 GB</option>
+                                                                <option value="6GB" <% if(gpu.getMemorija().equals("6GB")){ %> selected<%}%>>6 GB</option>
                                                                 <option value="8GB"  <% if(gpu.getMemorija().equals("8GB")){ %> selected<%}%>>8 GB</option>
+                                                                <option value="10GB"  <% if(gpu.getMemorija().equals("10GB")){ %> selected<%}%>>10 GB</option>
                                                                 <option value="11GB"  <% if(gpu.getMemorija().equals("11GB")){ %> selected<%}%>>11 GB</option>
                                                             </optgroup>
                                                         </select><br>

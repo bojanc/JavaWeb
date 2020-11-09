@@ -50,7 +50,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -124,8 +124,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -161,6 +161,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -341,8 +346,8 @@
                                                                         $('#gpuIMG<%= gb %>')
                                                                             .attr('src', document.getElementById('gpuID<%= gb %>').getAttribute("data-original-title"))
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(200)
+                                                                            .height(200);
                                                                     } else if(document.getElementById('gpuID<%= gb %>').checked==false){
                                                                         $('#gpuIMG<%= gb %>')
                                                                             .attr('style', "display:none;")
@@ -413,8 +418,8 @@
                                                                         $('#moboIMG<%= meb %>')
                                                                             .attr('src', document.getElementById('moboID<%= meb %>').getAttribute("data-original-title"))
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(200)
+                                                                            .height(200);
                                                                     } else if(document.getElementById('moboID<%= meb %>').checked==false){
                                                                         $('#moboIMG<%= meb %>')
                                                                             .attr('style', "display:none;")
@@ -438,8 +443,8 @@
                                                                         $('#memIMG<%= mb %>')
                                                                             .attr('src', document.getElementById('memID<%= mb %>').getAttribute("data-original-title"))
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(100)
+                                                                            .height(100);
                                                                     } else if(document.getElementById('memID<%= mb %>').checked==false){
                                                                         $('#memIMG<%= mb %>')
                                                                             .attr('style', "display:none;")
@@ -1385,7 +1390,7 @@
                                             <div style='float:right;width:50%;padding-bottom: 50px;'>
                                                 <h2>Slika konfiguracije</h2>
                                                 <input type="file" name="fajl" onChange="readURL(this)"><br><br>
-                                                <img id="pic" src="#" alt="" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
+                                                <img id="pic" src="#" alt=""/>
                                             </div>
                                                        <input type="hidden" id="korID" name="korID" value="<%= korisnik.getKorisnikId() %>">     
                                             </form>

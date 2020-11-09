@@ -83,90 +83,109 @@ public class ServletAdminIzmenaIgrice extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-        Igrice igrica = new Igrice();
-        ArrayList<Procesori> cpu = new ArrayList<Procesori>();
-        ArrayList<Gpu> gpu = new ArrayList<Gpu>();
-        ArrayList<Ram> ram = new ArrayList<Ram>();
-        
-        String poruka = "";
-        String porukaPolja = "";
-        
-        if(request.getParameter("slika")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            poruka = (String)request.getParameter("slika");
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        
-        if(request.getParameter("polja")!=null)
+        else
         {
-            porukaPolja = (String)request.getParameter("polja");
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
-        try
+        if(korisnik.getUloga().equals("Admin"))
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-            
-            SQLQuery q0 = s.createSQLQuery("select * from igrice where igricaID = '"+id+"'").addEntity(Igrice.class);
-            List<Igrice> rows0 = q0.list();
-           
-            SQLQuery q = s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
-            List<Procesori> rows = q.list();
-            
-            SQLQuery q1=s.createSQLQuery("select * from gpu").addEntity(Gpu.class);
-            List<Gpu> rows1 = q1.list();
+        
+            int id = Integer.parseInt(request.getParameter("id"));
 
-            SQLQuery q2=s.createSQLQuery("select * from ram").addEntity(Ram.class);
-            List<Ram> rows2 = q2.list();
-           
-            for(Igrice row:rows0)
+            Igrice igrica = new Igrice();
+            ArrayList<Procesori> cpu = new ArrayList<Procesori>();
+            ArrayList<Gpu> gpu = new ArrayList<Gpu>();
+            ArrayList<Ram> ram = new ArrayList<Ram>();
+
+            String poruka = "";
+            String porukaPolja = "";
+
+            if(request.getParameter("slika")!=null)
             {
-                igrica = new Igrice(row.getIgricaId(),row.getGpu(),row.getProcesori(),row.getRam(),row.getIgricaNaziv(),row.getImgPath());
+                poruka = (String)request.getParameter("slika");
             }
-           
-           
-            for(Procesori row:rows)
+
+            if(request.getParameter("polja")!=null)
             {
-                cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
+                porukaPolja = (String)request.getParameter("polja");
             }
-            
-            for(Gpu row:rows1)
+
+            try
             {
-                gpu.add(new Gpu(row.getGpuId(),row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                SQLQuery q0 = s.createSQLQuery("select * from igrice where igricaID = '"+id+"'").addEntity(Igrice.class);
+                List<Igrice> rows0 = q0.list();
+
+                SQLQuery q = s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
+                List<Procesori> rows = q.list();
+
+                SQLQuery q1=s.createSQLQuery("select * from gpu").addEntity(Gpu.class);
+                List<Gpu> rows1 = q1.list();
+
+                SQLQuery q2=s.createSQLQuery("select * from ram").addEntity(Ram.class);
+                List<Ram> rows2 = q2.list();
+
+                for(Igrice row:rows0)
+                {
+                    igrica = new Igrice(row.getIgricaId(),row.getGpu(),row.getProcesori(),row.getRam(),row.getIgricaNaziv(),row.getImgPath());
+                }
+
+
+                for(Procesori row:rows)
+                {
+                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
+                }
+
+                for(Gpu row:rows1)
+                {
+                    gpu.add(new Gpu(row.getGpuId(),row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
+                }
+
+                for(Ram row:rows2)
+                {
+                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
+                }
+
+                if(!poruka.equals(""))
+                {
+                    request.setAttribute("praznaSlika", "Morate izabrati sliku!");
+                }
+
+                if(!porukaPolja.equals(""))
+                {
+                    request.setAttribute("praznapolja", "Morate popuniti sva polja!");
+                }
+
+                request.setAttribute("igrica", igrica);
+                request.setAttribute("cpu", cpu);
+                request.setAttribute("gpu", gpu);
+                request.setAttribute("ram", ram);
+
+                s.close();
+                request.getRequestDispatcher("AdminIzmeniIgricu.jsp").forward(request, response);
             }
-            
-            for(Ram row:rows2)
+            catch(HibernateException ex)
             {
-                ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-            
-            if(!poruka.equals(""))
-            {
-                request.setAttribute("praznaSlika", "Morate izabrati sliku!");
-            }
-            
-            if(!porukaPolja.equals(""))
-            {
-                request.setAttribute("praznapolja", "Morate popuniti sva polja!");
-            }
-            
-            request.setAttribute("igrica", igrica);
-            request.setAttribute("cpu", cpu);
-            request.setAttribute("gpu", gpu);
-            request.setAttribute("ram", ram);
-            
-            s.close();
-            request.getRequestDispatcher("AdminIzmeniIgricu.jsp").forward(request, response);
         }
-        catch(HibernateException ex)
+        else
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
     }
 
     /**

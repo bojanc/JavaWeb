@@ -49,7 +49,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -124,8 +124,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -161,6 +161,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -379,7 +384,7 @@
 								<header>
                                                                     <div class="title">
 										<h2 style="display:inline-block; padding-top: 5%;">
-                                                                                    Dodaj prosečan FPS za <%= igrica.getIgricaNaziv() %>
+                                                                                    Prosečan FPS za <%= igrica.getIgricaNaziv() %>
                                                                                 </h2>
                                                                         <!--<a href="PosaljiPoruku.jsp" class="button" style="float: right;display:inline-block;">Pošalji poruku</a>-->
                                                                         <img src="<%= igrica.getImgPath() %>" alt="" width="250" heigh="350" style="display:inline-block;float:right;box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);"/>
@@ -409,7 +414,13 @@
                                                                             if(fps!=0)
                                                                             {
                                                                         %>
+                                                                        <%  if(korisnik!=null){
+                                                                            if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Urednik")){
+                                                                        %>
                                                                         <a href='ServletUnesiFPS?fps=<%= fps %>&igricaID=<%= igrica.getIgricaId() %>&konfigID=<%= konfigID %>&name=<%= igrica.getIgricaNaziv() %>' class='button'style='display:inline-block;'>Unesi FPS</a>
+                                                                        <%
+                                                                            }}
+                                                                        %>
                                                                         <a href='ServletAdminDodajFPS?id=<%= igrica.getIgricaId() %>' class='button'style='display:inline-block;'>Resetuj</a>
                                                                         <%
                                                                             }

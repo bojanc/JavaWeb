@@ -46,7 +46,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -121,8 +121,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -158,6 +158,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -447,7 +452,7 @@
                                 </style>
                                 
                                 <style>
-                                            .button:hover {
+                                            .button.odbij:hover {
                                                 box-shadow: inset 0 0 0 1px red;
                                                 color: red !important;
                                             }
@@ -496,7 +501,7 @@
 								<footer>
 									<ul class="stats" style="font-size:180% !important;">
                                                                             <li><a href="ServletOdobriKonfig?id=<%= pom.getKonfiguracijaId() %>" class="button odobri" style="box-shadow: inset 0px 0px 0px 1px rgba(34,204,39);">Odobri</a></li>
-                                                                            <li><a href="ServletOdbijKonfig?id=<%= pom.getKonfiguracijaId() %>" class="button" style="box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Odbij</a></li>
+                                                                            <li><a href="ServletOdbijKonfig?id=<%= pom.getKonfiguracijaId() %>" class="button odbij" style="box-shadow: inset 0px 0px 0px 1px rgba(255,0,0,1);">Odbij</a></li>
 									</ul>
 								</footer>
 							</article>

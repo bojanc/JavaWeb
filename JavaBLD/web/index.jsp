@@ -48,7 +48,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -123,8 +123,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -160,6 +160,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -315,7 +320,7 @@
                                                 <%
                                                     if(!konfig.isEmpty())
                                                     {
-                                                        for(int a = 0; a<=3;a++)
+                                                        for(int a = 0; a<3;a++)
                                                         {
                                                     
                                                 %>
@@ -330,13 +335,13 @@
                                                                             
                                                                         </div>
                                                                         <div style="display:inline-block;float:right;width: 50%;">
-                                                                            <p style="margin-bottom:0;">Grafička kartica: &nbsp; <%= konfig.get(a).getGpu().getNaziv() %></p>
-                                                                            <p style="margin-bottom:0;">Procesor: &nbsp; <%= konfig.get(a).getProcesori().getNaziv() %></p>
-                                                                            <p style="margin-bottom:0;">RAM: &nbsp; <%= konfig.get(a).getRam().getNaziv() %></p>
-                                                                            <p style="margin-bottom:0;">Matična ploča: &nbsp; <%= konfig.get(a).getMaticna().getNaziv() %></p>
-                                                                            <p style="margin-bottom:0;">Napajanje: &nbsp; <%= konfig.get(a).getPsu().getNaziv() %></p>
-                                                                            <p style="margin-bottom:0;">Kučište: &nbsp; <%= konfig.get(a).getKuciste().getNaziv() %></p>
-                                                                            <p style="margin-bottom:0;">Kuler: &nbsp; <%= konfig.get(a).getKuleri().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>Grafička kartica:</b> &nbsp; <%= konfig.get(a).getGpu().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>Procesor:</b> &nbsp; <%= konfig.get(a).getProcesori().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>RAM:</b> &nbsp; <%= konfig.get(a).getRam().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>Matična ploča:</b> &nbsp; <%= konfig.get(a).getMaticna().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>Napajanje:</b> &nbsp; <%= konfig.get(a).getPsu().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>Kučište:</b> &nbsp; <%= konfig.get(a).getKuciste().getNaziv() %></p>
+                                                                            <p style="margin-bottom:0;"><b>Kuler:</b> &nbsp; <%= konfig.get(a).getKuleri().getNaziv() %></p>
                                                                         </div>
                                                                         <br><br>
 								<footer style="width:100%;">

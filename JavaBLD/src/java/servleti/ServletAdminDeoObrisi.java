@@ -73,35 +73,54 @@ public class ServletAdminDeoObrisi extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id = Integer.parseInt(request.getParameter("id"));
-        String deo = (String)request.getParameter("deo");
-        String naziv = (String)request.getParameter("naziv");
-        
-        if(id!=0 && !(deo.equals("")) && !(naziv.equals("")))
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            try
-            {
-                SessionFactory sf = new Configuration().configure().buildSessionFactory();
-                Session s = sf.openSession();
-                Transaction tr = s.beginTransaction();
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
+        }
+        if(korisnik.getUloga().equals("Admin"))
+        {
+        
+            int id = Integer.parseInt(request.getParameter("id"));
+            String deo = (String)request.getParameter("deo");
+            String naziv = (String)request.getParameter("naziv");
 
-                SQLQuery q=s.createSQLQuery("delete from "+deo+" where "+naziv+" = '"+id+"'");
-
-                q.executeUpdate();
-                tr.commit();
-                s.close();
-                
-                request.getRequestDispatcher("ServletAdminPrikazDelova").forward(request, response);
-                return;
-            }
-            catch(HibernateException ex)
+            if(id!=0 && !(deo.equals("")) && !(naziv.equals("")))
             {
-                String errormsg = ex.getMessage();
-                request.setAttribute("errormsg", errormsg);
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                try
+                {
+                    SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                    Session s = sf.openSession();
+                    Transaction tr = s.beginTransaction();
+
+                    SQLQuery q=s.createSQLQuery("delete from "+deo+" where "+naziv+" = '"+id+"'");
+
+                    q.executeUpdate();
+                    tr.commit();
+                    s.close();
+
+                    request.getRequestDispatcher("ServletAdminPrikazDelova").forward(request, response);
+                    return;
+                }
+                catch(HibernateException ex)
+                {
+                    String errormsg = ex.getMessage();
+                    request.setAttribute("errormsg", errormsg);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
             }
         }
-        
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
+        }
         
     }
 

@@ -77,29 +77,49 @@ public class ServletOdobriKonfig extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id=0;
-        id = Integer.parseInt(request.getParameter("id"));
-        
-        try
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-
-            SQLQuery q=s.createSQLQuery("update konfiguracije set odobreno='da' where konfiguracijaID = '"+id+"'");
-
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-
-            response.sendRedirect("ServletUrednikOdobravanjeKonfig?poruka=da");
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
             return;
         }
-        catch(HibernateException ex)
+        if(korisnik.getUloga().equals("Urednik"))
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+        
+            int id=0;
+            id = Integer.parseInt(request.getParameter("id"));
+
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                SQLQuery q=s.createSQLQuery("update konfiguracije set odobreno='da' where konfiguracijaID = '"+id+"'");
+
+                q.executeUpdate();
+                tr.commit();
+                s.close();
+
+                response.sendRedirect("ServletUrednikOdobravanjeKonfig?poruka=da");
+                return;
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
         }
     }
 

@@ -80,148 +80,167 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Gpu> gpu = new ArrayList<Gpu>();
-        ArrayList<Kuciste> kuciste = new ArrayList<Kuciste>();
-        ArrayList<Kuleri> kuler = new ArrayList<Kuleri>();
-        ArrayList<Maticna> maticna = new ArrayList<Maticna>();
-        ArrayList<Memorija> memorija = new ArrayList<Memorija>();
-        ArrayList<Procesori> cpu = new ArrayList<Procesori>();
-        ArrayList<Psu> psu = new ArrayList<Psu>();
-        ArrayList<Ram> ram = new ArrayList<Ram>();
-        
-        String polja="";
-        String slika = "";
-        String socket = "";
-        String lowpsu = "";
-        
-        if(request.getParameter("polja")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            polja = request.getParameter("polja");
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        
-        if(request.getParameter("slika")!=null)
+        else
         {
-            slika = request.getParameter("slika");
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
-        if(request.getParameter("socket")!=null)
+        if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Klijent") || korisnik.getUloga().equals("Urednik"))
         {
-            socket = request.getParameter("socket");
-        }
         
-        if(request.getParameter("lowpsu")!=null)
-        {
-            lowpsu = request.getParameter("lowpsu");
+            ArrayList<Gpu> gpu = new ArrayList<Gpu>();
+            ArrayList<Kuciste> kuciste = new ArrayList<Kuciste>();
+            ArrayList<Kuleri> kuler = new ArrayList<Kuleri>();
+            ArrayList<Maticna> maticna = new ArrayList<Maticna>();
+            ArrayList<Memorija> memorija = new ArrayList<Memorija>();
+            ArrayList<Procesori> cpu = new ArrayList<Procesori>();
+            ArrayList<Psu> psu = new ArrayList<Psu>();
+            ArrayList<Ram> ram = new ArrayList<Ram>();
+
+            String polja="";
+            String slika = "";
+            String socket = "";
+            String lowpsu = "";
+
+            if(request.getParameter("polja")!=null)
+            {
+                polja = request.getParameter("polja");
+            }
+
+            if(request.getParameter("slika")!=null)
+            {
+                slika = request.getParameter("slika");
+            }
+
+            if(request.getParameter("socket")!=null)
+            {
+                socket = request.getParameter("socket");
+            }
+
+            if(request.getParameter("lowpsu")!=null)
+            {
+                lowpsu = request.getParameter("lowpsu");
+            }
+
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                    SQLQuery q=s.createSQLQuery("select * from gpu").addEntity(Gpu.class);
+                    List<Gpu> rows = q.list();
+
+                    for(Gpu row:rows)
+                    {
+                        gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
+                    }
+
+                    SQLQuery q1=s.createSQLQuery("select * from kuciste").addEntity(Kuciste.class);
+                    List<Kuciste> rows1 = q1.list();
+
+                    for(Kuciste row:rows1)
+                    {
+                        kuciste.add(new Kuciste(row.getKucisteId(),row.getNaziv(),row.getDimenzije(),row.getImgPath()));
+                    }
+
+                    SQLQuery q2=s.createSQLQuery("select * from kuleri").addEntity(Kuleri.class);
+                    List<Kuleri> rows2 = q2.list();
+
+                    for(Kuleri row:rows2)
+                    {
+                        kuler.add(new Kuleri(row.getKulerId(),row.getNaziv(),row.getRpm(),row.getBuka(),row.getRadijatorDim(), row.getImgPath()));
+                    }
+
+                    SQLQuery q3=s.createSQLQuery("select * from maticna").addEntity(Maticna.class);
+                    List<Maticna> rows3 = q3.list();
+
+                    for(Maticna row:rows3)
+                    {
+                        maticna.add(new Maticna(row.getMaticnaId(),row.getNaziv(),row.getSocket(),row.getVelicina(),row.getMaxRam(),row.getMemSlots(),row.getImgPath()));
+                    }
+
+                    SQLQuery q4=s.createSQLQuery("select * from memorija").addEntity(Memorija.class);
+                    List<Memorija> rows4 = q4.list();
+
+                    for(Memorija row:rows4)
+                    {
+                        memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath()));
+                    }
+
+                    SQLQuery q5=s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
+                    List<Procesori> rows5 = q5.list();
+
+                    for(Procesori row:rows5)
+                    {
+                        cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
+                    }
+
+                    SQLQuery q6=s.createSQLQuery("select * from psu").addEntity(Psu.class);
+                    List<Psu> rows6 = q6.list();
+
+                    for(Psu row:rows6)
+                    {
+                        psu.add(new Psu(row.getPsuId(),row.getNaziv(),row.getEfikasnost(),row.getJacina(),row.getModularnost(),row.getImgPath()));
+                    }
+
+                    SQLQuery q7=s.createSQLQuery("select * from ram").addEntity(Ram.class);
+                    List<Ram> rows7 = q7.list();
+
+                    for(Ram row:rows7)
+                    {
+                        ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
+                    }
+
+                    request.setAttribute("gpu", gpu);
+                    request.setAttribute("kuciste", kuciste);
+                    request.setAttribute("kuler", kuler);
+                    request.setAttribute("maticna", maticna);
+                    request.setAttribute("memorija", memorija);
+                    request.setAttribute("cpu", cpu);
+                    request.setAttribute("psu", psu);
+                    request.setAttribute("ram", ram);
+                    if(polja.equals("da"))
+                    {
+                        request.setAttribute("praznaPolja", "Morate izabrati sve delove!");
+                    }
+
+                    if(slika.equals("da"))
+                    {
+                        request.setAttribute("praznaSlika", "Morate izabrati sliku!");
+                    }
+
+                    if(socket.equals("da"))
+                    {
+                        request.setAttribute("socket", "Socketi za procesor i matičnu ploču se ne poklapaju!");
+                    }
+
+                    if(lowpsu.equals("da"))
+                    {
+                        request.setAttribute("lowpsu", "Potrošnja konfiguracije je veća od jačine napajanja!");
+                    }
+
+                    s.close();
+                    request.getRequestDispatcher("AdminPravljeneKonfiguracije.jsp").forward(request, response);
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
-        
-        try
+        else
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-            
-                SQLQuery q=s.createSQLQuery("select * from gpu").addEntity(Gpu.class);
-                List<Gpu> rows = q.list();
-                
-                for(Gpu row:rows)
-                {
-                    gpu.add(new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath()));
-                }
-                
-                SQLQuery q1=s.createSQLQuery("select * from kuciste").addEntity(Kuciste.class);
-                List<Kuciste> rows1 = q1.list();
-                
-                for(Kuciste row:rows1)
-                {
-                    kuciste.add(new Kuciste(row.getKucisteId(),row.getNaziv(),row.getDimenzije(),row.getImgPath()));
-                }
-                
-                SQLQuery q2=s.createSQLQuery("select * from kuleri").addEntity(Kuleri.class);
-                List<Kuleri> rows2 = q2.list();
-                
-                for(Kuleri row:rows2)
-                {
-                    kuler.add(new Kuleri(row.getKulerId(),row.getNaziv(),row.getRpm(),row.getBuka(),row.getRadijatorDim(), row.getImgPath()));
-                }
-                
-                SQLQuery q3=s.createSQLQuery("select * from maticna").addEntity(Maticna.class);
-                List<Maticna> rows3 = q3.list();
-                
-                for(Maticna row:rows3)
-                {
-                    maticna.add(new Maticna(row.getMaticnaId(),row.getNaziv(),row.getSocket(),row.getVelicina(),row.getMaxRam(),row.getMemSlots(),row.getImgPath()));
-                }
-                
-                SQLQuery q4=s.createSQLQuery("select * from memorija").addEntity(Memorija.class);
-                List<Memorija> rows4 = q4.list();
-                
-                for(Memorija row:rows4)
-                {
-                    memorija.add(new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath()));
-                }
-                
-                SQLQuery q5=s.createSQLQuery("select * from procesori").addEntity(Procesori.class);
-                List<Procesori> rows5 = q5.list();
-                
-                for(Procesori row:rows5)
-                {
-                    cpu.add(new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath()));
-                }
-                
-                SQLQuery q6=s.createSQLQuery("select * from psu").addEntity(Psu.class);
-                List<Psu> rows6 = q6.list();
-                
-                for(Psu row:rows6)
-                {
-                    psu.add(new Psu(row.getPsuId(),row.getNaziv(),row.getEfikasnost(),row.getJacina(),row.getModularnost(),row.getImgPath()));
-                }
-                
-                SQLQuery q7=s.createSQLQuery("select * from ram").addEntity(Ram.class);
-                List<Ram> rows7 = q7.list();
-                
-                for(Ram row:rows7)
-                {
-                    ram.add(new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath()));
-                }
-                
-                request.setAttribute("gpu", gpu);
-                request.setAttribute("kuciste", kuciste);
-                request.setAttribute("kuler", kuler);
-                request.setAttribute("maticna", maticna);
-                request.setAttribute("memorija", memorija);
-                request.setAttribute("cpu", cpu);
-                request.setAttribute("psu", psu);
-                request.setAttribute("ram", ram);
-                if(polja.equals("da"))
-                {
-                    request.setAttribute("praznaPolja", "Morate izabrati sve delove!");
-                }
-                
-                if(slika.equals("da"))
-                {
-                    request.setAttribute("praznaSlika", "Morate izabrati sliku!");
-                }
-                
-                if(socket.equals("da"))
-                {
-                    request.setAttribute("socket", "Socketi za procesor i matičnu ploču se ne poklapaju!");
-                }
-                
-                if(lowpsu.equals("da"))
-                {
-                    request.setAttribute("lowpsu", "Potrošnja konfiguracije je veća od jačine napajanja!");
-                }
-                
-                s.close();
-                request.getRequestDispatcher("AdminPravljeneKonfiguracije.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        catch(HibernateException ex)
-        {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-        
         
     }
 
@@ -388,6 +407,10 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                             + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(8)+"','"+podaci.get(10)+"','da','"+imgpa+"','"+podaci.get(11)+"')");
                         q.executeUpdate();
                         tr.commit();
+                        
+                        s.close();
+                        response.sendRedirect("ServletAdminPrikazKonfiguracija");
+                        return;
                     }
                     else
                     {
@@ -395,11 +418,13 @@ public class ServletAdminPrikazDelovaKonfig extends HttpServlet {
                             + "VALUES('"+podaci.get(0)+"', '"+podaci.get(1)+"', '"+podaci.get(2)+"', '"+podaci.get(3)+"', '"+podaci.get(4)+"','"+podaci.get(5)+"','"+podaci.get(6)+"','"+podaci.get(8)+"','"+podaci.get(10)+"','ne','"+imgpa+"','"+podaci.get(11)+"')");
                         q.executeUpdate();
                         tr.commit();
+                        
+                        s.close();
+                        response.sendRedirect("ServletAdminPrikazKonfiguracija?korisnikKonfig=da");
+                        return;
                     }
                     
-                    s.close();
-                    response.sendRedirect("ServletAdminPrikazKonfiguracija");
-                    return;
+                    
                 }
                 catch(HibernateException ex)
                 {

@@ -46,7 +46,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Software i igrice</a></li>
+								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -121,8 +121,8 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="#">
-                                                                                    <p style="font-size:0.8em;">Software i igrice</p>
+										<a href="ServletAdminPrikazIgrica">
+                                                                                    <p style="font-size:0.8em;">Igrice</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
@@ -158,6 +158,11 @@
                                                                         <li style="color: #d4d4d6;">
 										<a href="ServletAdminPrikazDelovaKonfig">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
+										</a>
+									</li>
+                                                                        <li style="color: #d4d4d6;">
+										<a href="ServletUrednikOdobravanjeKonfig">
+                                                                                    <p style="font-size:0.8em;">Odobri konfiguraciju</p>
 										</a>
 									</li>
                                                                                 <%}
@@ -272,9 +277,21 @@
 
                                 </div>
                                 
+                                <div id="myModalK" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeK">&times;</span>
+                                    <p style="margin-bottom:5px;"><b>Konfiguracija je poslata na odobravanje!</b></p>
+                                  </div>
+
+                                </div>
+                                
                                 <script>
                                     var modalI = document.getElementById("myModalI");
                                     var spanI = document.getElementById("closeI");
+                                    var modalK = document.getElementById("myModalK");
+                                    var spanK = document.getElementById("closeK");
                                     <%
                                         if(request.getAttribute("uspesno")!=null)
                                         {
@@ -285,8 +302,23 @@
                                     <%
                                         }
                                     %>
+                                        
+                                        <%
+                                        if(request.getAttribute("korisnikKonfig")!=null)
+                                        {
+                                    %>
+                                    $(document).ready(function(){
+                                        modalK.style.display = "block";
+                                    })
+                                    <%
+                                        }
+                                    %>
                                         spanI.onclick = function() {
                                   modalI.style.display = "none";
+                                }
+                                
+                                spanK.onclick = function() {
+                                  modalK.style.display = "none";
                                 }
                                 </script>
                                 <%
@@ -483,7 +515,7 @@
                                                                           }
                                                                         }
                                                                         </script>
-                                                            <table>
+                                                            <table style="margin-bottom: 0;">
                                                                 <tr style="background-color:transparent;border:none;">
                                                                     <td>
                                                                         <img src="<%= pom.getImgPath() %>" alt="" width="150" height="150"/>
@@ -499,9 +531,9 @@
                                                                 </tr>
                                                             </table>
 								
-								<footer>
+                                                                    <footer>
 									<ul class="stats" style="font-size:180% !important;">
-                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment">
+                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment" style="vertical-align:baseline;">
                                                                                     <% int x = 0;
                                                                                         for(Komentari kom:komentar)
                                                                                         {

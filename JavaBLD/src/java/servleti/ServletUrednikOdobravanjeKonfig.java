@@ -77,93 +77,98 @@ public class ServletUrednikOdobravanjeKonfig extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
-        
-        String poruka = "";
-        String obrisano = "";
-        
-        if(request.getParameter("poruka")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            poruka = (String)request.getParameter("poruka");
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        
-        
-        
-        if(request.getParameter("obrisano")!=null)
+        else
         {
-            obrisano = (String)request.getParameter("obrisano");
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
-        try
+        if(korisnik.getUloga().equals("Urednik"))
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
+        
+            ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
 
-            /*
-            SQLQuery q=s.createSQLQuery("select k.*, g.*, kuc.*, kul.*, m.*, mem.*, pro.*, ps.*, rm.*, kor.* from konfiguracije k join gpu g on k.gpuID = g.gpuID join kuciste kuc on k.kucisteID = kuc.kucisteID join kuleri kul on k.kulerID = kul.kulerID join maticna m on k.maticnaId = m.maticnaID join memorija mem on k.memorijaID = mem.memorijaID join procesori pro on k.procesorID = pro.procesorID join psu ps on k.psuID = ps.psuID join ram rm on k.ramID = rm.ramID join korisnici kor on k.korisnikID = kor.korisnikID").addEntity(Konfiguracije.class).addEntity(Gpu.class).addEntity(Kuciste.class).addEntity(Kuleri.class).addEntity(Maticna.class).addEntity(Memorija.class).addEntity(Procesori.class).addEntity(Psu.class).addEntity(Ram.class).addEntity(Korisnici.class);
-            Object[] result = new Object[100];
-            List<Object> rows = q.list();
-            int a = 0;
-            for(int i = 0;i<rows.size();i++)
+            String poruka = "";
+            String obrisano = "";
+
+            if(request.getParameter("poruka")!=null)
             {
-                a += rows.get(i);
+                poruka = (String)request.getParameter("poruka");
             }
-            
-            for(Object row:rows)
+
+
+
+            if(request.getParameter("obrisano")!=null)
             {
-                konfig.add(new Konfiguracije(((Konfiguracije)row).getKonfiguracijaId(), ((Konfiguracije)row).getGpu(),((Konfiguracije)row).getKorisnici(),((Konfiguracije)row).getKuciste(),((Konfiguracije)row).getKuleri(),((Konfiguracije)row).getMaticna(),((Konfiguracije)row).getMemorija(),((Konfiguracije)row).getProcesori(),((Konfiguracije)row).getPsu(),((Konfiguracije)row).getRam(),((Konfiguracije)row).getOpis(),((Konfiguracije)row).getImgPath()));
+                obrisano = (String)request.getParameter("obrisano");
             }
-            */
-           List<Konfiguracije> rows = s.createSQLQuery(
-            "select {k.*}, {g.*}, {kuc.*},{kul.*}, {mat.*}, {mem.*}, {pro.*}, {ps.*}, {ram.*}, {kor.*} from Konfiguracije k,Gpu g, Kuciste kuc,Kuleri kul, Maticna mat, Memorija mem, Procesori pro, Psu ps, Ram ram, Korisnici kor where k.gpuID = g.gpuID and k.kucisteID = kuc.kucisteID and k.kulerID = kul.kulerID  and k.maticnaID = mat.maticnaID and k.memorijaID = mem.memorijaID and k.procesorID = pro.procesorID and k.psuID = ps.psuID and k.ramID = ram.ramID and k.korisnikID = kor.korisnikID and k.odobreno = 'ne'")
-              .addEntity("k", Konfiguracije.class)
-              .addJoin("g", "k.gpu")
-              .addEntity("g", Gpu.class)
-              .addJoin("kuc", "k.kuciste")
-              .addEntity("kuc", Kuciste.class)
-                   .addJoin("kul", "k.kuleri")
-              .addEntity("kul", Kuleri.class)
-                   .addJoin("mat", "k.maticna")
-              .addEntity("mat", Maticna.class)
-                   .addJoin("mem", "k.memorija")
-              .addEntity("mem", Memorija.class)
-                   .addJoin("pro", "k.procesori")
-              .addEntity("pro", Procesori.class)
-                   .addJoin("ps", "k.psu")
-              .addEntity("ps", Psu.class)
-                   .addJoin("ram", "k.ram")
-              .addEntity("ram", Ram.class)
-                   .addJoin("kor", "k.korisnici")
-              .addEntity("kor", Korisnici.class)
-              .addEntity("k", Konfiguracije.class)
-              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-              .list();
-           
-            for(Konfiguracije row:rows)
+
+            try
             {
-                konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getOdobreno(),row.getImgPath()));
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+                
+               List<Konfiguracije> rows = s.createSQLQuery(
+                "select {k.*}, {g.*}, {kuc.*},{kul.*}, {mat.*}, {mem.*}, {pro.*}, {ps.*}, {ram.*}, {kor.*} from Konfiguracije k,Gpu g, Kuciste kuc,Kuleri kul, Maticna mat, Memorija mem, Procesori pro, Psu ps, Ram ram, Korisnici kor where k.gpuID = g.gpuID and k.kucisteID = kuc.kucisteID and k.kulerID = kul.kulerID  and k.maticnaID = mat.maticnaID and k.memorijaID = mem.memorijaID and k.procesorID = pro.procesorID and k.psuID = ps.psuID and k.ramID = ram.ramID and k.korisnikID = kor.korisnikID and k.odobreno = 'ne'")
+                  .addEntity("k", Konfiguracije.class)
+                  .addJoin("g", "k.gpu")
+                  .addEntity("g", Gpu.class)
+                  .addJoin("kuc", "k.kuciste")
+                  .addEntity("kuc", Kuciste.class)
+                       .addJoin("kul", "k.kuleri")
+                  .addEntity("kul", Kuleri.class)
+                       .addJoin("mat", "k.maticna")
+                  .addEntity("mat", Maticna.class)
+                       .addJoin("mem", "k.memorija")
+                  .addEntity("mem", Memorija.class)
+                       .addJoin("pro", "k.procesori")
+                  .addEntity("pro", Procesori.class)
+                       .addJoin("ps", "k.psu")
+                  .addEntity("ps", Psu.class)
+                       .addJoin("ram", "k.ram")
+                  .addEntity("ram", Ram.class)
+                       .addJoin("kor", "k.korisnici")
+                  .addEntity("kor", Korisnici.class)
+                  .addEntity("k", Konfiguracije.class)
+                  .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                  .list();
+
+                for(Konfiguracije row:rows)
+                {
+                    konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getOdobreno(),row.getImgPath()));
+                }
+
+                if(!poruka.equals(""))
+                {
+                    request.setAttribute("odobreno", "da");
+                }
+
+                if(!obrisano.equals(""))
+                {
+                    request.setAttribute("obrisano", "da");
+                }
+
+                request.setAttribute("konfig", konfig);
+                s.close();
+                request.getRequestDispatcher("UrednikPrikazKonfiguracija.jsp").forward(request, response);
             }
-            
-            if(!poruka.equals(""))
+            catch(HibernateException ex)
             {
-                request.setAttribute("odobreno", "da");
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-            
-            if(!obrisano.equals(""))
-            {
-                request.setAttribute("obrisano", "da");
-            }
-            
-            request.setAttribute("konfig", konfig);
-            s.close();
-            request.getRequestDispatcher("UrednikPrikazKonfiguracija.jsp").forward(request, response);
         }
-        catch(HibernateException ex)
+        else
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
         }
         
     }

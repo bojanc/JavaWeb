@@ -77,66 +77,85 @@ public class ServletKomentarObrisi extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        int id = 0;
-        int komid = 0;
-        int konfigid = 0;
-        
-        if(request.getParameter("id")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            id = Integer.parseInt(request.getParameter("id"));
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
         }
-        
-        if(request.getParameter("komid")!=null)
+        else
         {
-            komid = Integer.parseInt(request.getParameter("komid"));
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
-        if(request.getParameter("konfigid")!=null)
+        if(korisnik.getUloga().equals("Admin"))
         {
-            konfigid = Integer.parseInt(request.getParameter("konfigid"));
-        }
         
         
-        try
-        {
-            
-        
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
-        Session s = sf.openSession();
-        Transaction tr = s.beginTransaction();
-        
-        if(komid!=0)
-        {
-            SQLQuery q = s.createSQLQuery("delete from komentari where komentarID = '"+komid+"'");
-            
-            q.executeUpdate();
-            tr.commit();
-            s.close();
+            int id = 0;
+            int komid = 0;
+            int konfigid = 0;
 
-            response.sendRedirect("ServletPrikazKomentara?id="+konfigid+"");
-        }
-        else if(id!=0)
-        {
-            SQLQuery q = s.createSQLQuery("delete from podkomentari where podkomentarID = '"+id+"'");
-            
-            q.executeUpdate();
-            tr.commit();
-            s.close();
+            if(request.getParameter("id")!=null)
+            {
+                id = Integer.parseInt(request.getParameter("id"));
+            }
 
-            response.sendRedirect("ServletPrikazKomentara?id="+konfigid+"");
+            if(request.getParameter("komid")!=null)
+            {
+                komid = Integer.parseInt(request.getParameter("komid"));
+            }
+
+            if(request.getParameter("konfigid")!=null)
+            {
+                konfigid = Integer.parseInt(request.getParameter("konfigid"));
+            }
+
+
+            try
+            {
+
+
+            SessionFactory sf = new Configuration().configure().buildSessionFactory();
+            Session s = sf.openSession();
+            Transaction tr = s.beginTransaction();
+
+            if(komid!=0)
+            {
+                SQLQuery q = s.createSQLQuery("delete from komentari where komentarID = '"+komid+"'");
+
+                q.executeUpdate();
+                tr.commit();
+                s.close();
+
+                response.sendRedirect("ServletPrikazKomentara?id="+konfigid+"");
+            }
+            else if(id!=0)
+            {
+                SQLQuery q = s.createSQLQuery("delete from podkomentari where podkomentarID = '"+id+"'");
+
+                q.executeUpdate();
+                tr.commit();
+                s.close();
+
+                response.sendRedirect("ServletPrikazKomentara?id="+konfigid+"");
+            }
+
+
+
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
-        
-        
-        
-        }
-        catch(HibernateException ex)
+        else
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        
     }
 
     /**

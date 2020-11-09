@@ -71,45 +71,65 @@ public class ServletIzmenaProfila extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         int id = 0;
         id = Integer.parseInt(request.getParameter("id"));
-        String zauzeto = "";
         
-        if(request.getParameter("zauzetUser")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik1 = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            zauzeto = (String)request.getParameter("zauzetUser");
+            korisnik1 = (Korisnici)sesija.getAttribute("korisnik");
         }
-        
-        Korisnici korisnik = new Korisnici();
-        
-        try
+        else
         {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-
-            SQLQuery q=s.createSQLQuery("select * from korisnici where korisnikID = '"+id+"'").addEntity("korisnici",Korisnici.class);
-
-            List<Korisnici> rows = q.list();
-            for(Korisnici row:rows)
-            {
-                korisnik = new Korisnici(row.getKorisnikId(),row.getImgPath(),row.getIme(),row.getPrezime(),row.getUsername(), row.getPassword(), row.getUloga());
-            }
-            
-            if(!zauzeto.equals(""))
-            {
-                request.setAttribute("zauzetoUser", "Korisničko ime je zauzeto!");
-            }
-            request.setAttribute("korisnik", korisnik);
-            s.close();
-            request.getRequestDispatcher("IzmenaProfila.jsp").forward(request, response);
+            response.sendRedirect("ServletIndex");
+            return;
         }
-        catch(HibernateException ex)
+        if(korisnik1.getKorisnikId() == id)
         {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+        
+            String zauzeto = "";
+
+            if(request.getParameter("zauzetUser")!=null)
+            {
+                zauzeto = (String)request.getParameter("zauzetUser");
+            }
+
+            Korisnici korisnik = new Korisnici();
+
+            try
+            {
+                SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                Session s = sf.openSession();
+                Transaction tr = s.beginTransaction();
+
+                SQLQuery q=s.createSQLQuery("select * from korisnici where korisnikID = '"+id+"'").addEntity("korisnici",Korisnici.class);
+
+                List<Korisnici> rows = q.list();
+                for(Korisnici row:rows)
+                {
+                    korisnik = new Korisnici(row.getKorisnikId(),row.getImgPath(),row.getIme(),row.getPrezime(),row.getUsername(), row.getPassword(), row.getUloga());
+                }
+
+                if(!zauzeto.equals(""))
+                {
+                    request.setAttribute("zauzetoUser", "Korisničko ime je zauzeto!");
+                }
+                request.setAttribute("korisnik", korisnik);
+                s.close();
+                request.getRequestDispatcher("IzmenaProfila.jsp").forward(request, response);
+            }
+            catch(HibernateException ex)
+            {
+                String errormsg = ex.getMessage();
+                request.setAttribute("errormsg", errormsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
         }
         
         

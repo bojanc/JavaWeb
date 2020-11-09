@@ -1,3 +1,7 @@
+<%@page import="entity.Igricefps"%>
+<%@page import="entity.Igrice"%>
+<%@page import="entity.Porukeurednika"%>
+<%@page import="entity.Porukekorisnika"%>
 <%@page import="entity.Podkomentari"%>
 <%@page import="entity.Komentari"%>
 <%@page import="entity.Konfiguracije"%>
@@ -197,7 +201,14 @@
                                                                             }
                                                                         %>
                                                                 <%
-                                                                    Konfiguracije konfig = (Konfiguracije)request.getAttribute("konfig");
+                                                                    ArrayList<Igricefps> konfigfps1 = new ArrayList<Igricefps>();
+                                                                    if(request.getAttribute("igricefps1")!=null)
+                                                                    {
+                                                                        konfigfps1 = (ArrayList<Igricefps>)request.getAttribute("igricefps1");
+                                                                    }
+                                                                    ArrayList<Igricefps> konfigfps = (ArrayList<Igricefps>)request.getAttribute("igricefps");
+                                                                    ArrayList<Igrice> igrica = (ArrayList<Igrice>)request.getAttribute("igrica");
+                                                                    
                                                                 %>
 
 						<!-- Actions -->
@@ -268,158 +279,270 @@
                                         cursor: pointer;
                                       }
                                 </style>
-
                                 
-                                <div id="myModalP" class="modal">
-
-                                  <!-- Modal content -->
-                                  <div class="modal-content">
-                                    <span class="close" id="closeP">&times;</span>
-                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
-                                  </div>
-
-                                </div>
+                                <style>
+                                            #buttonobrisi:hover {
+                                                box-shadow: inset 0 0 0 1px red;
+                                                color: red !important;
+                                            }
+                                </style>
                                 
-                                <script>
-                                    var modalP = document.getElementById("myModalP");
-                                    var spanP = document.getElementById("closeP");
-                                    <%
-                                        if(request.getAttribute("uspesno")!=null)
-                                        {
-                                    %>
-                                    $(document).ready(function(){
-                                        modalP.style.display = "block";
-                                    })
-                                    <%
-                                        }
-                                    %>
-                                        spanP.onclick = function() {
-                                  modalP.style.display = "none";
-                                }
-                                </script>
+                                
+                                
+                                <style>
+                                    .progress {
+                                        background: #12131E;
+                                        justify-content: flex-start;
+                                        border-radius: 100px;
+                                        align-items: center;
+                                        position: relative;
+                                        padding: 0 5px;
+                                        display: flex;
+                                        height: 30px;
+                                        width: 35%;
+                                        margin: 0 auto;
+                                      }
+
+                                      .progress-value {
+                                        animation: load 3s normal forwards;
+                                        box-shadow: 0 10px 40px -10px #2ebaae;
+                                        border-radius: 100px;
+                                        background: #2ebaae;
+                                        height: 20px;
+                                        width: 0;
+                                      }
+
+                                      
+                                </style>
 
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Post -->
-							<article class="post" style="height:100%;">
+                                                <article class="post" <% if(request.getAttribute("izabrano")==null){ %> style="height:110%;"<%}%>>
+                                                            
 								<header>
-									<div class="title">
-										<h2>
-                                                                                    <%= konfig.getKorisnici().getIme() %> <%= konfig.getKorisnici().getPrezime()%> 
-                                                                                    <img src="<%= konfig.getKorisnici().getImgPath() %>" height="60" width="60" style="border-radius: 50%;vertical-align: middle;"/>
+                                                                    <div class="title">
+										<h2 style="display:inline-block; padding-top: 5%;">
+                                                                                    Prosečan FPS za <%= igrica.get(0).getIgricaNaziv() %>
                                                                                 </h2>
-										<p><%= konfig.getOpis() %></p>
+                                                                                
+                                                                        <!--<a href="PosaljiPoruku.jsp" class="button" style="float: right;display:inline-block;">Pošalji poruku</a>-->
+                                                                        <img src="<%= igrica.get(0).getImgPath() %>" alt="" width="250" heigh="350" style="display:inline-block;float:right;box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);"/>
+                                                                        <h4 style="display:inline-block; padding-top: 5%;">*Igrica je testirana na 1920x1080 rezoluciji sa najzahtevnijim podešavanjima</h4>
 									</div>
-									<div class="meta">
-										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 85%;"/>
-									</div>
+                                                                        
+                                                                        
 								</header>
                                                                         
-                                                                        <style>
-                                                                                    #buttonobrisi:hover {
-                                                                                        box-shadow: inset 0 0 0 1px red;
-                                                                                        color: red !important;
-                                                                                    }
-                                                                        </style>
-                                                                        <h3 style="width:25%;">Detalji o konfiguraciji</h3>
-                                                                        <table style="width:40%;display: inline-block;float: left;">
+                                                                        
+                                                                        <form method='post' id='form' action='ServletFPSKonfig'>
+                                                            <%
+                                                                if(!konfigfps.isEmpty())
+                                                                {
+                                                            %>
+                                                            <table style="width:25%;display:inline-block;float:left;">
                                                                 <tr style="background-color:transparent;border: none;">
-                                                                    <td  style='padding-bottom: 1px;'>
-                                                                        <label style="margin-bottom:5px;">Procesor:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getProcesori().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td  style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">Grafička kartica:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getGpu().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">Matična ploča:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getMaticna().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">RAM:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getRam().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">Kuler:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getKuleri().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">Kučište:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getKuciste().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">Napajanje:</label>
-                                                                        <p style="margin-bottom:5px;"><%= konfig.getPsu().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                <tr style="background-color:transparent;border: none;">
-                                                                    <td style='padding-bottom: 2px;'>
-                                                                        <label style="margin-bottom:5px;">Memorija:</label>
-                                                                        <p style="margin-bottom:2px;"><%= konfig.getMemorija().getNaziv() %></p>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                                        </table>
+                                                                    <td>
+                                                                        <label>Izaberi konfiguraciju</label>
+                                                                        <select name="konfig" id="sel" onchange="document.getElementById('form').submit();"  style="width:210%;">
+                                                                        <optgroup>
+                                                                            <option value="" disabled selected>Konfiguracije</option>
+                                                                            <%
+                                                                                    for(Igricefps pom:konfigfps){
+
+                                                                            %>
+
+                                                                            <option value="<%= pom.getKonfiguracije().getKonfiguracijaId() %>" <%if(request.getAttribute("konfig")!=null){if(request.getAttribute("konfig")==pom.getKonfiguracije().getKonfiguracijaId()){ %> selected <%}}%>> 
+                                                                                GPU: <%= pom.getKonfiguracije().getGpu().getNaziv() %> CPU: <%= pom.getKonfiguracije().getProcesori().getNaziv() %> RAM: <%= pom.getKonfiguracije().getRam().getNaziv() %>
+                                                                            </option>
+                                                                            <%
+
                                                                                 
-                                                                        <table style="width:40%;display: inline-block;float: right;margin-right: 100px;">
-                                                                            <tr style="background-color:transparent;border:none;"> 
-                                                                                <td>
+                                                                                }
+                                                                            %>
+                                                                        </optgroup>
+                                                                    </select><br>
+                                                                    </td>
+                                                                </tr>
+                                                                <%
+                                                                    if(request.getAttribute("izabrano")!=null)
+                                                                    {
+                                                                        if(request.getAttribute("izabrano").equals("da"))
+                                                                        {
 
-                                                                                </td>
-                                                                                <td style="width:20%;">
-                                                                                    <img class="slikedelova" src="<%= konfig.getMaticna().getImgPath() %>" alt="" style="float:left;" width="150" height="150">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <img  class="slikedelova" src="<%= konfig.getRam().getImgPath() %>" alt="" style="float:right;" width="150" height="150">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr style="background-color:transparent;border:none;"> 
-                                                                                <td style="width:20%;">
-                                                                                    <img class="slikedelova" src="<%= konfig.getProcesori().getImgPath() %>" alt="" width="150" height="150">
-                                                                                </td>
-                                                                                <td style="padding:0;">
-                                                                                    <img  class="slikedelova" src="<%= konfig.getKuciste().getImgPath() %>" alt="" width="250" height="250">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <img class="slikedelova" src="<%= konfig.getKuleri().getImgPath() %>" alt="" width="150" height="150">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr style="background-color:transparent;border:none;"> 
-                                                                                <td>
-                                                                                    <img  class="slikedelova" src="<%= konfig.getPsu().getImgPath() %>" alt="" width="150" height="150">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <img  class="slikedelova" src="<%= konfig.getGpu().getImgPath() %>" alt="" width="150" height="150">
-                                                                                </td>
-                                                                                <td>
-                                                                                    <img  class="slikedelova" src="<%= konfig.getMemorija().getImgPath() %>" alt="" width="150" height="150">
-                                                                                </td>
 
-                                                                            </tr>
-                                                                        </table>
-								
+                                                                %>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Procesor:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getProcesori().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Grafička kartica:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getGpu().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Matična ploča:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getMaticna().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">RAM:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getRam().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Kuler:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getKuleri().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Kučište:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getKuciste().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Napajanje:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getPsu().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <tr style="background-color:transparent;border: none;">
+                                                                    <td>
+                                                                        <label style="margin-bottom:5px;">Memorija:</label>
+                                                                        <p style="margin-bottom:5px;"><%= konfigfps1.get(0).getKonfiguracije().getMemorija().getNaziv() %></p>
+                                                                    </td>
+                                                                    
+                                                                </tr>
+                                                                <%
+                                                                        }
+                                                                    }
+                                                                %>
+                                                            </table>
+                                                                       
+                                                                            <input type="hidden" name="igricaID" value="<%= igrica.get(0).getIgricaId() %>">  
+                                                                            
+                                                    <%
+                                                        if(request.getAttribute("izabrano")!=null)
+                                                        {
+                                                            if(request.getAttribute("izabrano").equals("da"))
+                                                            {
+                                                                
+                                                            
+                                                    %>
+                                                    <table style="width:40%;display: inline-block; float:right;margin-top: 150px;margin-right: 100px;">
+                                                        <tr style="background-color:transparent;border:none;"> 
+                                                            <td>
+                                                                
+                                                            </td>
+                                                            <td style="width:15%;">
+                                                                <img id="moboIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getMaticna().getImgPath() %>" alt="" style="float:left;" width="150" height="150">
+                                                            </td>
+                                                            <td>
+                                                                <img id="ramIMG" src="<%= konfigfps1.get(0).getKonfiguracije().getRam().getImgPath() %>" class="slikedelova" alt="" style="float:right;" width="150" height="150">
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="background-color:transparent;border:none;"> 
+                                                            <td style="width:20%;">
+                                                                <img id="cpuIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getProcesori().getImgPath() %>" alt="" width="150" height="150">
+                                                            </td>
+                                                            <td style="padding:0;">
+                                                                <img id="caseIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getKuciste().getImgPath() %>" alt="" width="250" height="250">
+                                                            </td>
+                                                            <td>
+                                                                <img id="coolerIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getKuleri().getImgPath() %>" alt="" width="150" height="150">
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="background-color:transparent;border:none;"> 
+                                                            <td>
+                                                                <img id="psuIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getPsu().getImgPath() %>" alt="" width="150" height="150">
+                                                            </td>
+                                                            <td>
+                                                                <img id="gpuIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getGpu().getImgPath() %>" alt="" width="150" height="150">
+                                                            </td>
+                                                            <td>
+                                                                <img id="memIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getMemorija().getImgPath() %>" alt="" width="150" height="150">
+                                                            </td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                                        
+                                                    <%
+                                                        if(!konfigfps1.isEmpty())
+                                                        { int fps2 = konfigfps1.get(0).getFps()/2;
+                                                    %>
+                                                    <%
+                                                        if(request.getAttribute("izabrano")!=null)
+                                                        {
+                                                            if(request.getAttribute("izabrano").equals("da"))
+                                                            {
+                                                    %>
+                                                    <div id="myBar" style='color: #2ebaae;text-align: center;font-size: 30px;font-family: "Raleway", Helvetica, sans-serif;font-weight: 550;clear: both;'></div>
+                                                    <%
+                                                        }}
+                                                    %>
+                                                    <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
+                                                        
+                                                        <div class="progress-value"></div>
+                                                    </div>
+                                                    <style>
+                                                            @keyframes load {
+                                                                0% { width: 0; }
+                                                                100% { width: <%= fps2 %>%; }
+                                                              }
+                                                    </style>
+                                                    <%
+                                                        }
+                                                    %>
+                                                    <%
+                                                        }}
+                                                    %>
+                                                    
+                                                    <script>
+                                                            var i = 0;
+                                                            window.onload = function(){
+                                                              if (i == 0) {
+                                                                i = 1;
+                                                                var elem = document.getElementById("myBar");
+                                                                var width = 10;
+                                                                var id = setInterval(frame, 30);
+                                                                function frame() {
+                                                                  if (width >= <%if(!konfigfps1.isEmpty()){%><%= konfigfps1.get(0).getFps() %><%}%>) {
+                                                                    clearInterval(id);
+                                                                    i = 0;
+                                                                  } else {
+                                                                    width++;
+                                                                    elem.innerHTML = width  + " FPS";
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                    </script>
+                                                            
+                                                            
+                                                            <%
+                                                                }
+                                                            %>
+                                                                        </form>
+                                                            
 							</article>
+
+						
 
 					</div>
 

@@ -6,6 +6,7 @@
 package servleti;
 
 import entity.Gpu;
+import entity.Korisnici;
 import entity.Kuciste;
 import entity.Kuleri;
 import entity.Maticna;
@@ -78,214 +79,233 @@ public class ServletAdminIzmeniDeo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        String deo = (String)request.getParameter("deo");
-        String naziv = (String)request.getParameter("naziv");
-        int id = Integer.parseInt((String)request.getParameter("id"));
-        
-        Gpu gpu = new Gpu();
-        Kuciste kuciste = new Kuciste();
-        Kuleri kuler = new Kuleri();
-        Maticna maticna = new Maticna();
-        Psu psu = new Psu();
-        Ram ram = new Ram();
-        Procesori cpu = new Procesori();
-        Memorija memorija= new Memorija();
-        
-        if(id!=0 && !(deo.equals("")) && !(naziv.equals("")))
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            try
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
+        }
+        if(korisnik.getUloga().equals("Admin"))
+        {
+        
+        
+            String deo = (String)request.getParameter("deo");
+            String naziv = (String)request.getParameter("naziv");
+            int id = Integer.parseInt((String)request.getParameter("id"));
+
+            Gpu gpu = new Gpu();
+            Kuciste kuciste = new Kuciste();
+            Kuleri kuler = new Kuleri();
+            Maticna maticna = new Maticna();
+            Psu psu = new Psu();
+            Ram ram = new Ram();
+            Procesori cpu = new Procesori();
+            Memorija memorija= new Memorija();
+
+            if(id!=0 && !(deo.equals("")) && !(naziv.equals("")))
             {
-                SessionFactory sf = new Configuration().configure().buildSessionFactory();
-                Session s = sf.openSession();
-                Transaction tr = s.beginTransaction();
-                
-                if(deo.equals("gpu"))
+                try
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Gpu.class);
-                    List<Gpu> rows = q.list();
+                    SessionFactory sf = new Configuration().configure().buildSessionFactory();
+                    Session s = sf.openSession();
+                    Transaction tr = s.beginTransaction();
 
-                    for(Gpu row:rows)
+                    if(deo.equals("gpu"))
                     {
-                        gpu = new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath());
-                    }
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Gpu.class);
+                        List<Gpu> rows = q.list();
 
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("gpu", gpu);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
+                        for(Gpu row:rows)
                         {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
+                            gpu = new Gpu(row.getGpuId(), row.getNaziv(),row.getMemorija(),row.getCoreCl(),row.getBoostCl(),row.getTdp(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("gpu", gpu);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniGpu.jsp").forward(request, response);
                     }
-                    
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniGpu.jsp").forward(request, response);
+                    else if(deo.equals("kuciste"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Kuciste.class);
+                        List<Kuciste> rows = q.list();
+
+                        for(Kuciste row:rows)
+                        {
+                            kuciste = new Kuciste(row.getKucisteId(),row.getNaziv(),row.getDimenzije(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("kuciste", kuciste);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniKuciste.jsp").forward(request, response);
+                    }
+                    else if(deo.equals("kuleri"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Kuleri.class);
+                        List<Kuleri> rows = q.list();
+
+                        for(Kuleri row:rows)
+                        {
+                            kuler = new Kuleri(row.getKulerId(),row.getNaziv(),row.getRpm(),row.getBuka(),row.getRadijatorDim(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("kuler", kuler);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniKuler.jsp").forward(request, response);
+                    }
+                    else if(deo.equals("maticna"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Maticna.class);
+                        List<Maticna> rows = q.list();
+
+                        for(Maticna row:rows)
+                        {
+                            maticna = new Maticna(row.getMaticnaId(),row.getNaziv(),row.getSocket(),row.getVelicina(),row.getMaxRam(),row.getMemSlots(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("maticna", maticna);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniMaticnu.jsp").forward(request, response);
+                    }
+                    else if(deo.equals("memorija"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Memorija.class);
+                        List<Memorija> rows = q.list();
+
+                        for(Memorija row:rows)
+                        {
+                            memorija = new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("memorija", memorija);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniMemoriju.jsp").forward(request, response);
+                    }
+                    else if(deo.equals("procesori"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Procesori.class);
+                        List<Procesori> rows = q.list();
+
+                        for(Procesori row:rows)
+                        {
+                            cpu = new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("cpu", cpu);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniCpu.jsp").forward(request, response);
+                    }
+                    else if(deo.equals("psu"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Psu.class);
+                        List<Psu> rows = q.list();
+
+                        for(Psu row:rows)
+                        {
+                            psu = new Psu(row.getPsuId(),row.getNaziv(),row.getEfikasnost(),row.getJacina(),row.getModularnost(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("psu", psu);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniPsu.jsp").forward(request, response);
+                    }
+                    else if(deo.equals("ram"))
+                    {
+                        SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Ram.class);
+                        List<Ram> rows = q.list();
+
+                        for(Ram row:rows)
+                        {
+                            ram = new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath());
+                        }
+
+                        request.setAttribute("deo", deo);
+                        request.setAttribute("ram", ram);
+                        if(request.getParameter("prazna")!=null)
+                        {
+                           if(request.getParameter("prazna").equals("da"))
+                            {
+                                request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
+                            } 
+                        }
+                        s.close();
+                        request.getRequestDispatcher("AdminIzmeniRam.jsp").forward(request, response);
+                    }
                 }
-                else if(deo.equals("kuciste"))
+                catch(HibernateException ex)
                 {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Kuciste.class);
-                    List<Kuciste> rows = q.list();
-
-                    for(Kuciste row:rows)
-                    {
-                        kuciste = new Kuciste(row.getKucisteId(),row.getNaziv(),row.getDimenzije(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("kuciste", kuciste);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniKuciste.jsp").forward(request, response);
+                    String errormsg = ex.getMessage();
+                    request.setAttribute("errormsg", errormsg);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
-                else if(deo.equals("kuleri"))
-                {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Kuleri.class);
-                    List<Kuleri> rows = q.list();
-
-                    for(Kuleri row:rows)
-                    {
-                        kuler = new Kuleri(row.getKulerId(),row.getNaziv(),row.getRpm(),row.getBuka(),row.getRadijatorDim(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("kuler", kuler);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniKuler.jsp").forward(request, response);
-                }
-                else if(deo.equals("maticna"))
-                {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Maticna.class);
-                    List<Maticna> rows = q.list();
-
-                    for(Maticna row:rows)
-                    {
-                        maticna = new Maticna(row.getMaticnaId(),row.getNaziv(),row.getSocket(),row.getVelicina(),row.getMaxRam(),row.getMemSlots(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("maticna", maticna);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniMaticnu.jsp").forward(request, response);
-                }
-                else if(deo.equals("memorija"))
-                {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Memorija.class);
-                    List<Memorija> rows = q.list();
-
-                    for(Memorija row:rows)
-                    {
-                        memorija = new Memorija(row.getMemorijaId(),row.getNaziv(),row.getKapacitet(),row.getTip(),row.getCache(),row.getDimenzije(),row.getInterfejs(),row.getTdp(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("memorija", memorija);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniMemoriju.jsp").forward(request, response);
-                }
-                else if(deo.equals("procesori"))
-                {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Procesori.class);
-                    List<Procesori> rows = q.list();
-
-                    for(Procesori row:rows)
-                    {
-                        cpu = new Procesori(row.getProcesorId(),row.getBrojJezgara(),row.getFrekvencija(),row.getBoost(),row.getTdp(),row.getIgpu(),row.getNaziv(),row.getSocket(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("cpu", cpu);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniCpu.jsp").forward(request, response);
-                }
-                else if(deo.equals("psu"))
-                {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Psu.class);
-                    List<Psu> rows = q.list();
-
-                    for(Psu row:rows)
-                    {
-                        psu = new Psu(row.getPsuId(),row.getNaziv(),row.getEfikasnost(),row.getJacina(),row.getModularnost(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("psu", psu);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniPsu.jsp").forward(request, response);
-                }
-                else if(deo.equals("ram"))
-                {
-                    SQLQuery q=s.createSQLQuery("select * from "+deo+" where "+naziv+"='"+id+"'").addEntity(Ram.class);
-                    List<Ram> rows = q.list();
-
-                    for(Ram row:rows)
-                    {
-                        ram = new Ram(row.getRamId(),row.getNaziv(),row.getBrzina(),row.getCasLat(),row.getTdp(),row.getImgPath());
-                    }
-
-                    request.setAttribute("deo", deo);
-                    request.setAttribute("ram", ram);
-                    if(request.getParameter("prazna")!=null)
-                    {
-                       if(request.getParameter("prazna").equals("da"))
-                        {
-                            request.setAttribute("praznaPolja", "Morate popuniti sva polja!");
-                        } 
-                    }
-                    s.close();
-                    request.getRequestDispatcher("AdminIzmeniRam.jsp").forward(request, response);
-                }
-            }
-            catch(HibernateException ex)
-            {
-                String errormsg = ex.getMessage();
-                request.setAttribute("errormsg", errormsg);
-                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         }
-        
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
+        }
         
         
         
