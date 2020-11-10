@@ -49,7 +49,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
-public class ServletOdgovorKomentar extends HttpServlet {
+public class ServletKomentar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,6 +76,10 @@ public class ServletOdgovorKomentar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
+        
     }
 
     /**
@@ -90,23 +94,25 @@ public class ServletOdgovorKomentar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int komid = Integer.parseInt(request.getParameter("komID"));
-        int podkomid = 0;
-        if(request.getParameter("podkomID")!=null)
+        HttpSession sesija = request.getSession();
+        Korisnici korisnik = new Korisnici();
+        if(sesija.getAttribute("korisnik")!=null)
         {
-            podkomid = Integer.parseInt(request.getParameter("podkomID"));
+            korisnik = (Korisnici)sesija.getAttribute("korisnik");
+        }
+        else
+        {
+            response.sendRedirect("ServletIndex");
+            return;
         }
         
-        int konfigID = Integer.parseInt(request.getParameter("konfigID"));
-        
-        HttpSession session = request.getSession();
-        String tekst = (String)request.getParameter("tekst");
+        int id = Integer.parseInt(request.getParameter("konfigID"));
+        String tekst = (String)request.getParameter("komentar1Tekst");
         
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");  
         LocalDateTime now = LocalDateTime.now();  
         String time = now.format(dtf);
         
-        Korisnici korisnik = (Korisnici)session.getAttribute("korisnik");
         try
         {
             
@@ -114,29 +120,15 @@ public class ServletOdgovorKomentar extends HttpServlet {
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         Session s = sf.openSession();
         Transaction tr = s.beginTransaction();
-        if(podkomid!=0)
-        {
-            SQLQuery q = s.createSQLQuery("insert into podkomentari (podkomentari_korisnikID,odPodKomID,komentarID,vreme,tekst) "
-                + "VALUES('"+korisnik.getKorisnikId()+"','"+podkomid+"','"+komid+"','"+time+"','"+tekst+"')");
-            
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-
-            response.sendRedirect("ServletPrikazKomentara?id="+konfigID+"");
-        }
-        else
-        {
-            SQLQuery q = s.createSQLQuery("insert into podkomentari (podkomentari_korisnikID,komentarID,vreme,tekst) "
-                + "VALUES('"+korisnik.getKorisnikId()+"','"+komid+"','"+time+"','"+tekst+"')");
-            
-            q.executeUpdate();
-            tr.commit();
-            s.close();
-
-            response.sendRedirect("ServletPrikazKomentara?id="+konfigID+"");
-        }
         
+            SQLQuery q = s.createSQLQuery("insert into komentari (komentari_konfiguracijaID,komentari_korisnikID,vreme,tekst) "
+                + "VALUES('"+id+"','"+korisnik.getKorisnikId()+"','"+time+"','"+tekst+"')");
+            
+            q.executeUpdate();
+            tr.commit();
+            s.close();
+
+            response.sendRedirect("ServletPrikazKomentara?id="+id+"");
         
         
         }

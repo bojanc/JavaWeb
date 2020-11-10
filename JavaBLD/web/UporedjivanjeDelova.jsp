@@ -35,7 +35,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+                                            <style>
+                                                .logo:hover{
+                                                    filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
+                                                }
+                                            </style>
 						<nav class="links">
 							<ul>
                                                             <%
@@ -80,12 +85,6 @@
 						</nav>
 						<nav class="main">
 							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
@@ -97,10 +96,9 @@
 					<section id="menu">
 
 						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
+							<section style="text-align:center;padding:0;">
+                                                            <img src="images/logo2.png" width="250" height="225" style="filter: drop-shadow(1px 1px 5px rgba(46,186,174,1));">
+                                                            <h1 style="color:#2ebaae;font-size: 30px;">BLD</h1>
 							</section>
 
 						<!-- Links -->
@@ -590,7 +588,7 @@
                                                     }
                                                 %>
 						<!-- Post -->
-                                                <% 
+                                                <% DecimalFormat df = new DecimalFormat("#.##");
                                                     if(!gpu.isEmpty())
                                                     {
                                                     for(Gpu pom:gpu)
@@ -599,7 +597,7 @@
 							<article class="post" style="width: 25%;margin-right: 10px; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;font-size:11px;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -662,9 +660,9 @@
                                                     if(gpu1int > gpu2int)
                                                     {
                                                         float razlika = ((float)gpu1int/gpu2int)*10;
-
+                                                        df.format(razlika);
                                                 %>
-                                                <h2><%= gpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brža od <%= gpu.get(1).getNaziv() %></h2>
+                                                <h2><%= gpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brža od <%= gpu.get(1).getNaziv() %></h2>
                                                     <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
@@ -678,8 +676,9 @@
                                                 <%}
                                                 else if(gpu2int > gpu1int){
                                                     float razlika = ((float)gpu2int/gpu1int)*10;
+                                                    df.format(razlika);
                                                 %>
-                                                <h2><%= gpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= razlika %>%</span> brža od <%= gpu.get(0).getNaziv() %></h2>
+                                                <h2><%= gpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brža od <%= gpu.get(0).getNaziv() %></h2>
                                                     <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         <div class="progress-value"></div>
                                                     </div>
@@ -733,7 +732,7 @@
 							<article class="post" style="width: 32%;margin-right: 10px;; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;font-size:15px;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>
@@ -800,7 +799,7 @@
                                                                         <p style="margin-bottom: 5px;">Cache: <%= pom.getCache()%></p>
                                                                         <p style="margin-bottom: 5px;">Dimenzije: <%= pom.getDimenzije()%></p>
                                                                         <p style="margin-bottom: 5px;">Interfejs: <%= pom.getInterfejs()%></p>
-                                                                        <p style="margin-bottom: 5px;">TDP <%= pom.getTdp()%></p>
+                                                                        <p style="margin-bottom: 5px;">TDP: <%= pom.getTdp()%> W</p>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -845,7 +844,7 @@
                                                     }
                                                 %>
                                                 
-                                                <%  DecimalFormat df = new DecimalFormat("#.##");
+                                                <%  
                                                     if(!cpu.isEmpty())
                                                     {
                                                     for(Procesori pom:cpu)
@@ -1034,7 +1033,7 @@
 							<article class="post" style="width: 25%;margin-right: 10px; display: inline-block;height: 600px;">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;">
                                                                 <div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;"><%= pom.getNaziv() %></h2>
+                                                                <h2 style="color:white;float:left;padding-top: 5px;white-space: nowrap;font-size:15px;"><%= pom.getNaziv() %></h2>
                                                                 </div>
 								</header>
                                                             <table>

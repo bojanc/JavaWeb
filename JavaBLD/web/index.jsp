@@ -28,7 +28,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
+                                            <h1><a href="Pocetna" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+                                            <style>
+                                                .logo:hover{
+                                                    filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
+                                                }
+                                            </style>
 						<nav class="links">
 							<ul>
                                                             <%
@@ -48,7 +53,7 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
+								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
 								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
@@ -73,12 +78,6 @@
 						</nav>
 						<nav class="main">
 							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Pretraga</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Pretraga" />
-									</form>
-								</li>
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
@@ -90,10 +89,9 @@
 					<section id="menu">
 
 						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Pretraga" />
-								</form>
+							<section style="text-align:center;padding:0;">
+                                                            <img src="images/logo2.png" width="250" height="225" style="filter: drop-shadow(1px 1px 5px rgba(46,186,174,1));">
+                                                            <h1 style="color:#2ebaae;font-size: 30px;">BLD</h1>
 							</section>
                                                                     <%
                                                                         if(korisnik!=null)
@@ -387,8 +385,8 @@
 						<!-- Intro -->
 							<section id="intro">
 								<header>
-									<h2>BLD</h2>
-									<p>Kreirajte svoju konfiguraciju</p>
+                                                                    <h2><img style="margin-left:-90px;" src="images/logo.png"></h2>
+									<p style="text-align:center;">Kreirajte svoju konfiguraciju</p>
 								</header>
 							</section>
 

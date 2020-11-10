@@ -21,7 +21,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+                                            <style>
+                                                .logo:hover{
+                                                    filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
+                                                }
+                                            </style>
 						<nav class="links">
 							<ul>
                                                             <%
@@ -65,12 +70,6 @@
 						</nav>
 						<nav class="main">
 							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
@@ -82,10 +81,9 @@
 					<section id="menu">
 
 						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
+							<section style="text-align:center;padding:0;">
+                                                            <img src="images/logo2.png" width="250" height="225" style="filter: drop-shadow(1px 1px 5px rgba(46,186,174,1));">
+                                                            <h1 style="color:#2ebaae;font-size: 30px;">BLD</h1>
 							</section>
 
 						<!-- Links -->
@@ -193,9 +191,28 @@
 
 						<!-- Actions -->
 							<section>
+                                                            <%
+                                                            if(korisnik==null){
+                                                            %>
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit" style="color:#fff;">Prijava</a></li>
+									<li><a href="prijava.jsp" class="button large fit"style="color:#fff;">Prijava</a></li>
 								</ul>
+                                                            
+                                                                <ul class="actions stacked">
+									<li><a href="registracija.jsp" class="button large fit"style="color:#fff;">Registracija</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
+                                                                <%
+                                                                if(korisnik!=null){
+                                                                %>
+                                                                <ul class="actions stacked">
+									<li><a href="ServletOdjava" class="button large fit"style="color:#fff;">Odjava</a></li>
+								</ul>
+                                                                <%
+                                                                }
+                                                                %>
 							</section>
 
 					</section>
@@ -1333,18 +1350,6 @@
                                                 </form>
 
 					</div>
-
-				<!-- Footer -->
-					<section id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</section>
 
 			</div>
 

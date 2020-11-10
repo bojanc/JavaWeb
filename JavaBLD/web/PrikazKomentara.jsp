@@ -26,7 +26,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+                                            <style>
+                                                .logo:hover{
+                                                    filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
+                                                }
+                                            </style>
 						<nav class="links">
 							<ul>
                                                             <%
@@ -71,12 +76,6 @@
 						</nav>
 						<nav class="main">
 							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
@@ -88,10 +87,9 @@
 					<section id="menu">
 
 						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
+							<section style="text-align:center;padding:0;">
+                                                            <img src="images/logo2.png" width="250" height="225" style="filter: drop-shadow(1px 1px 5px rgba(46,186,174,1));">
+                                                            <h1 style="color:#2ebaae;font-size: 30px;">BLD</h1>
 							</section>
 
 						<!-- Links -->
@@ -308,7 +306,7 @@
 					<div id="main">
 
 						<!-- Post -->
-                                                <form method="post" action="ServletOdgovorKomentar">
+                                                
 							<article class="post">
 								<header>
 									<div class="title">
@@ -329,7 +327,112 @@
                                                                                         color: red !important;
                                                                                     }
                                                                         </style>
-                                                                        <h3>Komentari</h3><br>
+                                                                        <h3 style="display:inline-block;">Komentari</h3><br>
+                                                                        <form method="post" action="ServletKomentar">
+                                                                        <div id="komentar1" class="komentar1" style="display: none;">
+                                                                        <textarea cols="5" name="tekst" id="komentar1Tekst"  rows="2" class="komentar1Tekst"  style="resize:none;"></textarea><br><br>
+                                                                        <span class="close" id="closeP" onclick="zatvori1('komentar1','komentar1Odgovor')">&times;</span>
+                                                                        <input type="submit" value="Ostavi komentar" style="float:right;margin-right: 50px;">
+                                                                        <input type="hidden" name="konfigID" id="konfig1" class="konfig1" value="<%= konfig.getKonfiguracijaId() %>">
+
+                                                                        </div>
+                                                                        
+                                                                        <%if(korisnik!=null){%>
+                                                                        <a href="#" id="komentar1Odgovor" class="button komikona" style="float:right;border-bottom: none;" onclick="otvori1('komentar1','komentar1Odgovor','konfig1','komentar1Tekst')">Ostavi komentar</a>
+                                                                        <%}%>
+                                                                        </form>
+                                                                        <script>
+                                                                            function otvori1(obj,obj1,obj2,obj3) {
+                                                                              var x = document.getElementsByClassName("odgovor");
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              var n = document.getElementsByClassName("podpodpodkomikona");
+                                                                              
+                                                                              var g = document.getElementsByClassName("odgovorpodpodpodkomPODKOM");
+                                                                              var h = document.getElementsByClassName("odgovorpodpodpodkomKOM");
+                                                                              
+                                                                              var g1 = document.getElementsByClassName("odgovorpodpodkomPODKOM");
+                                                                              var h1 = document.getElementsByClassName("odgovorpodpodkomKOM");
+                                                                              
+                                                                              var tekstovi = document.getElementsByClassName("tekstovi");
+                                                                              
+                                                                              for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display = "none";  
+                                                                              }
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < n.length; i++) {
+                                                                                n[i].style.display="none";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g.length; i++) {
+                                                                                var id = g[i].id;
+                                                                                document.getElementById(id).removeAttribute("name");
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h.length; i++) {
+                                                                                var id = h[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < g1.length; i++) {
+                                                                                var id = g1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                                
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < h1.length; i++) {
+                                                                                var id = h1[i].id;
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < tekstovi.length; i++) {
+                                                                                var id = tekstovi[i].id;console.log(tekstovi[i]);
+                                                                                document.getElementById(id).removeAttribute("name"); 
+                                                                              }
+                                                                              
+                                                                              document.getElementById(obj).style.display = "block";  
+                                                                              document.getElementById(obj1).style.display = "none";
+                                                                              document.getElementById(obj2).setAttribute("name", "konfigID");
+                                                                              document.getElementById(obj3).setAttribute("name", "komentar1Tekst"); 
+                                                                              
+                                                                            }
+                                                                            
+                                                                            function zatvori1(obj,obj1) {
+                                                                              document.getElementById(obj).style.display = "none";  
+                                                                              document.getElementById(obj1).style.display = "block";  
+                                                                              var y = document.getElementsByClassName("podkomikona");
+                                                                              var z = document.getElementsByClassName("podpodkomikona");
+                                                                              var c = document.getElementsByClassName("komikona");
+                                                                              
+                                                                              for (i = 0; i < y.length; i++) {
+                                                                                y[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < z.length; i++) {
+                                                                                z[i].style.display="block";
+                                                                              }
+                                                                              
+                                                                              for (i = 0; i < c.length; i++) {
+                                                                                c[i].style.display="block";
+                                                                              }
+                                                                            }
+                                                                        </script>
+                                                                        
+                                                                        <form method="post" action="ServletOdgovorKomentar">
                                                                         <%
                                                                             if(komentar.size()>0)
                                                                             {

@@ -26,7 +26,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+                                            <style>
+                                                .logo:hover{
+                                                    filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
+                                                }
+                                            </style>
 						<nav class="links">
 							<ul>
                                                             <%
@@ -71,12 +76,6 @@
 						</nav>
 						<nav class="main">
 							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
@@ -88,10 +87,9 @@
 					<section id="menu">
 
 						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
+							<section style="text-align:center;padding:0;">
+                                                            <img src="images/logo2.png" width="250" height="225" style="filter: drop-shadow(1px 1px 5px rgba(46,186,174,1));">
+                                                            <h1 style="color:#2ebaae;font-size: 30px;">BLD</h1>
 							</section>
 
 						<!-- Links -->
@@ -529,11 +527,11 @@
                                                                         <p style="margin-bottom: 5px;">Memorija: <%= pom.getMemorija().getNaziv() %></p>
                                                                     </td>
                                                                 </tr>
+                                                                    
                                                             </table>
-								
-                                                                    <footer>
+								<footer style="position:absolute;bottom:0;height: 5%;">
 									<ul class="stats" style="font-size:180% !important;">
-                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment" style="vertical-align:baseline;">
+                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment" >
                                                                                     <% int x = 0;
                                                                                         for(Komentari kom:komentar)
                                                                                         {
@@ -558,6 +556,7 @@
                                                                                 </a></li>
 									</ul>
 								</footer>
+                                                                    
 							</article>
                                                         <%
                                                             }

@@ -30,7 +30,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;">BLD</a></h1>
+						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+                                            <style>
+                                                .logo:hover{
+                                                    filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
+                                                }
+                                            </style>
 						<nav class="links">
 							<ul>
                                                             <%
@@ -75,12 +80,6 @@
 						</nav>
 						<nav class="main">
 							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
@@ -92,10 +91,9 @@
 					<section id="menu">
 
 						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
+							<section style="text-align:center;padding:0;">
+                                                            <img src="images/logo2.png" width="250" height="225" style="filter: drop-shadow(1px 1px 5px rgba(46,186,174,1));">
+                                                            <h1 style="color:#2ebaae;font-size: 30px;">BLD</h1>
 							</section>
 
 						<!-- Links -->
@@ -451,7 +449,7 @@
                                                                 
                                                             </td>
                                                             <td style="width:15%;">
-                                                                <img id="moboIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getMaticna().getImgPath() %>" alt="" style="float:left;" width="150" height="150">
+                                                                <img id="moboIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getMaticna().getImgPath() %>" alt="" style="float:left;" width="180" height="180">
                                                             </td>
                                                             <td>
                                                                 <img id="ramIMG" src="<%= konfigfps1.get(0).getKonfiguracije().getRam().getImgPath() %>" class="slikedelova" alt="" style="float:right;" width="150" height="150">
@@ -473,7 +471,7 @@
                                                                 <img id="psuIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getPsu().getImgPath() %>" alt="" width="150" height="150">
                                                             </td>
                                                             <td>
-                                                                <img id="gpuIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getGpu().getImgPath() %>" alt="" width="150" height="150">
+                                                                <img id="gpuIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getGpu().getImgPath() %>" alt="" width="200" height="200">
                                                             </td>
                                                             <td>
                                                                 <img id="memIMG" class="slikedelova" src="<%= konfigfps1.get(0).getKonfiguracije().getMemorija().getImgPath() %>" alt="" width="150" height="150">
@@ -535,6 +533,11 @@
                                                     </script>
                                                             
                                                             
+                                                            <%
+                                                                }
+                                                                else{
+                                                            %>
+                                                            <h2 style="color:red;">Trenutno nema testiranih konfiguracija za ovu igricu!</h2>
                                                             <%
                                                                 }
                                                             %>

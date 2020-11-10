@@ -184,6 +184,10 @@
         <servlet-name>ServletFPSKonfig</servlet-name>
         <servlet-class>servleti.ServletFPSKonfig</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletKomentar</servlet-name>
+        <servlet-class>servleti.ServletKomentar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegistracija</servlet-name>
         <url-pattern>/ServletRegistracija</url-pattern>
@@ -368,12 +372,16 @@
         <servlet-name>ServletFPSKonfig</servlet-name>
         <url-pattern>/ServletFPSKonfig</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletKomentar</servlet-name>
+        <url-pattern>/ServletKomentar</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>ServletIndex</welcome-file>
+        <welcome-file>Pocetna</welcome-file>
     </welcome-file-list>
 </web-app>
