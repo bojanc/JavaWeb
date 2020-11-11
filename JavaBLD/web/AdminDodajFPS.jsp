@@ -729,14 +729,14 @@
                                                                     $('#gpuIMG')
                                                                             .attr('src', gpu)
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(200)
+                                                                            .height(200);
                                                                     
                                                                     $('#memIMG')
                                                                             .attr('src', memorija)
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(125)
+                                                                            .height(125);
                                                                     
                                                                     $('#psuIMG')
                                                                             .attr('src', psu)
@@ -765,14 +765,14 @@
                                                                     $('#ramIMG')
                                                                             .attr('src', ram)
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(115)
+                                                                            .height(100);
                                                                     
                                                                     $('#moboIMG')
                                                                             .attr('src', maticna)
                                                                             .attr('style', "display:block;")
-                                                                            .width(150)
-                                                                            .height(150);
+                                                                            .width(200)
+                                                                            .height(200);
                                                                     
                                                                     
                                                                 }

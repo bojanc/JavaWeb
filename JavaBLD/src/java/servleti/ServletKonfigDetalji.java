@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
+@WebServlet("/Detalji")
 public class ServletKonfigDetalji extends HttpServlet {
 
     /**

@@ -26,7 +26,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+						<h1><a href="Pocetna" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
                                             <style>
                                                 .logo:hover{
                                                     filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
@@ -51,8 +51,8 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
-								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
+								<li><a href="Konfiguracije" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
                                                                     <%
@@ -60,7 +60,7 @@
                                                                         if(korisnik!=null)
                                                                         {
                                                                             %> 
-                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li><a href="MojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
                                                                             <li style="color: #d4d4d6;">
                                                                             Dobro došli <%= korisnik.getUsername()%>
                                                                             
@@ -167,22 +167,22 @@
                                                                                 if(korisnik.getUloga().equals("Klijent"))
                                                                                 {%>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                            <a href="IzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                 <p style="font-size:0.8em;">Vaš profil</p>
                                                                             </a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+										<a href="Poruke?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Poruke</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazKonfiguracija">
+										<a href="Konfiguracije">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazDelovaKonfig">
+										<a href="DodajKonfiguraciju">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
@@ -466,20 +466,20 @@
                                                     for(Konfiguracije pom:konfig)
                                                     {a++;
                                                 %>
-							<article class="post" style="width: 32%;float:left;margin: 10px;height: 780px;">
-                                                            <header style="background-color:#12131E;padding: 0; height: 70px;">
+							<article class="post" style="width: 32%;float:left;margin: 10px;height: 850px;">
+                                                            <header style="background-color:#12131E;padding: 0; height: 70px;margin-bottom: 0;">
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                            <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
+                                                                            <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;display: inline-block;float:left;margin-top: -5px;"/><h4 style="color:white;padding-top: 5px;text-align: justify;margin-left: 50px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> 
 									</div>
                                                                         <%
                                                                             if(korisnik!=null){
-                                                                            if(korisnik.getUloga().equals("Admin") || korisnik.getKorisnikId() == pom.getKorisnici().getKorisnikId()){
+                                                                            if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Urednik") || korisnik.getKorisnikId() == pom.getKorisnici().getKorisnikId()){
                                                                         %>
                                                                         <div class="dropdown">
                                                                             <button onclick="myFunction('myDropdown<%= a %>')" id="drp<%= a %>"  class="dropbtn">Opcije</button>
                                                                             <div id="myDropdown<%= a %>" class="dropdown-content">
-                                                                              <a href="ServletAdminIzmenaKonfiguracije?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Izmeni</a>
-                                                                              <a href="ServletAdminObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Obriši</a>
+                                                                              <a href="IzmeniKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Izmeni</a>
+                                                                              <a href="ObrisiKonfiguraciju?id=<%= pom.getKonfiguracijaId() %>" style="border:none;">Obriši</a>
                                                                             </div>
                                                                           </div>
                                                                             <%
@@ -513,25 +513,31 @@
                                                                           }
                                                                         }
                                                                         </script>
-                                                            <table style="margin-bottom: 0;">
-                                                                <tr style="background-color:transparent;border:none;">
+                                                                        
+                                                                        
+                                                                        
+                                                                        <div style="margin-left:-3em;margin-right: -3em;max-height: 361px;">
+                                                                            <img src="<%= pom.getImgPath() %>" alt="" style='width:100%;max-height: 361px;'/>
+                                                                        </div>
+                                                            <table style="margin-bottom: 0;margin-top: 10px;">
+                                                                <tr style="background-color:transparent;border-top: none;border-bottom: 1px solid rgba(160, 160, 160, 0.3);border-top: 1px solid rgba(160, 160, 160, 0.3);">
                                                                     <td>
-                                                                        <img src="<%= pom.getImgPath() %>" alt="" width="150" height="150"/>
-                                                                        <p style="margin-bottom: 5px;">Grafička kartica: <%= pom.getGpu().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Kućište: <%= pom.getKuciste().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Kuler: <%= pom.getKuleri().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Matična ploča: <%= pom.getMaticna().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Procesor: <%= pom.getProcesori().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Napajanje: <%= pom.getPsu().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">RAM: <%= pom.getRam().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Memorija: <%= pom.getMemorija().getNaziv() %></p>
+                                                                        
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Grafička kartica:</b> <%= pom.getGpu().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Kućište:</b> <%= pom.getKuciste().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Kuler:</b> <%= pom.getKuleri().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Matična ploča:</b> <%= pom.getMaticna().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Procesor:</b> <%= pom.getProcesori().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Napajanje:</b> <%= pom.getPsu().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>RAM:</b> <%= pom.getRam().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Memorija:</b> <%= pom.getMemorija().getNaziv() %></p>
                                                                     </td>
                                                                 </tr>
                                                                     
                                                             </table>
 								<footer style="position:absolute;bottom:0;height: 5%;">
 									<ul class="stats" style="font-size:180% !important;">
-                                                                            <li><a href="ServletPrikazKomentara?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment" >
+                                                                            <li><a href="Komentari?id=<%= pom.getKonfiguracijaId() %>" class="icon solid fa-comment" >
                                                                                     <% int x = 0;
                                                                                         for(Komentari kom:komentar)
                                                                                         {

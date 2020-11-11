@@ -54,7 +54,7 @@
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
 								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
-								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+								<li><a href="Konfiguracije" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
                                                                     <%
@@ -62,7 +62,7 @@
                                                                         if(korisnik!=null)
                                                                         {
                                                                             %> 
-                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li><a href="MojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
                                                                             <li style="color: #d4d4d6;">
                                                                             Dobro došli <%= korisnik.getUsername()%>
                                                                             
@@ -111,7 +111,7 @@
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                            <a href="IzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Vaš profil</p>
 										</a>
 									</li>
@@ -169,22 +169,22 @@
                                                                                 if(korisnik.getUloga().equals("Klijent"))
                                                                                 {%>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                            <a href="IzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                 <p style="font-size:0.8em;">Vaš profil</p>
                                                                             </a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+										<a href="Poruke?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Poruke</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazKonfiguracija">
+										<a href="Konfiguracije">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazDelovaKonfig">
+										<a href="DodajKonfiguraciju">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
@@ -322,17 +322,17 @@
                                                         {
                                                     
                                                 %>
-							<article class="post">
+							<article class="post" style="padding-bottom:0;">
 								<header>
 									<div class="meta" style="width: 40%;height: 10%;padding:10px;text-align: center;margin-left: 70%;">
                                                                             <p class="name" style="display: inline-block;margin-right: 15px;"><%= konfig.get(a).getKorisnici().getIme() %> <%= konfig.get(a).getKorisnici().getPrezime()%></p><img src="<%= konfig.get(a).getKorisnici().getImgPath()%>" alt="" height="60" width="60" style="border-radius: 50%;vertical-align: middle;">
 									</div>
 								</header>
-                                                                        <div style="display:inline-block;">
-                                                                            <img src="<%= konfig.get(a).getImgPath() %>"  alt="" heigth="220" width="220" />
+                                                                        <div style="display:inline-block;margin-left: -3em;margin-top: -3em;max-height: 360px;width:50%;">
+                                                                            <img src="<%= konfig.get(a).getImgPath() %>"  alt=""style="width:100%;max-height:360px;box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.75);" />
                                                                             
                                                                         </div>
-                                                                        <div style="display:inline-block;float:right;width: 50%;">
+                                                                        <div style="display:inline-block;float:right;width: 50%;border-left: 1px solid rgba(160, 160, 160, 0.3);padding-left: 15px;">
                                                                             <p style="margin-bottom:0;"><b>Grafička kartica:</b> &nbsp; <%= konfig.get(a).getGpu().getNaziv() %></p>
                                                                             <p style="margin-bottom:0;"><b>Procesor:</b> &nbsp; <%= konfig.get(a).getProcesori().getNaziv() %></p>
                                                                             <p style="margin-bottom:0;"><b>RAM:</b> &nbsp; <%= konfig.get(a).getRam().getNaziv() %></p>
@@ -342,12 +342,12 @@
                                                                             <p style="margin-bottom:0;"><b>Kuler:</b> &nbsp; <%= konfig.get(a).getKuleri().getNaziv() %></p>
                                                                         </div>
                                                                         <br><br>
-								<footer style="width:100%;">
+								<footer style="width:100%;border-top: 1px solid rgba(160, 160, 160, 0.3);padding-top: 10px;">
 									<ul class="actions">
-                                                                            <li><a href="ServletKonfigDetalji?id=<%= konfig.get(a).getKonfiguracijaId() %>" class="button">Detalji</a></li>
+                                                                            <li><a href="Detalji?id=<%= konfig.get(a).getKonfiguracijaId() %>" class="button">Detalji</a></li>
 									</ul>
 									<ul class="stats">
-                                                                            <li><a href="ServletPrikazKomentara?id=<%= konfig.get(a).getKonfiguracijaId() %>" class="icon solid fa-comment" style="font-size:150% !important;">
+                                                                            <li><a href="Komentari?id=<%= konfig.get(a).getKonfiguracijaId() %>" class="icon solid fa-comment" style="font-size:170% !important;">
                                                                                 <% int x = 0;
                                                                                         for(Komentari kom:komentar)
                                                                                         {

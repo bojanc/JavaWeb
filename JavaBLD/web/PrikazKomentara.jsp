@@ -26,7 +26,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+						<h1><a href="Pocetna" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
                                             <style>
                                                 .logo:hover{
                                                     filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
@@ -51,8 +51,8 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
-								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
+								<li><a href="Konfiguracije" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
                                                                     <%
@@ -60,7 +60,7 @@
                                                                         if(korisnik!=null)
                                                                         {
                                                                             %> 
-                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li><a href="MojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
                                                                             <li style="color: #d4d4d6;">
                                                                             Dobro došli <%= korisnik.getUsername()%>
                                                                             
@@ -167,22 +167,22 @@
                                                                                 if(korisnik.getUloga().equals("Klijent"))
                                                                                 {%>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                            <a href="IzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                 <p style="font-size:0.8em;">Vaš profil</p>
                                                                             </a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+										<a href="Poruke?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Poruke</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazKonfiguracija">
+										<a href="Konfiguracije">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazDelovaKonfig">
+										<a href="DodajKonfiguraciju">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
@@ -312,12 +312,12 @@
 									<div class="title">
 										<h2>
                                                                                     <%= konfig.getKorisnici().getIme() %> <%= konfig.getKorisnici().getPrezime()%> 
-                                                                                    <img src="<%= konfig.getKorisnici().getImgPath() %>" height="60" width="60" style="border-radius: 50%;vertical-align: middle;"/>
+                                                                                    <img src="<%= konfig.getKorisnici().getImgPath() %>" height="60" width="60" style="border-radius: 50%;vertical-align: middle;box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.75);"/>
                                                                                 </h2>
 										<p><%= konfig.getOpis() %></p>
 									</div>
-									<div class="meta">
-										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 100%;"/>
+									<div class="meta" style="padding: 0;width: 20em;">
+										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 100%;box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.75);"/>
 									</div>
 								</header>
                                                                         

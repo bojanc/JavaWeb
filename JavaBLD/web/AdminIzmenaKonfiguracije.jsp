@@ -31,7 +31,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+						<h1><a href="Pocetna" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
                                             <style>
                                                 .logo:hover{
                                                     filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
@@ -56,8 +56,8 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
-								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
+								<li><a href="Konfiguracije" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
                                                                     <%
@@ -65,7 +65,7 @@
                                                                         if(korisnik!=null)
                                                                         {
                                                                             %> 
-                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li><a href="MojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
                                                                             <li style="color: #d4d4d6;">
                                                                             Dobro došli <%= korisnik.getUsername()%>
                                                                             
@@ -171,22 +171,22 @@
                                                                                 if(korisnik.getUloga().equals("Klijent"))
                                                                                 {%>
                                                                         <li style="color: #d4d4d6;">
-                                                                            <a href="ServletIzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
+                                                                            <a href="IzmenaProfila?id=<%= korisnik.getKorisnikId() %>">
                                                                                 <p style="font-size:0.8em;">Vaš profil</p>
                                                                             </a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletPrikazPorukaUrednika?id=<%= korisnik.getKorisnikId() %>">
+										<a href="Poruke?id=<%= korisnik.getKorisnikId() %>">
                                                                                     <p style="font-size:0.8em;">Poruke</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazKonfiguracija">
+										<a href="Konfiguracije">
                                                                                     <p style="font-size:0.8em;">Konfiguracije</p>
 										</a>
 									</li>
                                                                         <li style="color: #d4d4d6;">
-										<a href="ServletAdminPrikazDelovaKonfig">
+										<a href="DodajKonfiguraciju">
                                                                                     <p style="font-size:0.8em;">Dodaj konfiguraciju</p>
 										</a>
 									</li>
@@ -1589,8 +1589,7 @@
                                                         reader.onload = function (e) {
                                                             $('#pic')
                                                                 .attr('src', e.target.result)
-                                                                .width(250)
-                                                                .height(250);
+                                                                .height(360);
                                                         };
 
                                                         reader.readAsDataURL(input.files[0]);
@@ -1601,7 +1600,7 @@
                                             <div style='float:right;width:50%;padding-bottom: 50px;'>
                                                 <h2>Slika konfiguracije</h2>
                                                 <input type="file" name="fajl" onChange="readURL(this)"><br><br>
-                                                <img id="pic" src="<%= konfig.getImgPath() %>" width="250" height="250" alt="" style="-webkit-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);-moz-box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);box-shadow: 4px 4px 10px -2px rgba(0,0,0,1);"/>
+                                                <img id="pic" src="<%= konfig.getImgPath() %>" height="360" style="box-shadow: 4px 4px 6px 1px rgba(0,0,0,0.75);"/>
                                             </div>
                                                        <input type="hidden" id="korID" name="korID" value="<%= konfig.getKorisnici().getKorisnikId() %>">
                                                        <input type="hidden" id="konfigID" name="konfigID" value="<%= konfig.getKonfiguracijaId()%>">

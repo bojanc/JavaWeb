@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,7 @@ import org.hibernate.transform.Transformers;
  *
  * @author Bojan
  */
+@WebServlet("/IzmeniKonfiguraciju")
 public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
 
     /**
@@ -93,8 +95,6 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
             response.sendRedirect("ServletIndex");
             return;
         }
-        if(korisnik.getUloga().equals("Admin"))
-        {
         
             ArrayList<Gpu> gpu = new ArrayList<Gpu>();
             ArrayList<Kuciste> kuciste = new ArrayList<Kuciste>();
@@ -273,12 +273,6 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                 request.setAttribute("errormsg", errormsg);
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-        }
-        else
-        {
-            response.sendRedirect("ServletIndex");
-            return;
-        }
     }
 
     /**

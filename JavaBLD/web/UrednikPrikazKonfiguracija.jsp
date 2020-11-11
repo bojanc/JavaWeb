@@ -474,24 +474,27 @@
                                                     {a++;
                                                 %>
 							<article class="post" style="width: 32%;float:left;margin: 10px;height: auto;">
-                                                            <header style="background-color:#12131E;padding: 0; height: 70px;">
+                                                            <header style="background-color:#12131E;padding: 0; height: 70px;margin-bottom: 0;">
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;">
-                                                                            <h4 style="color:white;float:left;padding-top: 5px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4> <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;"/>
+                                                                            <img src="<%= pom.getKorisnici().getImgPath() %>" height="40" width="40" style="border-radius: 50%;vertical-align: middle;display: inline-block;float:left;margin-top: -5px;"/><h4 style="color:white;padding-top: 5px;text-align: justify;margin-left: 50px;"><%= pom.getKorisnici().getIme() %> <%= pom.getKorisnici().getPrezime()%></h4>
 									</div>
 								</header>
-                                                            <table>
-                                                                <tr style="background-color:transparent;border:none;">
+                                                                        
+                                                                        <div style="margin-left:-3em;margin-right: -3em;max-height: 361px;">
+                                                                            <img src="<%= pom.getImgPath() %>" alt="" style='width:100%;max-height: 361px;'/>
+                                                                        </div>
+                                                            <table style="margin-bottom: 0;margin-top: 10px;">
+                                                                <tr style="background-color:transparent;border-top: none;border-bottom: 1px solid rgba(160, 160, 160, 0.3);border-top: 1px solid rgba(160, 160, 160, 0.3);">
                                                                     <td>
-                                                                        <img src="<%= pom.getImgPath() %>" alt="" width="150" height="150"/>
-                                                                        <p style="margin-bottom: 5px;">Grafička kartica: <%= pom.getGpu().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Kućište: <%= pom.getKuciste().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Kuler: <%= pom.getKuleri().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Matična ploča: <%= pom.getMaticna().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Procesor: <%= pom.getProcesori().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Napajanje: <%= pom.getPsu().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">RAM: <%= pom.getRam().getNaziv() %></p>
-                                                                        <p style="margin-bottom: 5px;">Memorija: <%= pom.getMemorija().getNaziv() %></p>
-                                                                        <div style="word-wrap: break-word; width: 80%;">Opis: <%= pom.getOpis() %></div>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Grafička kartica:</b> <%= pom.getGpu().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Kućište:</b> <%= pom.getKuciste().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Kuler:</b> <%= pom.getKuleri().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Matična ploča:</b> <%= pom.getMaticna().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Procesor:</b> <%= pom.getProcesori().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Napajanje:</b> <%= pom.getPsu().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>RAM:</b> <%= pom.getRam().getNaziv() %></p>
+                                                                        <p style="margin-bottom: 5px;font-size: 17px;"><b>Memorija:</b> <%= pom.getMemorija().getNaziv() %></p>
+                                                                        <div style="word-wrap: break-word; width: 80%;"><b>Opis:</b> <%= pom.getOpis() %></div>
                                                                     </td>
                                                                 </tr>
                                                             </table>
