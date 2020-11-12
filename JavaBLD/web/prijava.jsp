@@ -173,10 +173,10 @@
                                                             %>
                                                             <label>Korisničko ime:</label>
                                                         <input type="text" name="korisnicko" id="kor" placeholder="Korisničko ime" style="width: 110%;" onchange="return user()">
-                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;"></span><br>
+                                                        <span class="help-block" id="erroruser" style="color:#f56a6a;white-space: nowrap;overflow: hidden;"></span><br>
                                                         <label>Šifra:</label>
                                                         <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 110%;" onchange="return pass()">
-                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;"></span><br>
+                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;white-space: nowrap;overflow: hidden;"></span><br>
                                                         <input type="submit" id="submit" value="Prijavi se" style="clear: both;">
                                                     </div>
                                                             

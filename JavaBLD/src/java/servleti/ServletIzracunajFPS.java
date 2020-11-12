@@ -196,7 +196,7 @@ public class ServletIzracunajFPS extends HttpServlet {
             
             float fps = 0;
             
-            if(gameGpuMem<=konfigGpuMem && gameGpuMhz<=konfigGpuMhz && gameCpuMhz<=konfigCpuMhz && gameCpuCore<=konfigCpuCore && gameRamMem<=konfigRamMem && gameRamMhz<=konfigRamMhz)
+            if(gameGpuMem<=konfigGpuMem && gameCpuMhz<=konfigCpuMhz && gameCpuCore<=konfigCpuCore && gameRamMem<=konfigRamMem && gameRamMhz<=konfigRamMhz)
             {
                 fps = 60;
             }
@@ -216,8 +216,11 @@ public class ServletIzracunajFPS extends HttpServlet {
             
             if(konfigGpuMhz!=gameGpuMhz)
             {
-                gpuMhzDif = (float)(((float)konfigGpuMhz/gameGpuMhz)/10)*60;
-                fps+= gpuMhzDif;
+                if(konfigGpuMhz > gameGpuMhz)
+                {
+                    gpuMhzDif = (float)(((float)konfigGpuMhz/gameGpuMhz)/10)*60;
+                    fps+= gpuMhzDif;
+                }
             }
             
             if(konfigCpuMhz!=gameCpuMhz)

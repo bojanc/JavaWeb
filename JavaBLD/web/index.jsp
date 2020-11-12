@@ -287,8 +287,8 @@
 
                                   <!-- Modal content -->
                                   <div class="modal-content">
-                                    <span class="close" id="closeP">&times;</span>
-                                    <p style="margin-bottom:5px;"><b>Izmene su uspešno sačuvane!</b></p>
+                                    <span class="close" id="closeP" style="display:inline-block;">&times;</span>
+                                    <p style="margin-bottom:5px;display:inline-block;"><b>Imate novu poruku!</b></p>
                                   </div>
 
                                 </div>
@@ -297,7 +297,7 @@
                                     var modalP = document.getElementById("myModalP");
                                     var spanP = document.getElementById("closeP");
                                     <%
-                                        if(request.getAttribute("uspesno")!=null)
+                                        if(request.getAttribute("novaPoruka")!=null)
                                         {
                                     %>
                                     $(document).ready(function(){
@@ -318,7 +318,7 @@
                                                 <%
                                                     if(!konfig.isEmpty())
                                                     {
-                                                        for(int a = 0; a<3;a++)
+                                                        for(int a = 0; a<4;a++)
                                                         {
                                                     
                                                 %>

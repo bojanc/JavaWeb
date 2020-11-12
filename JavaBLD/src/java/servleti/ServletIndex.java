@@ -88,6 +88,13 @@ public class ServletIndex extends HttpServlet {
         
         ArrayList<Igrice> igrice = new ArrayList<Igrice>();
         
+        String novaP = "";
+        
+        if(request.getParameter("novaP")!=null)
+        {
+            novaP = (String)request.getParameter("novaP");
+        }
+        
         try
         {
             SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -176,6 +183,11 @@ public class ServletIndex extends HttpServlet {
                 podkom.add(new Podkomentari(row.getPodkomentarId(),row.getKomentari(),row.getKorisnici(),row.getPodkomentari(),row.getVreme(),row.getTekst()));
             }
             
+            if(!novaP.equals(""))
+            {
+                request.setAttribute("novaPoruka", "da");
+            }
+            
             request.setAttribute("konfig", konfig);
             request.setAttribute("komentar", komentar);
             request.setAttribute("podkom", podkom);
@@ -202,48 +214,6 @@ public class ServletIndex extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        ArrayList<Gpu> gpu = new ArrayList<Gpu>();
-        ArrayList<Kuciste> kuciste = new ArrayList<Kuciste>();
-        ArrayList<Kuleri> kuler = new ArrayList<Kuleri>();
-        ArrayList<Maticna> maticna = new ArrayList<Maticna>();
-        ArrayList<Memorija> memorija = new ArrayList<Memorija>();
-        ArrayList<Procesori> cpu = new ArrayList<Procesori>();
-        ArrayList<Psu> psu = new ArrayList<Psu>();
-        ArrayList<Ram> ram = new ArrayList<Ram>();
-        ArrayList<Konfiguracije> konfig = new ArrayList<Konfiguracije>();
-        
-        try
-        {
-            SessionFactory sf = new Configuration().configure().buildSessionFactory();
-            Session s = sf.openSession();
-            Transaction tr = s.beginTransaction();
-            
-            
-            List<Konfiguracije> rowsK = s.createSQLQuery(
-            "select {k.*}, {g.gpuID}, count(gpuID), from Konfiguracije k,Gpu g where k.gpuID = g.gpuID group by gpuID")
-              .addEntity("k", Konfiguracije.class)
-              .addJoin("g", "k.gpu")
-              .addEntity("g", Gpu.class)
-              .addEntity("k", Konfiguracije.class)
-              .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-              .list();
-           
-            for(Konfiguracije row:rowsK)
-            {
-                konfig.add(new Konfiguracije(row.getKonfiguracijaId(),row.getGpu(),row.getKorisnici(),row.getKuciste(),row.getKuleri(),row.getMaticna(),row.getMemorija(),row.getProcesori(),row.getPsu(),row.getRam(),row.getOpis(),row.getOdobreno(),row.getImgPath()));
-            }
-            int a = 0;
-        }
-        catch(HibernateException ex)
-        {
-            String errormsg = ex.getMessage();
-            request.setAttribute("errormsg", errormsg);
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-        
-        
     }
 
     /**

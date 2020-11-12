@@ -47,7 +47,7 @@ public class ServletOdjava extends HttpServlet {
         HttpSession sesija = request.getSession();
         sesija.invalidate();
         
-        response.sendRedirect("ServletIndex");
+        response.sendRedirect("Pocetna");
     }
 
     /**

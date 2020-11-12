@@ -509,7 +509,7 @@
                                                     {
                                                     for(Igrice pom:igrice)
                                                     {a++;%>
-							<article class="post" style="width: 18%;margin: 10px;height: 85%; padding-left: 0; padding-right: 0; padding-bottom: 0;border: none;display: block;float:left;box-shadow: 7px 7px 10px -4px rgba(0,0,0,0.75);">
+							<article class="post" style="width: 18%;margin: 10px;height: 84.5%; padding-left: 0; padding-right: 0; padding-bottom: 0;border: none;display: block;float:left;box-shadow: 7px 7px 10px -4px rgba(0,0,0,0.75);">
                                                             <header style="background-color:#12131E;padding: 0; height: 70px;text-align: center;width: 100%;margin-left: 56px;">
 									<div class="meta" style="padding-top:20px; height: 100%;padding-left: 30px;width: 100%;text-align: center;">
                                                                             <h4 style="color:white;padding-top: 5px;"><%= pom.getIgricaNaziv() %></h4>

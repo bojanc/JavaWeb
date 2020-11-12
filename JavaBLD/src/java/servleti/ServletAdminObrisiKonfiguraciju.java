@@ -78,7 +78,7 @@ public class ServletAdminObrisiKonfiguraciju extends HttpServlet {
             response.sendRedirect("ServletIndex");
             return;
         }
-        if(korisnik.getUloga().equals("Admin"))
+        if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Urednik"))
         {
         
             int id=0;

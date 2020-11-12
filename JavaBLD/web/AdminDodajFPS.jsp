@@ -697,7 +697,8 @@
                                                                         gpuMem = parseInt(gpumem.substr(0,1));
                                                                     }
                                                                     
-                                                                    if(gpumhz<igricagpumhz || gpuMem<igricagpumem || cpumhz<igricacpumhz || cpucore<igricaCPUCore || ramMem<igricarammem || rammhz<igricarammhz)
+                                                                    
+                                                                    if(gpuMem<igricagpumem || cpumhz<igricacpumhz || cpucore<igricaCPUCore || ramMem<igricarammem || rammhz<igricarammhz)
                                                                     {
                                                                         modalP2.style.display = "block";
                                                                         document.getElementById("sb").setAttribute("onclick", "");

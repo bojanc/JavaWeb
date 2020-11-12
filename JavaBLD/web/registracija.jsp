@@ -20,7 +20,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+						<h1><a href="Pocetna" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
                                             <style>
                                                 .logo:hover{
                                                     filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
@@ -29,8 +29,8 @@
 						<nav class="links">
 							<ul>
                                                             <li><a href="AdminPrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
-								<li><a href="#" style="color: #ffffff">Software i igrice</a></li>
-								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
+								<li><a href="Konfiguracije" style="color: #ffffff">Konfiguracije</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -177,16 +177,6 @@
 					</div>
 
 				<!-- Footer -->
-					<section id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</section>
 
 			</div>
 

@@ -307,12 +307,6 @@
 									</div>
 								</header>
                                                                         
-                                                                        <style>
-                                                                                    .button:hover {
-                                                                                        box-shadow: inset 0 0 0 1px red;
-                                                                                        color: red !important;
-                                                                                    }
-                                                                        </style>
                                                                         <textarea name="poruka" placeholder="Poruka" cols="2" rows="5" style="resize: none;width: 100%;"></textarea><br><br>
                                                                         <input type="hidden" name="korID" value="<%= korisnik.getKorisnikId() %>">
                                                                         <input type="submit" value="Pošalji">

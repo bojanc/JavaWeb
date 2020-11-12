@@ -659,7 +659,7 @@
                                                     int gpu2int = Integer.parseInt(gpu2);
                                                     if(gpu1int > gpu2int)
                                                     {
-                                                        float razlika = ((float)gpu1int/gpu2int)*10;
+                                                        float razlika = ((float)gpu1int/gpu2int)*15;
                                                         df.format(razlika);
                                                 %>
                                                 <h2><%= gpu.get(0).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brža od <%= gpu.get(1).getNaziv() %></h2>
@@ -675,7 +675,7 @@
                                                 
                                                 <%}
                                                 else if(gpu2int > gpu1int){
-                                                    float razlika = ((float)gpu2int/gpu1int)*10;
+                                                    float razlika = ((float)gpu2int/gpu1int)*15;
                                                     df.format(razlika);
                                                 %>
                                                 <h2><%= gpu.get(1).getNaziv() %> je <span style='color: #2ebaae;'><%= df.format(razlika) %>%</span> brža od <%= gpu.get(0).getNaziv() %></h2>

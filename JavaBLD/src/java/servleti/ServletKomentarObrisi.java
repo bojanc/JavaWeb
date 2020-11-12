@@ -88,7 +88,7 @@ public class ServletKomentarObrisi extends HttpServlet {
             response.sendRedirect("ServletIndex");
             return;
         }
-        if(korisnik.getUloga().equals("Admin"))
+        if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Urednik"))
         {
         
         
