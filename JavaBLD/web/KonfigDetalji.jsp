@@ -309,8 +309,8 @@
                                                                                 </h2>
 										<p><%= konfig.getOpis() %></p>
 									</div>
-									<div class="meta">
-										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 85%;"/>
+									<div class="meta" style="padding: 0;width: 20em;">
+										<img src="<%= konfig.getImgPath() %>" style="width:100%;height: 100%;box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.75);"/>
 									</div>
 								</header>
                                                                         

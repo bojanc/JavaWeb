@@ -243,7 +243,6 @@
                                                                           var id = a[i].id;
                                                                           document.getElementById(id).style.removeProperty('filter');
                                                                       }
-                                                                      console.log("da");
                                                                   }
                                                                 }
                                                                 </script>
@@ -945,7 +944,7 @@
                                                         <td style="vertical-align: middle;">
                                                             <div id="ck-button">
                                                                 <label>
-                                                                    <input type="checkbox" name="psuID" id="psuID<%= p %>" onchange="validatePSU(this)" class="psucb" data-original-title="<%= pom.getImgPath() %>" value="<%= pom.getPsuId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
+                                                                    <input type="checkbox" name="psuID" id="psuID<%= p %>" onchange="validatePSU(this)" class="psucb" data-original-title="<%= pom.getImgPath() %>" data-original-power="<%= pom.getJacina()%>" value="<%= pom.getPsuId()%>"><span style='padding:0 !important; border: none;'>Dodaj</span>
                                                                     <input type="hidden" name="psuTDP" value="<%= pom.getJacina() %>">
                                                                 </label>
                                                              </div>
@@ -1239,6 +1238,40 @@
                                                 padding-right: 0;
                                             }
                                             </style>
+                                            <script>
+                                                function power()
+                                                {
+                                                    <%
+                                                        for(int psub=1;psub<=psu.size();psub++){
+                                                    %>
+                                                        
+                                                        var checkBox<%= psub %> = document.getElementById("psuID<%= psub %>");
+                                                        var psuPower<%= psub %> = parseInt(document.getElementById('psuID<%= psub %>').getAttribute("data-original-power"));
+                                                        console.log(psuPower<%= psub %>);
+                                                        if((vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0))>psuPower<%= psub %>)
+                                                        {
+                                                            document.getElementById("tdp").style.color = "red";
+                                                            document.getElementById("tdp").style.border = "1px solid red";
+                                                            document.getElementById("tdp").style["border-right"] = "0px";
+                                                            document.getElementById("subdomaintwo").style.color = "red";
+                                                            document.getElementById("subdomaintwo").style.border = "1px solid red";
+                                                            document.getElementById("subdomaintwo").style["border-left"] = "0px";
+                                                        }
+                                                        else
+                                                        {
+                                                            document.getElementById("tdp").style.color = "black";
+                                                            document.getElementById("tdp").style.border = "1px solid black";
+                                                            document.getElementById("tdp").style["border-right"] = "0px";
+                                                            document.getElementById("subdomaintwo").style.color = "black";
+                                                            document.getElementById("subdomaintwo").style.border = "1px solid black";
+                                                            document.getElementById("subdomaintwo").style["border-left"] = "0px";
+                                                        }
+                                                    <%
+                                                        }
+                                                    %>
+                                                }
+                                            </script>
+                                            
                                             
                                             <script>
                                                 var vrednosti = [0,0,0,0];
@@ -1265,6 +1298,8 @@
                                                         var gpuTDP<%= gb %> = parseInt(document.getElementById('gpuID<%= gb %>').getAttribute("data-original-tdp"));
                                                         
                                                         
+                                                        
+                                                        
                                                         if (checkBox<%= gb %>.checked == true)
                                                         {
                                                             console.log(gpuTDP<%= gb %>);
@@ -1276,6 +1311,7 @@
                                                             vrednosti[0] = vrednost;
                                                             console.log(vrednosti);
                                                             $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            power();
                                                             return;
                                                         }
                                                       
@@ -1312,6 +1348,7 @@
                                                             vrednosti[1] = vrednost;
                                                             console.log(vrednosti);
                                                             $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            power();
                                                             return;
                                                         }
                                                       
@@ -1343,6 +1380,7 @@
                                                             vrednosti[2] = vrednost;
                                                             console.log(vrednosti);
                                                             $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            power();
                                                             return;
                                                         }
                                                       
@@ -1374,6 +1412,7 @@
                                                             vrednosti[3] = vrednost;
                                                             console.log(vrednosti);
                                                             $('#tdp').val(vrednosti.reduce(function(pv, cv) { return pv + cv; }, 0));
+                                                            power();
                                                             return;
                                                         }
                                                       
@@ -1383,6 +1422,8 @@
                                                             
                                                         }
                                             </script>
+                                            
+                                            
 
                                             <div style='float:right;width:50%;padding-bottom: 50px;'>
                                                 <h2>Slika konfiguracije</h2>

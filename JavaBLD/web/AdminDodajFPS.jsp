@@ -29,7 +29,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="ServletIndex" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
+						<h1><a href="Pocetna" style="color:white;font-size: 20px;"><img style="filter: drop-shadow(1px 1px 1px rgba(46,186,174,1));" class="logo" src="images/logo2.png" width="50" height="50"></a></h1>
                                             <style>
                                                 .logo:hover{
                                                     filter: drop-shadow(3px 4px 11px rgba(46,186,174,1)) !important;
@@ -54,8 +54,8 @@
                                                                 %>
                                                                 <li><a href="PrikazDelova.jsp" style="color: #ffffff">Računarski delovi</a></li>
                                                                 <%}%>
-								<li><a href="ServletAdminPrikazIgrica" style="color: #ffffff">Igrice</a></li>
-								<li><a href="ServletAdminPrikazKonfiguracija" style="color: #ffffff">Konfiguracije</a></li>
+								<li><a href="Igrice" style="color: #ffffff">Igrice</a></li>
+								<li><a href="Konfiguracije" style="color: #ffffff">Konfiguracije</a></li>
                                                                 
                                                                 
                                                                     <%
@@ -63,7 +63,7 @@
                                                                         if(korisnik!=null)
                                                                         {
                                                                             %> 
-                                                                            <li><a href="ServletMojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
+                                                                            <li><a href="MojeKonfiguracije?id=<%= korisnik.getKorisnikId() %>" style="color: #ffffff">Moje konfiguracije</a></li>
                                                                             <li style="color: #d4d4d6;">
                                                                             Dobro došli <%= korisnik.getUsername()%>
                                                                             
@@ -553,7 +553,7 @@
                                                         if(fps!=0)
                                                         { int fps2 = fps/2;
                                                     %>
-                                                    <div id="myBar" style='color: #2ebaae;text-align: center;font-size: 30px;font-family: "Raleway", Helvetica, sans-serif;font-weight: 550;'></div>
+                                                    <div id="myBar" style='color: #2ebaae;text-align: center;font-size: 30px;font-family: "Raleway", Helvetica, sans-serif;font-weight: 550;clear: both;'></div>
                                                     <div class="progress" style="box-shadow: 9px 9px 10px -4px rgba(0,0,0,0.75);">
                                                         
                                                         <div class="progress-value"></div>

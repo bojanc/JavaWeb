@@ -334,7 +334,7 @@
 								</header>
                                                                         
                                                                         
-                                                                        <form method='post' id='form' action='ServletFPSKonfig'>
+                                                                        <form method='post' id='form' action='FPSzaKonfig'>
                                                             <%
                                                                 if(!konfigfps.isEmpty())
                                                                 {

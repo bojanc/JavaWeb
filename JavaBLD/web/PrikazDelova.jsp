@@ -242,7 +242,7 @@
 							<article class="post">
 								<header style="margin: auto; text-align: center; padding-left: 60px;">
                                                                         <h2>Spisak delova</h2>
-                                                                        <a href="ServletUporedi?" class="button" id="uporedi" onclick="return check()" style="margin-left: 70%; padding-bottom: 10px;margin-bottom: 20px;">Uporedi</a>
+                                                                        <a href="ServletUporedi?" class="button" id="uporedi" onclick="return check();" style="margin-left: 70%; padding-bottom: 10px;margin-bottom: 20px;">Uporedi</a>
                                                                         
                                                                 </header>
                                                             <form method="post" action="PrikazDelova">
@@ -996,10 +996,10 @@
                                                                         var href2 = href.replace("http://localhost:8080/JavaBLD/ServletUporedi?", "");
                                                                         console.log(href2);
                                                                         
-                                                                        if(href2.length<6)
+                                                                        if(href2.length<=6)
                                                                         {
                                                                             modalM.style.display = "block";
-                                                                            
+                                                                            console.log("lose");
                                                                             return false;
                                                                         }
                                                                         
