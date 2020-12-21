@@ -499,7 +499,7 @@
                                                     {
                                                 
                                             %>
-                                            <a href="ServletAdminDodajIgricu" class="button">Dodaj</a><br><br>
+                                            <a href="ServletAdminDodajIgricu" class="button" style="margin-left:9px;">Dodaj</a><br><br>
                                             <%
                                                 }}
                                             %>

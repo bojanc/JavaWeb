@@ -204,7 +204,7 @@ public class ServletPrijava extends HttpServlet {
                     else
                     {
                         s.close();
-                        request.setAttribute("nepostoji", "Nalog sa ovim podacima ne postoji.");
+                        request.setAttribute("nepostoji", "Nalog sa ovim podacima ne postoji!");
                         request.getRequestDispatcher("prijava.jsp").forward(request, response);
                         return;
                     }

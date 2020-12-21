@@ -389,17 +389,16 @@ public class ServletAdminIzmenaKonfiguracije extends HttpServlet {
                         return;
                         */
                     }
-                    else
+                    
+                    SQLQuery q=s.createSQLQuery("SELECT m.socket as socketm,p.socket as socketp from maticna m, procesori p where m.maticnaID='"+podaci.get(3)+"' and p.procesorID='"+podaci.get(5)+"'");
+                    List<Object[]> socket = q.list();
+                    for(Object[] o:socket)
                     {
-                        SQLQuery q=s.createSQLQuery("SELECT m.socket as socketm,p.socket as socketp from maticna m, procesori p where m.maticnaID='"+podaci.get(3)+"' and p.procesorID='"+podaci.get(5)+"'");
-                        List<Object[]> socket = q.list();
-                        for(Object[] o:socket)
-                        {
-                            socket1 = (String)o[0];
-                            socket2 =(String)o[1];
-                        }
-                        tr.commit();
+                        socket1 = (String)o[0];
+                        socket2 =(String)o[1];
                     }
+                    tr.commit();
+                    
                     
                     s.close();
                     if(!socket1.equals(socket2))

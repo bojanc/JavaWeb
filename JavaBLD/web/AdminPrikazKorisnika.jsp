@@ -229,7 +229,7 @@
 							<article class="post">
 								<header style="margin: auto; text-align: center; padding-left: 60px;">
                                                                         <h2>Spisak korisnika</h2>
-                                                                        <a href="AdminDodajKorisnika.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;">DODAJ</a>
+                                                                        <a href="AdminDodajKorisnika.jsp" class="button" style="margin-left: 70%; padding-bottom: 10px;margin-bottom: 20px;">DODAJ</a>
                                                                 </header>
                                                             <%if((kl.size()>1))
                                                                         {%>

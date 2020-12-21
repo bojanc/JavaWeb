@@ -131,7 +131,7 @@
                                                         }
                                                         else if(rezultat==null)
                                                         {
-                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima izmedju 6-10 karaktera, 3 cifre i jedan znak!";
+                                                                document.getElementById('errorpass').innerHTML="Lozinka mora da ima 6-10 karaktera, 3 cifre i jedan znak!";
                                                                 $('#submit').prop('disabled', true);
                                                         }
                                                         else
@@ -157,7 +157,7 @@
                                                                String poruka1 = (String)request.getAttribute("nepostoji");
                                                                if(poruka1!=null)
                                                                {%>
-                                                            <h3 style="color:#f56a6a;" id="poruka">
+                                                            <h3 style="color:#f56a6a;font-size: 13px;white-space: nowrap;overflow: hidden;width:200%;" id="poruka">
                                                         <%= poruka1%>
                                                             </h3>
                                                             <%}
@@ -176,7 +176,7 @@
                                                         <span class="help-block" id="erroruser" style="color:#f56a6a;white-space: nowrap;overflow: hidden;"></span><br>
                                                         <label>Šifra:</label>
                                                         <input type="password" name="sifra" id="sif" placeholder="Šifra" style="width: 110%;" onchange="return pass()">
-                                                        <span class="help-block" id="errorpass" style="color:#f56a6a;white-space: nowrap;overflow: hidden;"></span><br>
+                                                        <span class="help-block" id="errorpass" style="font-size: 17px;color:#f56a6a;white-space: nowrap;overflow: hidden;"></span><br>
                                                         <input type="submit" id="submit" value="Prijavi se" style="clear: both;">
                                                     </div>
                                                             
