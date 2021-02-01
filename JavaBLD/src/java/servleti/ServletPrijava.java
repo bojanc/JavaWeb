@@ -5,9 +5,18 @@
  */
 package servleti;
 
+import entity.Gpu;
+import entity.Konfiguracije;
 import entity.Korisnici;
+import entity.Kuciste;
+import entity.Kuleri;
+import entity.Maticna;
+import entity.Memorija;
 import entity.Porukekorisnika;
 import entity.Porukeurednika;
+import entity.Procesori;
+import entity.Psu;
+import entity.Ram;
 import java.io.File;
 import java.sql.*;
 import javax.servlet.http.*;
