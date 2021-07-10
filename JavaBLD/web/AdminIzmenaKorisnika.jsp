@@ -393,7 +393,7 @@
                                                             </optgroup>
                                                         </select><br>
                                                         
-                                                        <input type="hidden" name="id" value="<%= korisnik.getKorisnikId() %>">
+                                                        <input type="hidden" name="id" value="<%= kor.getKorisnikId() %>">
                                                         
                                                     </div>
                                                     

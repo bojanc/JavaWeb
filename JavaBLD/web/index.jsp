@@ -293,9 +293,21 @@
 
                                 </div>
                                 
+                                <div id="myModalProf" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close" id="closeProf" style="display:inline-block;">&times;</span>
+                                    <p style="margin-bottom:5px;display:inline-block;"><b>Profil uspešno izmenjen!</b></p>
+                                  </div>
+
+                                </div>
+                                
                                 <script>
                                     var modalP = document.getElementById("myModalP");
                                     var spanP = document.getElementById("closeP");
+                                    var modalProf = document.getElementById("myModalProf");
+                                    var spanProf = document.getElementById("closeProf");
                                     <%
                                         if(request.getAttribute("novaPoruka")!=null)
                                         {
@@ -306,8 +318,23 @@
                                     <%
                                         }
                                     %>
+                                        
+                                    <%
+                                        if(request.getAttribute("uspesanProfil")!=null)
+                                        {
+                                    %>
+                                    $(document).ready(function(){
+                                        modalProf.style.display = "block";
+                                    })
+                                    <%
+                                        }
+                                    %>
                                         spanP.onclick = function() {
                                   modalP.style.display = "none";
+                                }
+                                
+                                spanProf.onclick = function() {
+                                  modalProf.style.display = "none";
                                 }
                                 </script>
 

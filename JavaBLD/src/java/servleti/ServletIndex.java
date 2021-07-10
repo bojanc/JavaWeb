@@ -90,9 +90,16 @@ public class ServletIndex extends HttpServlet {
         
         String novaP = "";
         
+        String uspesanProfil = "";
+        
         if(request.getParameter("novaP")!=null)
         {
             novaP = (String)request.getParameter("novaP");
+        }
+        
+        if(request.getParameter("uspesno")!=null)
+        {
+            uspesanProfil = (String)request.getParameter("uspesno");
         }
         
         try
@@ -186,6 +193,11 @@ public class ServletIndex extends HttpServlet {
             if(!novaP.equals(""))
             {
                 request.setAttribute("novaPoruka", "da");
+            }
+            
+            if(!uspesanProfil.equals(""))
+            {
+                request.setAttribute("uspesanProfil", "da");
             }
             
             request.setAttribute("konfig", konfig);

@@ -495,7 +495,7 @@
                                             <%
                                                 if(korisnik!=null)
                                                 {
-                                                    if(korisnik.getUloga().equals("Admin") || korisnik.getUloga().equals("Urednik"))
+                                                    if(korisnik.getUloga().equals("Admin"))
                                                     {
                                                 
                                             %>

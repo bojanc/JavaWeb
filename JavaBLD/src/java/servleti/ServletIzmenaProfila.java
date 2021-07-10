@@ -300,8 +300,9 @@ public class ServletIzmenaProfila extends HttpServlet {
                     }
                     
                     s.close();
-                    request.setAttribute("uspesno", "da");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    //request.setAttribute("uspesno", "da");
+                    //request.getRequestDispatcher("ServletIndex").forward(request, response);
+                    response.sendRedirect("ServletIndex?uspesno=da");
                     return;
                 }
                 catch(HibernateException ex)
